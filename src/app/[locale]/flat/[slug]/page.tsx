@@ -1,0 +1,203 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { CmsImageView } from "@/components/CmsImageView";
+import { Container } from "@/components/Container";
+import { PageShell } from "@/components/PageShell";
+import { Reveal } from "@/components/Reveal";
+import { StatusBadge } from "@/components/StatusBadge";
+import { Link } from "@/i18n/navigation";
+import { routeKeys } from "@/utils/routes";
+import {
+  getUnitBySlug,
+  getUnitsByDealType,
+} from "@/sanity/lib/fetch";
+import { formatPrice } from "@/utils/format";
+import type { Locale } from "@/utils/routes";
+
+type UnitDetailPageProps = {
+  params: Promise<{ locale: Locale; slug: string }>;
+};
+
+export async function generateStaticParams() {
+  const [sale, rent] = await Promise.all([
+    getUnitsByDealType("cs", "sale"),
+    getUnitsByDealType("cs", "rent"),
+  ]);
+
+  return [...sale, ...rent].flatMap((unit) =>
+    (["cs", "en"] as const).map((locale) => ({
+      locale,
+      slug: unit.slug,
+    })),
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: UnitDetailPageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const unit = await getUnitBySlug(locale, slug);
+
+  if (!unit) {
+    return {};
+  }
+
+  return {
+    title: `${unit.identifier} · ${unit.layout} | SADIA`,
+    description: `${unit.project.name}, ${unit.layout}, ${unit.areaM2} m²`,
+  };
+}
+
+export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
+  const [unit, t, common] = await Promise.all([
+    getUnitBySlug(locale, slug),
+    getTranslations("UnitDetail"),
+    getTranslations("Common"),
+  ]);
+
+  if (!unit) {
+    notFound();
+  }
+
+  const gallery = unit.photos.length > 0 ? unit.photos : [];
+
+  return (
+    <PageShell locale={locale}>
+      <section className="bg-sadia-white pb-section-lg pt-16">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-[1.35fr_0.65fr] lg:items-start">
+            <div>
+              <Reveal>
+                <p className="text-body-sm uppercase tracking-[0.14em] text-sadia-gray">
+                  <Link
+                    href={{
+                      pathname: "/projects/[slug]",
+                      params: { slug: unit.project.slug },
+                    }}
+                    className="hover:text-sadia-navy"
+                  >
+                    {unit.project.name}
+                  </Link>
+                </p>
+                <h1 className="mt-4 text-display-md font-medium text-sadia-navy">
+                  {unit.identifier} · {unit.layout}
+                </h1>
+                <div className="mt-5">
+                  <StatusBadge
+                    status={unit.status}
+                    label={common(`status.${unit.status}`)}
+                  />
+                </div>
+              </Reveal>
+
+              <div className="mt-10 space-y-4">
+                {gallery[0] ? (
+                  <div className="sadia-card-cut-20 relative aspect-[4/3] overflow-hidden bg-sadia-gray-light">
+                    <CmsImageView
+                      image={gallery[0]}
+                      fill
+                      priority
+                      sizes="(max-width: 1023px) 100vw, 60vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : null}
+                {gallery.length > 1 ? (
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {gallery.slice(1).map((image, index) => (
+                      <div
+                        key={`${unit.slug}-photo-${index}`}
+                        className="relative aspect-[4/3] overflow-hidden"
+                      >
+                        <CmsImageView
+                          image={image}
+                          fill
+                          sizes="(max-width: 767px) 100vw, 30vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                {unit.floorPlanImage ? (
+                  <div>
+                    <h2 className="mb-4 text-heading-md font-medium text-sadia-navy">
+                      {t("floorPlan")}
+                    </h2>
+                    <div className="relative aspect-[4/3] overflow-hidden border border-sadia-gray-light bg-sadia-white">
+                      <CmsImageView
+                        image={unit.floorPlanImage}
+                        fill
+                        sizes="(max-width: 1023px) 100vw, 60vw"
+                        className="object-contain p-4"
+                      />
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+
+            <aside className="lg:sticky lg:top-28">
+              <Reveal delay={0.08}>
+                <div className="border border-sadia-gray-light bg-muted p-7">
+                  <p className="text-body-sm uppercase tracking-[0.14em] text-sadia-gray">
+                    {t("price")}
+                  </p>
+                  <p className="mt-3 font-display text-heading-lg font-medium text-sadia-navy">
+                    {unit.priceOnRequest
+                      ? common("priceOnRequest")
+                      : formatPrice(unit.price, unit.currency, locale)}
+                  </p>
+
+                  <dl className="mt-8 space-y-4 border-t border-sadia-gray-light pt-6 text-body-base">
+                    <div className="flex justify-between gap-4">
+                      <dt className="text-sadia-gray">{t("layout")}</dt>
+                      <dd className="font-semibold text-sadia-navy-black">
+                        {unit.layout}
+                      </dd>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <dt className="text-sadia-gray">{t("area")}</dt>
+                      <dd className="font-semibold text-sadia-navy-black">
+                        {unit.areaM2} m²
+                      </dd>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <dt className="text-sadia-gray">{t("floor")}</dt>
+                      <dd className="font-semibold text-sadia-navy-black">
+                        {unit.floor}
+                      </dd>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <dt className="text-sadia-gray">{t("address")}</dt>
+                      <dd className="text-right font-semibold text-sadia-navy-black">
+                        {unit.project.address}
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <div className="mt-8 space-y-3">
+                    <Link
+                      href={routeKeys.contact}
+                      className="inline-flex min-h-12 w-full items-center justify-center bg-sadia-navy-black px-6 text-body-sm font-semibold text-sadia-white transition-opacity hover:opacity-90"
+                    >
+                      {t("inquire")}
+                    </Link>
+                    <p className="text-body-sm text-sadia-gray">
+                      {t("inquireHint")}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            </aside>
+          </div>
+        </Container>
+      </section>
+    </PageShell>
+  );
+}

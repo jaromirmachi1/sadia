@@ -1,0 +1,518 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { CmsImageView } from "@/components/CmsImageView";
+import { Container } from "@/components/Container";
+import { PageShell } from "@/components/PageShell";
+import { ProjectInquiryForm } from "@/components/ProjectInquiryForm";
+import { ProjectUnitsTable } from "@/components/ProjectUnitsTable";
+import { Reveal } from "@/components/Reveal";
+import { Link } from "@/i18n/navigation";
+import { getProjectBySlug, getProjects, getSiteSettings } from "@/sanity/lib/fetch";
+import type { CmsImage } from "@/sanity/types";
+import { formatPrice } from "@/utils/format";
+import { routeKeys, type Locale } from "@/utils/routes";
+
+type ProjectDetailPageProps = {
+  params: Promise<{ locale: Locale; slug: string }>;
+};
+
+function paragraphs(value?: string) {
+  if (!value) return [];
+  return value
+    .split(/\n+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function uniqueImages(hero: CmsImage, gallery: CmsImage[]) {
+  const images = [hero, ...gallery];
+  const seen = new Set<string>();
+
+  return images.filter((image) => {
+    const key = JSON.stringify(image.local?.src ?? image.sanity);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function websiteLabel(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url.replace(/^https?:\/\//, "");
+  }
+}
+
+export async function generateStaticParams() {
+  const projects = await getProjects("cs");
+  return projects.flatMap((project) =>
+    (["cs", "en"] as const).map((locale) => ({
+      locale,
+      slug: project.slug,
+    })),
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectDetailPageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const project = await getProjectBySlug(locale, slug);
+
+  if (!project) {
+    return {};
+  }
+
+  return {
+    title: `${project.name} | SADIA`,
+    description: project.description || project.location,
+    openGraph: {
+      title: `${project.name} | SADIA`,
+      description: project.description || project.location,
+    },
+  };
+}
+
+export default async function ProjectDetailPage({
+  params,
+}: ProjectDetailPageProps) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
+  const [project, projects, settings, t, contact] = await Promise.all([
+    getProjectBySlug(locale, slug),
+    getProjects(locale),
+    getSiteSettings(locale),
+    getTranslations("ProjectDetail"),
+    getTranslations("Contact"),
+  ]);
+
+  if (!project) {
+    notFound();
+  }
+
+  const availableUnits = project.units.filter(
+    (unit) => unit.status === "available",
+  );
+  const pricedUnits = availableUnits.filter(
+    (unit) => !unit.priceOnRequest && typeof unit.price === "number",
+  );
+  const priceFrom = pricedUnits.reduce<number | undefined>((lowest, unit) => {
+    if (typeof unit.price !== "number") return lowest;
+    return lowest == null ? unit.price : Math.min(lowest, unit.price);
+  }, undefined);
+  const images = uniqueImages(project.heroImage, project.gallery);
+  const mosaic = images.slice(0, 3);
+  const restImages = images.slice(3);
+  const related = projects.filter((item) => item.slug !== project.slug).slice(0, 3);
+  const descriptionParts = paragraphs(project.description);
+  const locationParts = paragraphs(project.locationDescription);
+  const googleMapsUrl = project.geo
+    ? `https://www.google.com/maps/search/?api=1&query=${project.geo.lat},${project.geo.lng}`
+    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(project.address)}`;
+  const mapUrl = project.geo
+    ? `https://www.openstreetmap.org/export/embed.html?bbox=${project.geo.lng - 0.01}%2C${project.geo.lat - 0.01}%2C${project.geo.lng + 0.01}%2C${project.geo.lat + 0.01}&layer=mapnik&marker=${project.geo.lat}%2C${project.geo.lng}`
+    : null;
+
+  const facts = [
+    { label: t("facts.address"), value: project.address },
+    { label: t("facts.status"), value: t(`status.${project.status}`) },
+    project.handover
+      ? { label: t("facts.handover"), value: project.handover }
+      : null,
+    {
+      label: t("facts.available"),
+      value: String(availableUnits.length),
+    },
+    priceFrom != null
+      ? {
+          label: t("facts.priceFrom"),
+          value: formatPrice(
+            priceFrom,
+            pricedUnits[0]?.currency ?? "CZK",
+            locale,
+          ),
+        }
+      : null,
+    project.website
+      ? { label: t("facts.website"), value: websiteLabel(project.website), href: project.website }
+      : null,
+  ].filter(Boolean) as Array<{
+    label: string;
+    value: string;
+    href?: string;
+  }>;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ApartmentComplex",
+    name: project.name,
+    description: project.description,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: project.address,
+      addressLocality: project.location,
+      addressCountry: "CZ",
+    },
+    numberOfAvailableAccommodationUnits: availableUnits.length,
+  };
+
+  return (
+    <PageShell locale={locale}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      <section className="bg-sadia-white pt-16 pb-section-sm">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+            <Reveal className="lg:col-span-7">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
+                {project.badge || project.location}
+              </p>
+              <h1 className="mt-5 text-display-md font-medium text-balance text-sadia-navy-black">
+                {project.name}
+              </h1>
+              {project.tagline ? (
+                <p className="mt-5 max-w-[18ch] text-heading-lg font-medium text-sadia-navy-black">
+                  {project.tagline}
+                </p>
+              ) : null}
+              <div className="mt-8 max-w-xl space-y-5 text-body-lg leading-relaxed text-sadia-gray">
+                {descriptionParts.length > 0 ? (
+                  descriptionParts.map((part) => <p key={part}>{part}</p>)
+                ) : (
+                  <p>{t("fallbackDescription")}</p>
+                )}
+              </div>
+              {project.landmarks.length > 0 ? (
+                <ul className="mt-8 flex flex-wrap gap-2">
+                  {project.landmarks.map((landmark) => (
+                    <li
+                      key={landmark}
+                      className="rounded-full bg-muted/70 px-4 py-2 text-body-sm text-sadia-navy-black"
+                    >
+                      {landmark}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </Reveal>
+
+            <Reveal delay={0.08} className="lg:col-span-5">
+              <dl className="grid gap-px overflow-hidden rounded-2xl bg-sadia-gray-light/70 sm:grid-cols-2">
+                {facts.map((fact) => (
+                  <div key={fact.label} className="bg-sadia-white px-5 py-5">
+                    <dt className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
+                      {fact.label}
+                    </dt>
+                    <dd className="mt-2 font-medium text-sadia-navy-black">
+                      {fact.href ? (
+                        <a
+                          href={fact.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="sadia-underline-link"
+                        >
+                          {fact.value}
+                        </a>
+                      ) : (
+                        fact.value
+                      )}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      {mosaic.length > 0 ? (
+        <section className="bg-sadia-white pb-section-sm" aria-label={t("gallery")}>
+          <Container>
+            <div
+              className={
+                mosaic.length > 2
+                  ? "grid gap-3 lg:h-[min(34rem,58vh)] lg:grid-cols-3 lg:grid-rows-2"
+                  : mosaic.length === 2
+                    ? "grid gap-3 lg:h-[min(32rem,52vh)] lg:grid-cols-3"
+                    : "grid"
+              }
+            >
+              {mosaic.map((image, index) => (
+                <div
+                  key={`${project.slug}-mosaic-${index}`}
+                  className={
+                    index === 0 && mosaic.length > 1
+                      ? "relative min-h-64 overflow-hidden rounded-2xl bg-sadia-gray-light lg:col-span-2 lg:row-span-2 lg:min-h-0"
+                      : "relative min-h-48 overflow-hidden rounded-2xl bg-sadia-gray-light lg:min-h-0"
+                  }
+                >
+                  <CmsImageView
+                    image={image}
+                    fill
+                    priority={index === 0}
+                    sizes={index === 0 ? "66vw" : "34vw"}
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {restImages.length > 0 ? (
+              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {restImages.map((image, index) => (
+                  <div
+                    key={`${project.slug}-gallery-${index}`}
+                    className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sadia-gray-light"
+                  >
+                    <CmsImageView
+                      image={image}
+                      fill
+                      sizes="(max-width: 1023px) 50vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </Container>
+        </section>
+      ) : null}
+
+      <section className="bg-muted/50 py-section-sm">
+        <Container>
+          <Reveal className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
+                {t("unitsCount", { count: project.units.length })}
+              </p>
+              <h2 className="mt-3 text-heading-lg font-medium text-sadia-navy-black">
+                {t("units")}
+              </h2>
+            </div>
+          </Reveal>
+          <div className="mt-8">
+            {project.units.length === 0 ? (
+              <p className="text-body-lg text-sadia-navy-black/70">{t("emptyUnits")}</p>
+            ) : (
+              <ProjectUnitsTable locale={locale} units={project.units} />
+            )}
+          </div>
+        </Container>
+      </section>
+
+      {project.downloads.length > 0 ? (
+        <section className="bg-sadia-white py-section-sm">
+          <Container>
+            <Reveal>
+              <h2 className="text-heading-lg font-medium text-sadia-navy-black">
+                {t("downloads")}
+              </h2>
+              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                {project.downloads.map((file) => (
+                  <li key={file.url}>
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between rounded-xl bg-muted/60 px-5 py-4 text-body-base font-medium text-sadia-navy-black transition-colors hover:bg-muted"
+                    >
+                      <span>{file.title}</span>
+                      <span aria-hidden="true">↓</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </Container>
+        </section>
+      ) : null}
+
+      {project.timeline.length > 0 ? (
+        <section className="bg-sadia-white py-section-sm">
+          <Container>
+            <Reveal>
+              <h2 className="text-heading-lg font-medium text-sadia-navy-black">
+                {t("timeline")}
+              </h2>
+              <ol className="mt-10 grid gap-3 md:grid-cols-3">
+                {project.timeline.map((item, index) => (
+                  <li key={`${item.title}-${index}`} className="rounded-2xl bg-muted/50 px-6 py-7">
+                    <p className="font-display text-body-sm font-medium text-[#4A90C0]">
+                      {item.date || String(index + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-4 font-display text-heading-md font-medium text-sadia-navy-black">
+                      {item.title}
+                    </h3>
+                    {item.description ? (
+                      <p className="mt-3 text-body-base leading-relaxed text-sadia-navy-black/65">
+                        {item.description}
+                      </p>
+                    ) : null}
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+          </Container>
+        </section>
+      ) : null}
+
+      <section className="bg-muted/50 py-section-sm">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+            <Reveal className="lg:col-span-5">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
+                {t("map")}
+              </p>
+              <h2 className="mt-4 max-w-[12ch] text-heading-lg font-medium text-sadia-navy-black">
+                {t("locationTitle")}
+              </h2>
+              <div className="mt-6 max-w-md space-y-4 text-body-lg leading-relaxed text-sadia-gray">
+                {locationParts.length > 0
+                  ? locationParts.map((part) => <p key={part}>{part}</p>)
+                  : <p>{project.address}</p>}
+              </div>
+              <a
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="sadia-underline-link mt-8 inline-flex pb-1 text-body-sm font-semibold uppercase tracking-[0.14em] text-sadia-navy-black"
+              >
+                {t("openMap")}
+              </a>
+            </Reveal>
+
+            <div className="lg:col-span-7">
+              {project.amenities.length > 0 ? (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {project.amenities.map((group) => (
+                    <Reveal key={group.title}>
+                      <article className="h-full rounded-2xl bg-sadia-white px-6 py-7">
+                        <h3 className="font-display text-heading-md font-medium text-sadia-navy-black">
+                          {group.title}
+                        </h3>
+                        <ul className="mt-4 space-y-2 text-body-base text-sadia-navy-black/70">
+                          {group.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    </Reveal>
+                  ))}
+                </div>
+              ) : null}
+
+              {mapUrl ? (
+                <div className="mt-3 overflow-hidden rounded-2xl">
+                  <iframe
+                    title={t("map")}
+                    src={mapUrl}
+                    className="h-72 w-full"
+                    loading="lazy"
+                  />
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-sadia-white py-section-sm">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10 lg:items-start">
+            <Reveal className="lg:col-span-5">
+              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
+                {t("inquiryEyebrow")}
+              </p>
+              <h2 className="mt-4 max-w-[14ch] text-heading-lg font-medium text-sadia-navy-black">
+                {t("inquiryTitle")}
+              </h2>
+              <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-gray">
+                {t("inquiryDescription")}
+              </p>
+              <div className="mt-8 space-y-3">
+                <a
+                  href={`mailto:${settings.email}`}
+                  className="block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
+                >
+                  <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
+                    {contact("email")}
+                  </p>
+                  <p className="mt-1 font-medium text-sadia-navy-black">
+                    {settings.email}
+                  </p>
+                </a>
+                <a
+                  href={`tel:${settings.phone.replace(/\s+/g, "")}`}
+                  className="block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
+                >
+                  <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
+                    {contact("phone")}
+                  </p>
+                  <p className="mt-1 font-medium text-sadia-navy-black">
+                    {settings.phone}
+                  </p>
+                </a>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08} className="rounded-2xl bg-muted/50 p-6 lg:col-span-7 lg:p-8">
+              <ProjectInquiryForm projectName={project.name} />
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
+      {related.length > 0 ? (
+        <section className="bg-muted/50 py-section-sm">
+          <Container>
+            <Reveal className="flex items-end justify-between gap-4">
+              <h2 className="text-heading-lg font-medium text-sadia-navy-black">
+                {t("related")}
+              </h2>
+              <Link
+                href={routeKeys.projects}
+                className="sadia-underline-link pb-1 text-body-sm font-semibold uppercase tracking-[0.14em]"
+              >
+                {t("relatedAll")}
+              </Link>
+            </Reveal>
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              {related.map((item) => (
+                <Reveal key={item._id}>
+                  <Link
+                    href={{
+                      pathname: "/projects/[slug]",
+                      params: { slug: item.slug },
+                    }}
+                    className="group block"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sadia-gray-light">
+                      <CmsImageView
+                        image={item.heroImage}
+                        fill
+                        sizes="(max-width: 767px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <p className="mt-4 text-[0.6875rem] uppercase tracking-[0.16em] text-sadia-gray">
+                      {item.location}
+                    </p>
+                    <h3 className="mt-2 font-display text-heading-md font-medium text-sadia-navy-black">
+                      {item.name}
+                    </h3>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </section>
+      ) : null}
+    </PageShell>
+  );
+}

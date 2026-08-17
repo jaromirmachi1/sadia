@@ -1,0 +1,619 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "projects": "Projects",
+    "sale": "For sale",
+    "rent": "For rent",
+    "availability": "Availability",
+    "availabilityCta": "Availability",
+    "interest": "Interest form",
+    "about": "About",
+    "weBuy": "We buy",
+    "contact": "Contact",
+    "primaryLabel": "Primary navigation",
+    "mobileLabel": "Mobile navigation",
+    "footerLabel": "Footer navigation",
+    "menu": "Menu",
+    "close": "Close",
+    "language": "Česky"
+  },
+  "Common": {
+    "priceOnRequest": "Price on request",
+    "status": {
+      "available": "Available",
+      "reserved": "Reserved",
+      "sold": "Sold",
+      "rented": "Rented"
+    }
+  },
+  "Home": {
+    "metadata": {
+      "title": "SADIA | Property development rooted in place",
+      "description": "We restore value to buildings and addresses with a story. Discover SADIA projects and homes in central Brno."
+    },
+    "hero": {
+      "eyebrow": "SADIA · Brno",
+      "title": "Property development in central Brno",
+      "marquee": "Property development in central Brno",
+      "scrollLabel": "scroll to explore",
+      "description": "We do not build at the edge of the city. We seek out storied addresses and places that need someone to recognise their potential.",
+      "primaryCta": "Explore our projects",
+      "secondaryCta": "View available homes",
+      "imageAlt": "The Koblížná building in Brno's historic centre at dusk"
+    },
+    "about": {
+      "title": "About us",
+      "description": "An investment and development company focused on the acquisition, reconstruction and growth of residential and commercial real estate.",
+      "statementLabel": "Our vision",
+      "statement": "We build value for the next generations.",
+      "location": "Brno · Czech Republic",
+      "coordinatesLabel": "Coordinates of Brno",
+      "cta": "Discover our vision"
+    },
+    "stats": {
+      "ariaLabel": "SADIA in numbers",
+      "eyebrow": "Data",
+      "title": "SADIA in numbers",
+      "description": "An overview of the projects and homes that make up our current portfolio in Brno.",
+      "currentTitle": "Current projects",
+      "availabilityTitle": "Availability",
+      "projects": "Projects",
+      "units": "Units",
+      "totalSqm": "Total SQM",
+      "forSale": "For sale",
+      "forRent": "For rent",
+      "available": "Available"
+    },
+    "featured": {
+      "eyebrow": "Featured project",
+      "description": "A distinctive city building at an address that keeps all of Brno within reach. We transformed its existing spaces into contemporary, fully furnished homes for life in the centre.",
+      "statusLabel": "Status",
+      "typeLabel": "Type",
+      "link": "View project",
+      "imageAlt": "The façade of the Koblížná building in central Brno",
+      "interiorAlt": "Bright apartment interior at the Koblížná project",
+      "interiorTitle": "Homes designed around the rhythm of the city",
+      "interiorDescription": "Clear layouts, furnished interiors and an address that makes the daily commute optional."
+    },
+    "projectsStack": {
+      "title": "Featured projects",
+      "description": "Buildings and addresses whose value we restore. Every project is shaped with respect for its setting, its history and the people who will call it home.",
+      "allProjects": "All projects",
+      "view": "View"
+    },
+    "statement": {
+      "eyebrow": "Our approach",
+      "title": "We turn broken into valuable. Overlooked into desirable.",
+      "description": "We listen to every building before we change it. We preserve what matters and add what it needs to serve people and the city well again."
+    },
+    "cta": {
+      "eyebrow": "Find your next home",
+      "title": "Looking for an address with character?",
+      "description": "Explore the homes currently available or tell us what you are looking for.",
+      "primary": "View availability",
+      "secondary": "Contact us"
+    }
+  },
+  "Projects": {
+    "metadata": {
+      "title": "Projects | SADIA",
+      "description": "An overview of SADIA development projects in Brno and beyond."
+    },
+    "eyebrow": "Portfolio",
+    "title": "Projects with an address and a story",
+    "description": "Every project begins with place. We look for buildings and locations with character — and restore their value.",
+    "countLabel": "in the portfolio",
+    "view": "View project",
+    "empty": "There are no projects to show yet.",
+    "ctaEyebrow": "Next chapter",
+    "ctaTitle": "Have a building with a story?",
+    "ctaDescription": "We look for properties with character in Brno and beyond. Write to us — we will come back with a concrete proposal.",
+    "cta": "Offer a property"
+  },
+  "ProjectDetail": {
+    "about": "About the project",
+    "map": "Location",
+    "units": "Price list",
+    "unitsCount": "{count} units",
+    "emptyUnits": "No units have been published for this project yet.",
+    "fallbackDescription": "A SADIA project in Brno.",
+    "facts": {
+      "address": "Address",
+      "status": "Project status",
+      "handover": "Handover",
+      "available": "Available units",
+      "priceFrom": "Price from",
+      "website": "Project website"
+    },
+    "status": {
+      "in-progress": "In progress",
+      "completed": "Completed",
+      "upcoming": "Upcoming"
+    },
+    "type": {
+      "for-sale": "For sale",
+      "for-rent": "For rent",
+      "mixed": "Sale and rent"
+    },
+    "gallery": "Gallery",
+    "downloads": "Downloads",
+    "timeline": "Construction timeline",
+    "locationTitle": "Project location",
+    "openMap": "Open in Google Maps",
+    "related": "More projects",
+    "relatedAll": "View all",
+    "inquiryEyebrow": "Enquiry",
+    "inquiryTitle": "Have a question? We are here.",
+    "inquiryDescription": "Write to us — we will get back to you shortly.",
+    "viewUnit": "Details",
+    "filters": {
+      "layout": "Layout",
+      "dealType": "Offer type",
+      "price": "Price",
+      "availability": "Availability",
+      "all": "All",
+      "allLayouts": "All layouts",
+      "allDealTypes": "Sale and rent",
+      "unlimited": "Unlimited",
+      "priceUpTo": "up to {price}",
+      "reset": "Reset filters",
+      "available": "Available",
+      "reserved": "Reserved",
+      "sold": "Sold"
+    },
+    "table": {
+      "unit": "ID",
+      "unitType": "Unit type",
+      "dealType": "Offer type",
+      "layout": "Layout",
+      "area": "Total area (m²)",
+      "floor": "Floor",
+      "cellar": "Cellar / storage (m²)",
+      "outdoor": "Balcony / loggia / terrace / garden (m²)",
+      "orientation": "Orientation",
+      "price": "Price (CZK)",
+      "action": "Unit details"
+    },
+    "unitType": {
+      "apartment": "Apartment",
+      "commercial": "Commercial"
+    },
+    "dealType": {
+      "sale": "For sale",
+      "rent": "For rent"
+    },
+    "pricePerMonth": "{price} / month",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "submit": "Send message",
+      "successEyebrow": "Sent",
+      "successTitle": "Thank you for your message",
+      "successDescription": "We will contact you as soon as possible.",
+      "successBack": "Back to the form"
+    }
+  },
+  "ForSale": {
+    "metadata": {
+      "title": "Homes for sale | SADIA",
+      "description": "Current homes for sale from SADIA."
+    },
+    "eyebrow": "For sale",
+    "title": "Homes for sale",
+    "description": "Browse the current offer. Filter by location, layout, project or price.",
+    "empty": "There are currently no homes for sale.",
+    "results": "{count} results",
+    "filters": {
+      "location": "Location",
+      "layout": "Layout",
+      "project": "Project",
+      "price": "Price",
+      "all": "All"
+    }
+  },
+  "ForRent": {
+    "metadata": {
+      "title": "Homes for rent | SADIA",
+      "description": "Current homes for rent from SADIA."
+    },
+    "eyebrow": "For rent",
+    "title": "Homes for rent",
+    "description": "Browse the current offer. Filter by location, layout, project or price.",
+    "empty": "There are currently no homes for rent.",
+    "results": "{count} results",
+    "filters": {
+      "location": "Location",
+      "layout": "Layout",
+      "project": "Project",
+      "price": "Price",
+      "all": "All"
+    }
+  },
+  "Availability": {
+    "metadata": {
+      "title": "Availability | SADIA",
+      "description": "Current homes for sale and rent from SADIA."
+    },
+    "eyebrow": "Availability",
+    "title": "Available homes",
+    "description": "Browse the current offer. Filter by rent, sale, location, layout, project or price.",
+    "empty": "There are currently no homes available.",
+    "results": "{count} results",
+    "filters": {
+      "dealType": "Offer type",
+      "all": "All",
+      "rent": "For rent",
+      "sale": "For sale",
+      "location": "Location",
+      "layout": "Layout",
+      "project": "Project",
+      "price": "Price"
+    }
+  },
+  "UnitDetail": {
+    "price": "Price",
+    "layout": "Layout",
+    "area": "Area",
+    "floor": "Floor",
+    "address": "Address",
+    "floorPlan": "Floor plan",
+    "inquire": "I'm interested",
+    "inquireHint": "The full inquiry form lands in the next phase. For now, reach us through the Contact page."
+  },
+  "About": {
+    "metadata": {
+      "title": "About | SADIA",
+      "description": "SADIA finds addresses with a story and turns the overlooked into the desirable."
+    },
+    "eyebrow": "About",
+    "title": "We see a future in places that need one.",
+    "approachTitle": "Our approach",
+    "p1": "We do not build at the edge of the city. We seek out storied addresses and places that need someone to recognise their potential.",
+    "p2": "We turn broken into valuable. Overlooked into desirable. We listen to every building first — preserving what matters and adding what it needs to serve people and the city well again.",
+    "p3": "SADIA is a younger development team focused on the quality of place, careful reconstruction and homes that stay close to the centre.",
+    "ctaTitle": "Want to know more?",
+    "ctaDescription": "Get in touch, or browse the homes currently available.",
+    "cta": "Contact us"
+  },
+  "WeBuy": {
+    "metadata": {
+      "title": "We buy properties | SADIA",
+      "description": "We look for buildings and land with potential in Brno and beyond. Direct deals, with respect for place and for you."
+    },
+    "eyebrow": "Acquisitions",
+    "title": "We buy properties with potential",
+    "description": "We look for houses, apartment buildings and land with a story — places we can bring back to life and give a new future in the heart of the city.",
+    "cta": "Offer a property",
+    "lookingTitle": "What we look for",
+    "lookingDescription": "We care about the value of place, not just floor area. We prefer addresses in Brno and nearby where careful reconstruction or thoughtful redevelopment makes sense.",
+    "looking": {
+      "residential": "Residential and mixed-use buildings",
+      "admin": "Office and multifunctional buildings",
+      "land": "Land suitable for building or redevelopment",
+      "shares": "Ownership shares",
+      "projects": "Development projects in preparation"
+    },
+    "whyTitle": "Why sell to SADIA",
+    "whyDescription": "Behind every sale there is more than numbers — trust, expectation and responsibility. That is why we deal directly and with respect.",
+    "why": {
+      "capital": {
+        "title": "We have the means",
+        "text": "We use our own capital to grow the portfolio."
+      },
+      "direct": {
+        "title": "We deal directly",
+        "text": "No unnecessary fees or middlemen."
+      },
+      "history": {
+        "title": "We respect history",
+        "text": "We know how to keep the value and character of a place."
+      },
+      "potential": {
+        "title": "We see potential",
+        "text": "Even where others hesitate."
+      }
+    },
+    "statementTitle": "We turn the city into a home. Building by building.",
+    "statementDescription": "We seek properties with potential — from apartment houses to land for new construction. Every purchase is an investment in urban quality and lasting value.",
+    "formEyebrow": "Offer",
+    "formTitle": "Considering selling a property?",
+    "formDescription": "Fill in the form and we will get back to you soon. Or call us directly.",
+    "form": {
+      "hint": "Form submission will be connected in the next phase. For now, you will see a confirmation after sending.",
+      "sections": {
+        "contact": "Contact details",
+        "property": "Property",
+        "additional": "Additional information"
+      },
+      "fields": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "propertyType": "Property type",
+        "propertyTypePlaceholder": "Select type",
+        "address": "Property address",
+        "addressPlaceholder": "Street and number",
+        "city": "City / location",
+        "cityPlaceholder": "Brno – Žabovřesky",
+        "area": "Size (optional)",
+        "areaPlaceholder": "e.g. 450 m² or 3 units",
+        "expectedPrice": "Expected price (optional)",
+        "expectedPricePlaceholder": "e.g. CZK 12,000,000",
+        "message": "Property description",
+        "messagePlaceholder": "Condition, layout, ownership, preferred timeline…",
+        "consent": "I agree to the processing of personal data for the purpose of handling this property offer."
+      },
+      "propertyTypes": {
+        "residential": "Residential or mixed-use building",
+        "admin": "Office or multifunctional building",
+        "land": "Land",
+        "shares": "Ownership share",
+        "project": "Development project",
+        "other": "Other"
+      },
+      "submit": "Send offer",
+      "successEyebrow": "Sent",
+      "successTitle": "Thank you for your offer",
+      "successDescription": "We will get back to you as soon as possible. For urgent enquiries, contact us by phone or email.",
+      "successBack": "Send another offer"
+    },
+    "imageAlt": "A city building with potential for careful reconstruction"
+  },
+  "Contact": {
+    "metadata": {
+      "title": "Contact | SADIA",
+      "description": "Contact SADIA. Radnická 376/11, Brno-město."
+    },
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "description": "Whether you are looking for a home or want to know more about our projects — reach out.",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "map": "Map of the SADIA office",
+    "formHint": "Form submission lands in the next phase. For now, contact us by email or phone.",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message"
+    },
+    "submit": "Send"
+  },
+  "Footer": {
+    "description": "Property development with respect for place, architecture and the people who will call it home.",
+    "addressLabel": "Office",
+    "address": "Radnická 376/11, Brno-město",
+    "rights": "All rights reserved."
+  },
+  "Admin": {
+    "metaTitle": "SADIA Admin",
+    "nav": {
+      "dashboard": "Dashboard",
+      "units": "Units",
+      "projects": "Projects",
+      "addProject": "Add project",
+      "addUnit": "Add unit",
+      "signOut": "Sign out",
+      "studio": "Open Sanity Studio",
+      "brand": "Admin"
+    },
+    "login": {
+      "title": "SADIA Admin",
+      "description": "Sign in to manage units, projects, and availability.",
+      "password": "Password",
+      "signIn": "Sign in",
+      "missingPassword": "Set <name>ADMIN_PASSWORD</name> in your environment to enable the dashboard."
+    },
+    "sanityWarning": "Configure <projectId>NEXT_PUBLIC_SANITY_PROJECT_ID</projectId> and <token>SANITY_API_WRITE_TOKEN</token> to sync changes with Sanity.",
+    "dashboard": {
+      "eyebrow": "Dashboard",
+      "title": "Content overview",
+      "projects": "Projects",
+      "units": "Units",
+      "available": "Available",
+      "forSale": "For sale",
+      "forRent": "For rent",
+      "recentUnits": "Recent units",
+      "recentUnitsDescription": "Latest units in the portfolio.",
+      "noUnits": "No units yet.",
+      "projectsCard": "Projects",
+      "projectsCardDescription": "Active developments linked to units.",
+      "noProjects": "No projects yet.",
+      "unitsCount": "{count, plural, one {# unit} other {# units}}"
+    },
+    "projectsPage": {
+      "eyebrow": "Projects",
+      "title": "Developments",
+      "description": "Add, edit, or remove projects including hero and gallery images.",
+      "empty": "No projects yet. Create your first development.",
+      "columns": {
+        "project": "Project",
+        "location": "Location",
+        "status": "Status",
+        "type": "Type",
+        "units": "Units",
+        "slug": "Slug",
+        "actions": "Actions"
+      }
+    },
+    "unitsPage": {
+      "eyebrow": "Units",
+      "title": "Flats & units",
+      "description": "Add, edit, or remove units including photos and floor plans.",
+      "empty": "No units yet. Create your first unit.",
+      "onRequest": "On request",
+      "columns": {
+        "unit": "Unit",
+        "project": "Project",
+        "layout": "Layout",
+        "deal": "Deal",
+        "status": "Status",
+        "price": "Price",
+        "actions": "Actions"
+      }
+    },
+    "projectForm": {
+      "newTitle": "Add project",
+      "editTitle": "Edit {name}",
+      "details": "Project details",
+      "newDescription": "Add project details and upload hero and gallery images.",
+      "editDescription": "Slug: {slug} · {units}",
+      "linkedUnits": "{count, plural, one {# linked unit} other {# linked units}}",
+      "create": "Create project",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "updated": "Project updated.",
+      "error": "Something went wrong.",
+      "nameCs": "Name (Czech)",
+      "nameEn": "Name (English)",
+      "slug": "Slug",
+      "slugHint": "Leave empty to generate from the Czech name.",
+      "completionDate": "Completion date",
+      "status": "Status",
+      "type": "Offer type",
+      "location": "Location",
+      "address": "Address",
+      "descriptionCs": "Description (Czech)",
+      "descriptionEn": "Description (English)",
+      "badgeCs": "Badge (Czech)",
+      "badgeEn": "Badge (English)",
+      "taglineCs": "Tagline (Czech)",
+      "taglineEn": "Tagline (English)",
+      "handoverCs": "Handover (Czech)",
+      "handoverEn": "Handover (English)",
+      "website": "Project website",
+      "landmarksCs": "Landmarks (Czech, one per line)",
+      "landmarksEn": "Landmarks (English, one per line)",
+      "locationDescriptionCs": "Location text (Czech)",
+      "locationDescriptionEn": "Location text (English)",
+      "images": "Images",
+      "imagesHint": "Upload the main project photo and optional gallery images.",
+      "currentHero": "Current hero image",
+      "heroImage": "Hero image",
+      "heroReplace": "Hero image (replace)",
+      "heroAltCs": "Hero alt text (Czech)",
+      "heroAltEn": "Hero alt text (English)",
+      "gallery": "Gallery images",
+      "galleryImage": "Gallery image",
+      "remove": "Remove",
+      "addGallery": "Add gallery images",
+      "galleryHint": "You can select multiple files. New images are appended to the gallery.",
+      "galleryAltCs": "Gallery alt text (Czech)",
+      "galleryAltEn": "Gallery alt text (English)",
+      "amenities": "Amenities nearby",
+      "categoryCs": "Category CS",
+      "categoryEn": "Category EN",
+      "placesCs": "Places CS, one per line",
+      "placesEn": "Places EN, one per line",
+      "addAmenity": "Add amenity group",
+      "downloads": "Downloads",
+      "titleCs": "Title CS",
+      "titleEn": "Title EN",
+      "addDownload": "Add download",
+      "timeline": "Construction timeline",
+      "addTimeline": "Add timeline step",
+      "descriptionCsShort": "Description CS",
+      "descriptionEnShort": "Description EN"
+    },
+    "unitForm": {
+      "newTitle": "Add unit",
+      "editTitle": "Edit {name}",
+      "details": "Unit details",
+      "newDescription": "Fill in listing details and upload unit photos.",
+      "needProject": "Create a project before adding units.",
+      "needProjectBody": "You need at least one project before adding units.",
+      "createProject": "Create project",
+      "create": "Create unit",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "updated": "Unit updated.",
+      "error": "Something went wrong.",
+      "project": "Project",
+      "selectProject": "Select project",
+      "identifier": "Unit ID",
+      "layout": "Layout",
+      "area": "Area (m²)",
+      "floor": "Floor",
+      "orientation": "Orientation",
+      "cellar": "Cellar (m²)",
+      "unitType": "Unit type",
+      "balcony": "Balcony (m²)",
+      "loggia": "Loggia (m²)",
+      "terrace": "Terrace (m²)",
+      "garden": "Front garden (m²)",
+      "dealType": "Deal type",
+      "status": "Status",
+      "currency": "Currency",
+      "price": "Price",
+      "priceOnRequest": "Price on request",
+      "featured": "Featured on homepage",
+      "images": "Images",
+      "imagesHint": "Upload unit photos and an optional floor plan.",
+      "currentPhotos": "Current photos",
+      "unitPhoto": "Unit photo",
+      "remove": "Remove",
+      "photos": "Photos",
+      "addPhotos": "Add photos",
+      "photosHint": "At least one photo is required. You can select multiple files.",
+      "photoAltCs": "Photo alt text (Czech)",
+      "photoAltEn": "Photo alt text (English)",
+      "currentFloorPlan": "Current floor plan",
+      "floorPlan": "Floor plan",
+      "floorPlanReplace": "Floor plan (replace)",
+      "removeFloorPlan": "Remove floor plan",
+      "floorPlanAltCs": "Floor plan alt (Czech)",
+      "floorPlanAltEn": "Floor plan alt (English)"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "back": "Back to list",
+      "deleting": "Deleting...",
+      "deleteFailed": "Delete failed."
+    },
+    "delete": {
+      "projectTitle": "Delete project {name}?",
+      "projectBlocked": "This project still has linked units. Remove or reassign them first.",
+      "projectConfirm": "This removes the project from Sanity and the public site. This action cannot be undone.",
+      "projectSubmit": "Delete project",
+      "unitTitle": "Delete unit {name}?",
+      "unitConfirm": "This removes the unit from Sanity and the public site. This action cannot be undone.",
+      "unitSubmit": "Delete unit"
+    },
+    "projectStatus": {
+      "in-progress": "In progress",
+      "completed": "Completed",
+      "upcoming": "Upcoming"
+    },
+    "projectType": {
+      "for-sale": "For sale",
+      "for-rent": "For rent",
+      "mixed": "Mixed"
+    },
+    "unitStatus": {
+      "available": "Available",
+      "reserved": "Reserved",
+      "sold": "Sold",
+      "rented": "Rented"
+    },
+    "unitType": {
+      "apartment": "Apartment",
+      "commercial": "Commercial"
+    },
+    "dealType": {
+      "sale": "Sale",
+      "rent": "Rent"
+    },
+    "errors": {
+      "photoRequired": "At least one unit photo is required.",
+      "heroRequired": "Hero image is required.",
+      "invalidPassword": "Invalid password.",
+      "deleteProjectHasUnits": "Remove or reassign linked units before deleting this project."
+    }
+  }
+}

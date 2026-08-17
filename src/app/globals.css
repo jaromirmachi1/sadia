@@ -1,26 +1,84 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../styles/tokens.css";
+@import "../styles/brand.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: var(--sadia-white);
+  --foreground: var(--sadia-navy-black);
+  --card: var(--sadia-white);
+  --card-foreground: var(--sadia-navy-black);
+  --popover: var(--sadia-white);
+  --popover-foreground: var(--sadia-navy-black);
+  --primary: var(--sadia-navy-black);
+  --primary-foreground: var(--sadia-white);
+  --secondary: var(--sadia-gray-light);
+  --secondary-foreground: var(--sadia-navy-black);
+  --muted: color-mix(
+    in srgb,
+    var(--sadia-gray-light) 35%,
+    var(--sadia-white)
+  );
+  --muted-foreground: var(--sadia-gray);
+  --accent: var(--sadia-navy-black);
+  --accent-foreground: var(--sadia-white);
+  --destructive: var(--sadia-navy-black);
+  --border: var(--sadia-gray-light);
+  --input: var(--sadia-gray-light);
+  --ring: var(--sadia-navy-black);
+  --radius: 0.375rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    @apply bg-background font-body text-foreground;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply min-h-screen bg-background font-body text-foreground;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+
+  ::selection {
+    background: var(--sadia-navy-black);
+    color: var(--sadia-white);
+  }
 }

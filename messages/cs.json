@@ -1,0 +1,619 @@
+{
+  "Navigation": {
+    "home": "Domů",
+    "projects": "Projekty",
+    "sale": "Prodej",
+    "rent": "Pronájem",
+    "availability": "Nabídka",
+    "availabilityCta": "Nabídka",
+    "interest": "Formulář zájmu",
+    "about": "O společnosti",
+    "weBuy": "Kupujeme",
+    "contact": "Kontakt",
+    "primaryLabel": "Hlavní navigace",
+    "mobileLabel": "Mobilní navigace",
+    "footerLabel": "Navigace v zápatí",
+    "menu": "Menu",
+    "close": "Zavřít",
+    "language": "English"
+  },
+  "Common": {
+    "priceOnRequest": "Cena na vyžádání",
+    "status": {
+      "available": "Volný",
+      "reserved": "Rezervováno",
+      "sold": "Prodáno",
+      "rented": "Pronajato"
+    }
+  },
+  "Home": {
+    "metadata": {
+      "title": "SADIA | Development nemovitostí s respektem k místu",
+      "description": "Vracíme hodnotu domům a adresám s příběhem. Objevte projekty SADIA a nabídku bydlení v centru Brna."
+    },
+    "hero": {
+      "eyebrow": "SADIA · Brno",
+      "title": "Development nemovitostí v centru Brna",
+      "marquee": "Development nemovitostí v centru Brna",
+      "scrollLabel": "posunout dolů",
+      "description": "Nestavíme na okraji města. Hledáme adresy s příběhem a místa, která potřebují někoho, kdo v nich uvidí budoucnost.",
+      "primaryCta": "Poznat naše projekty",
+      "secondaryCta": "Nabídka bytů",
+      "imageAlt": "Dům Koblížná v historickém centru Brna za soumraku"
+    },
+    "about": {
+      "title": "O společnosti",
+      "description": "Investiční a developerská společnost zaměřená na akvizice, rekonstrukce a rozvoj rezidenčních i komerčních nemovitostí.",
+      "statementLabel": "Naše vize",
+      "statement": "Budujeme hodnotu pro další generace.",
+      "location": "Brno · Česká republika",
+      "coordinatesLabel": "Souřadnice Brna",
+      "cta": "Poznat naši vizi"
+    },
+    "stats": {
+      "ariaLabel": "SADIA v číslech",
+      "eyebrow": "Data",
+      "title": "SADIA v číslech",
+      "description": "Přehled projektů a jednotek, které dnes tvoří naše portfolio v Brně.",
+      "currentTitle": "Aktuální projekty",
+      "availabilityTitle": "Nabídka bytů",
+      "projects": "Projekty",
+      "units": "Jednotky",
+      "totalSqm": "Celkem m²",
+      "forSale": "Prodej",
+      "forRent": "Pronájem",
+      "available": "Volné"
+    },
+    "featured": {
+      "eyebrow": "Vybraný projekt",
+      "description": "Výrazný městský dům na adrese, odkud je celé Brno na dosah. Původní prostory jsme proměnili v současné, plně vybavené bydlení pro život v centru.",
+      "statusLabel": "Stav",
+      "typeLabel": "Typ",
+      "link": "Detail projektu",
+      "imageAlt": "Fasáda domu Koblížná v centru Brna",
+      "interiorAlt": "Světlý interiér bytu v projektu Koblížná",
+      "interiorTitle": "Bydlení, které respektuje rytmus centra",
+      "interiorDescription": "Čisté dispozice, vybavené interiéry a adresa, ze které nemusíte nikam dojíždět."
+    },
+    "projectsStack": {
+      "title": "Vybrané projekty",
+      "description": "Domy a adresy, kterým vracíme hodnotu. Každý projekt vzniká s respektem k místu, jeho historii a lidem, kteří v něm budou žít.",
+      "allProjects": "Všechny projekty",
+      "view": "Detail"
+    },
+    "statement": {
+      "eyebrow": "Náš přístup",
+      "title": "Rozbité měníme v hodnotné. Přehlížené v žádané.",
+      "description": "Každý dům nejdřív posloucháme. Zachováváme to, co má smysl, a doplňujeme to, co mu dovolí znovu dobře sloužit lidem i městu."
+    },
+    "cta": {
+      "eyebrow": "Nové bydlení",
+      "title": "Hledáte adresu, která má charakter?",
+      "description": "Prohlédněte si aktuální nabídku bytů nebo nám napište, co hledáte.",
+      "primary": "Zobrazit nabídku",
+      "secondary": "Napsat nám"
+    }
+  },
+  "Projects": {
+    "metadata": {
+      "title": "Projekty | SADIA",
+      "description": "Přehled developerských projektů SADIA v Brně a okolí."
+    },
+    "eyebrow": "Portfolio",
+    "title": "Projekty s adresou a příběhem",
+    "description": "Každý projekt začíná místem. Hledáme domy a lokality, které mají charakter — a vrátíme jim hodnotu.",
+    "countLabel": "v portfoliu",
+    "view": "Zobrazit projekt",
+    "empty": "Momentálně zde nejsou žádné projekty.",
+    "ctaEyebrow": "Další kapitola",
+    "ctaTitle": "Máte dům s příběhem?",
+    "ctaDescription": "Hledáme nemovitosti s charakterem v Brně a okolí. Napište nám — ozveme se s konkrétním návrhem.",
+    "cta": "Nabídnout nemovitost"
+  },
+  "ProjectDetail": {
+    "about": "O projektu",
+    "map": "Lokalita",
+    "units": "Ceník",
+    "unitsCount": "{count} jednotek",
+    "emptyUnits": "V tomto projektu zatím nejsou zveřejněné jednotky.",
+    "fallbackDescription": "Projekt SADIA v Brně.",
+    "facts": {
+      "address": "Adresa",
+      "status": "Stav projektu",
+      "handover": "Předávání jednotek",
+      "available": "Počet volných jednotek",
+      "priceFrom": "Cena od",
+      "website": "Webové stránky projektu"
+    },
+    "status": {
+      "in-progress": "V přípravě",
+      "completed": "Dokončeno",
+      "upcoming": "Připravujeme"
+    },
+    "type": {
+      "for-sale": "Prodej",
+      "for-rent": "Pronájem",
+      "mixed": "Prodej a pronájem"
+    },
+    "gallery": "Galerie",
+    "downloads": "Soubory ke stažení",
+    "timeline": "Harmonogram",
+    "locationTitle": "Lokalita projektu",
+    "openMap": "Otevřít v Google Maps",
+    "related": "Další projekty",
+    "relatedAll": "Zobrazit všechny",
+    "inquiryEyebrow": "Dotaz",
+    "inquiryTitle": "Máte dotaz? Jsme tu pro vás.",
+    "inquiryDescription": "Napište nám — ozveme se co nejdříve.",
+    "viewUnit": "Detail",
+    "filters": {
+      "layout": "Dispozice",
+      "dealType": "Typ nabídky",
+      "price": "Cena",
+      "availability": "Dostupnost",
+      "all": "Vše",
+      "allLayouts": "Všechny dispozice",
+      "allDealTypes": "Prodej i pronájem",
+      "unlimited": "Neomezeno",
+      "priceUpTo": "do {price}",
+      "reset": "Resetovat filtry",
+      "available": "Dostupné",
+      "reserved": "Rezervované",
+      "sold": "Prodané"
+    },
+    "table": {
+      "unit": "ID",
+      "unitType": "Typ jednotky",
+      "dealType": "Typ nabídky",
+      "layout": "Dispozice",
+      "area": "Celková plocha (m²)",
+      "floor": "Podlaží",
+      "cellar": "Sklep / sklepní kóje (m²)",
+      "outdoor": "Balkon / lodžie / terasa / předzahrádka (m²)",
+      "orientation": "Orientace",
+      "price": "Cena (Kč)",
+      "action": "Detail jednotky"
+    },
+    "unitType": {
+      "apartment": "Byt",
+      "commercial": "Komerce"
+    },
+    "dealType": {
+      "sale": "Prodej",
+      "rent": "Pronájem"
+    },
+    "pricePerMonth": "{price} / měsíc",
+    "form": {
+      "name": "Jméno",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "message": "Zpráva",
+      "submit": "Odeslat zprávu",
+      "successEyebrow": "Odesláno",
+      "successTitle": "Děkujeme za vaši zprávu",
+      "successDescription": "Ozveme se vám v nejbližší době.",
+      "successBack": "Zpět na formulář"
+    }
+  },
+  "ForSale": {
+    "metadata": {
+      "title": "Prodej bytů | SADIA",
+      "description": "Aktuální nabídka bytů k prodeji od SADIA."
+    },
+    "eyebrow": "Prodej",
+    "title": "Byty k prodeji",
+    "description": "Prohlédněte si aktuální nabídku. Filtrujte podle lokality, dispozice, projektu nebo ceny.",
+    "empty": "Momentálně nejsou v prodeji žádné byty.",
+    "results": "{count} výsledků",
+    "filters": {
+      "location": "Lokalita",
+      "layout": "Dispozice",
+      "project": "Projekt",
+      "price": "Cena",
+      "all": "Vše"
+    }
+  },
+  "ForRent": {
+    "metadata": {
+      "title": "Pronájem bytů | SADIA",
+      "description": "Aktuální nabídka bytů k pronájmu od SADIA."
+    },
+    "eyebrow": "Pronájem",
+    "title": "Byty k pronájmu",
+    "description": "Prohlédněte si aktuální nabídku. Filtrujte podle lokality, dispozice, projektu nebo ceny.",
+    "empty": "Momentálně nejsou k pronájmu žádné byty.",
+    "results": "{count} výsledků",
+    "filters": {
+      "location": "Lokalita",
+      "layout": "Dispozice",
+      "project": "Projekt",
+      "price": "Cena",
+      "all": "Vše"
+    }
+  },
+  "Availability": {
+    "metadata": {
+      "title": "Nabídka bytů | SADIA",
+      "description": "Aktuální nabídka bytů k prodeji a pronájmu od SADIA."
+    },
+    "eyebrow": "Nabídka",
+    "title": "Nabídka bytů",
+    "description": "Prohlédněte si aktuální nabídku. Filtrujte podle pronájmu, prodeje, lokality, dispozice, projektu nebo ceny.",
+    "empty": "Momentálně nejsou k dispozici žádné byty.",
+    "results": "{count} výsledků",
+    "filters": {
+      "dealType": "Typ nabídky",
+      "all": "Vše",
+      "rent": "Pronájem",
+      "sale": "Prodej",
+      "location": "Lokalita",
+      "layout": "Dispozice",
+      "project": "Projekt",
+      "price": "Cena"
+    }
+  },
+  "UnitDetail": {
+    "price": "Cena",
+    "layout": "Dispozice",
+    "area": "Plocha",
+    "floor": "Podlaží",
+    "address": "Adresa",
+    "floorPlan": "Půdorys",
+    "inquire": "Mám zájem",
+    "inquireHint": "Kompletní poptávkový formulář připravíme v další fázi. Zatím nás kontaktujte přes stránku Kontakt."
+  },
+  "About": {
+    "metadata": {
+      "title": "O společnosti | SADIA",
+      "description": "SADIA hledá adresy s příběhem a mění přehlížené v žádané."
+    },
+    "eyebrow": "O společnosti",
+    "title": "Vidíme budoucnost v místech, která ji potřebují.",
+    "approachTitle": "Náš přístup",
+    "p1": "Nestavíme na okraji města. Hledáme adresy s příběhem a lokality, které potřebují někoho, kdo v nich uvidí budoucnost.",
+    "p2": "Rozbité měníme v hodnotné. Přehlížené v žádané. Každý dům nejdřív posloucháme — zachováváme to, co má smysl, a doplňujeme to, co mu dovolí znovu dobře sloužit lidem i městu.",
+    "p3": "SADIA je mladší developerský tým s důrazem na kvalitu místa, pečlivou rekonstrukci a bydlení, které se drží centra.",
+    "ctaTitle": "Chcete vědět víc?",
+    "ctaDescription": "Napište nám, nebo si prohlédněte aktuální nabídku bytů.",
+    "cta": "Kontaktovat"
+  },
+  "WeBuy": {
+    "metadata": {
+      "title": "Kupujeme nemovitosti | SADIA",
+      "description": "Hledáme domy, budovy a pozemky s potenciálem v Brně a okolí. Jednáme přímo, s respektem k místu i k vám."
+    },
+    "eyebrow": "Akvizice",
+    "title": "Kupujeme nemovitosti s potenciálem",
+    "description": "Hledáme domy, činžovní budovy i pozemky, které mají příběh. Takové, kterým umíme vrátit život — a dát jim novou budoucnost uprostřed města.",
+    "cta": "Nabídnout nemovitost",
+    "lookingTitle": "Co hledáme",
+    "lookingDescription": "Zajímá nás hodnota místa, ne jen výměra. Preferujeme adresy v Brně a okolí, kde dává smysl pečlivá rekonstrukce nebo citlivá přestavba.",
+    "looking": {
+      "residential": "Rezidenční a smíšené domy",
+      "admin": "Administrativní a polyfunkční objekty",
+      "land": "Pozemky vhodné k výstavbě nebo přestavbě",
+      "shares": "Vlastnické podíly",
+      "projects": "Developerské projekty v přípravě"
+    },
+    "whyTitle": "Proč právě SADIA",
+    "whyDescription": "Za každým prodejem jsou víc než čísla — důvěra, očekávání a odpovědnost. Proto jednáme přímo a s respektem.",
+    "why": {
+      "capital": {
+        "title": "Máme prostředky",
+        "text": "Disponujeme vlastním kapitálem pro rozšiřování portfolia."
+      },
+      "direct": {
+        "title": "Jednáme přímo",
+        "text": "Bez zbytečných poplatků a zprostředkovatelů."
+      },
+      "history": {
+        "title": "Vážíme si historie",
+        "text": "Umíme zachovat hodnotu a charakter místa."
+      },
+      "potential": {
+        "title": "Vidíme potenciál",
+        "text": "I tam, kde ostatní váhají."
+      }
+    },
+    "statementTitle": "Měníme město v domov. Dům po domě.",
+    "statementDescription": "Vyhledáváme nemovitosti s potenciálem — od činžovních domů po pozemky pro novou výstavbu. Každý nákup je pro nás investicí do kvality městského prostředí a dlouhodobé hodnoty.",
+    "formEyebrow": "Nabídka",
+    "formTitle": "Zvažujete prodej nemovitosti?",
+    "formDescription": "Vyplňte formulář a my se vám ozveme co nejdříve. Nebo nám zavolejte přímo.",
+    "form": {
+      "hint": "Odesílání formuláře připojíme v další fázi. Prozatím vám po odeslání zobrazíme potvrzení.",
+      "sections": {
+        "contact": "Kontaktní údaje",
+        "property": "Nemovitost",
+        "additional": "Doplňující informace"
+      },
+      "fields": {
+        "firstName": "Jméno",
+        "lastName": "Příjmení",
+        "email": "E-mail",
+        "phone": "Telefon",
+        "propertyType": "Typ nemovitosti",
+        "propertyTypePlaceholder": "Vyberte typ",
+        "address": "Adresa nemovitosti",
+        "addressPlaceholder": "Ulice, číslo popisné",
+        "city": "Město / lokalita",
+        "cityPlaceholder": "Brno – Žabovřesky",
+        "area": "Výměra (volitelné)",
+        "areaPlaceholder": "např. 450 m² nebo 3 byty",
+        "expectedPrice": "Očekávaná cena (volitelné)",
+        "expectedPricePlaceholder": "např. 12 000 000 Kč",
+        "message": "Popis nemovitosti",
+        "messagePlaceholder": "Stav objektu, dispozice, vlastnictví, časový horizont prodeje…",
+        "consent": "Souhlasím se zpracováním osobních údajů za účelem vyřízení nabídky nemovitosti."
+      },
+      "propertyTypes": {
+        "residential": "Rezidenční nebo smíšený dům",
+        "admin": "Administrativní nebo polyfunkční objekt",
+        "land": "Pozemek",
+        "shares": "Vlastnický podíl",
+        "project": "Developerský projekt",
+        "other": "Jiné"
+      },
+      "submit": "Odeslat nabídku",
+      "successEyebrow": "Odesláno",
+      "successTitle": "Děkujeme za vaši nabídku",
+      "successDescription": "Ozveme se vám co nejdříve. Pro urgentní dotazy nás kontaktujte telefonicky nebo e-mailem.",
+      "successBack": "Odeslat další nabídku"
+    },
+    "imageAlt": "Městský dům s potenciálem pro citlivou rekonstrukci"
+  },
+  "Contact": {
+    "metadata": {
+      "title": "Kontakt | SADIA",
+      "description": "Kontaktujte SADIA. Radnická 376/11, Brno-město."
+    },
+    "eyebrow": "Kontakt",
+    "title": "Napište nám",
+    "description": "Ať už hledáte bydlení, nebo chcete vědět víc o našich projektech — ozvěte se.",
+    "address": "Adresa",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "map": "Mapa sídla SADIA",
+    "formHint": "Odesílání formuláře připojíme v další fázi. Zatím nás můžete kontaktovat e-mailem nebo telefonicky.",
+    "fields": {
+      "name": "Jméno",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "message": "Zpráva"
+    },
+    "submit": "Odeslat"
+  },
+  "Footer": {
+    "description": "Development nemovitostí s respektem k místu, domu a lidem, kteří v něm budou žít.",
+    "addressLabel": "Sídlo",
+    "address": "Radnická 376/11, Brno-město",
+    "rights": "Všechna práva vyhrazena."
+  },
+  "Admin": {
+    "metaTitle": "SADIA Administrace",
+    "nav": {
+      "dashboard": "Přehled",
+      "units": "Jednotky",
+      "projects": "Projekty",
+      "addProject": "Přidat projekt",
+      "addUnit": "Přidat jednotku",
+      "signOut": "Odhlásit se",
+      "studio": "Otevřít Sanity Studio",
+      "brand": "Administrace"
+    },
+    "login": {
+      "title": "SADIA Administrace",
+      "description": "Přihlaste se pro správu jednotek, projektů a nabídky.",
+      "password": "Heslo",
+      "signIn": "Přihlásit se",
+      "missingPassword": "Nastavte <name>ADMIN_PASSWORD</name> v prostředí, aby šel dashboard použít."
+    },
+    "sanityWarning": "Nastavte <projectId>NEXT_PUBLIC_SANITY_PROJECT_ID</projectId> a <token>SANITY_API_WRITE_TOKEN</token>, aby se změny ukládaly do Sanity.",
+    "dashboard": {
+      "eyebrow": "Přehled",
+      "title": "Přehled obsahu",
+      "projects": "Projekty",
+      "units": "Jednotky",
+      "available": "Volné",
+      "forSale": "Prodej",
+      "forRent": "Pronájem",
+      "recentUnits": "Poslední jednotky",
+      "recentUnitsDescription": "Nejnovější jednotky v portfoliu.",
+      "noUnits": "Zatím žádné jednotky.",
+      "projectsCard": "Projekty",
+      "projectsCardDescription": "Developmenty propojené s jednotkami.",
+      "noProjects": "Zatím žádné projekty.",
+      "unitsCount": "{count, plural, one {# jednotka} few {# jednotky} other {# jednotek}}"
+    },
+    "projectsPage": {
+      "eyebrow": "Projekty",
+      "title": "Developmenty",
+      "description": "Přidávejte, upravujte a mažte projekty včetně hlavních fotek a galerie.",
+      "empty": "Zatím žádné projekty. Vytvořte první development.",
+      "columns": {
+        "project": "Projekt",
+        "location": "Lokalita",
+        "status": "Stav",
+        "type": "Typ",
+        "units": "Jednotky",
+        "slug": "Slug",
+        "actions": "Akce"
+      }
+    },
+    "unitsPage": {
+      "eyebrow": "Jednotky",
+      "title": "Byty a jednotky",
+      "description": "Přidávejte, upravujte a mažte jednotky včetně fotek a půdorysů.",
+      "empty": "Zatím žádné jednotky. Vytvořte první jednotku.",
+      "onRequest": "Na vyžádání",
+      "columns": {
+        "unit": "Jednotka",
+        "project": "Projekt",
+        "layout": "Dispozice",
+        "deal": "Typ",
+        "status": "Stav",
+        "price": "Cena",
+        "actions": "Akce"
+      }
+    },
+    "projectForm": {
+      "newTitle": "Přidat projekt",
+      "editTitle": "Upravit {name}",
+      "details": "Údaje o projektu",
+      "newDescription": "Vyplňte detaily projektu a nahrajte hlavní foto i galerii.",
+      "editDescription": "Slug: {slug} · {units}",
+      "linkedUnits": "{count, plural, one {# propojená jednotka} few {# propojené jednotky} other {# propojených jednotek}}",
+      "create": "Vytvořit projekt",
+      "save": "Uložit změny",
+      "saving": "Ukládám…",
+      "updated": "Projekt byl uložen.",
+      "error": "Něco se pokazilo.",
+      "nameCs": "Název (česky)",
+      "nameEn": "Název (anglicky)",
+      "slug": "Slug",
+      "slugHint": "Nechte prázdné — vygeneruje se z českého názvu.",
+      "completionDate": "Datum dokončení",
+      "status": "Stav",
+      "type": "Typ nabídky",
+      "location": "Lokalita",
+      "address": "Adresa",
+      "descriptionCs": "Popis (česky)",
+      "descriptionEn": "Popis (anglicky)",
+      "badgeCs": "Štítek (česky)",
+      "badgeEn": "Štítek (anglicky)",
+      "taglineCs": "Podtitul (česky)",
+      "taglineEn": "Podtitul (anglicky)",
+      "handoverCs": "Předání (česky)",
+      "handoverEn": "Předání (anglicky)",
+      "website": "Web projektu",
+      "landmarksCs": "Přednosti lokality (česky, každý řádek zvlášť)",
+      "landmarksEn": "Přednosti lokality (anglicky, každý řádek zvlášť)",
+      "locationDescriptionCs": "Text o lokalitě (česky)",
+      "locationDescriptionEn": "Text o lokalitě (anglicky)",
+      "images": "Obrázky",
+      "imagesHint": "Nahrajte hlavní foto projektu a volitelně fotky do galerie.",
+      "currentHero": "Aktuální hlavní foto",
+      "heroImage": "Hlavní foto",
+      "heroReplace": "Hlavní foto (nahradit)",
+      "heroAltCs": "Alt text hlavního fota (česky)",
+      "heroAltEn": "Alt text hlavního fota (anglicky)",
+      "gallery": "Galerie",
+      "galleryImage": "Foto v galerii",
+      "remove": "Odstranit",
+      "addGallery": "Přidat fotky do galerie",
+      "galleryHint": "Můžete vybrat více souborů. Nové fotky se přidají na konec galerie.",
+      "galleryAltCs": "Alt text galerie (česky)",
+      "galleryAltEn": "Alt text galerie (anglicky)",
+      "amenities": "Občanská vybavenost",
+      "categoryCs": "Kategorie česky",
+      "categoryEn": "Kategorie anglicky",
+      "placesCs": "Místa česky, každý řádek zvlášť",
+      "placesEn": "Místa anglicky, každý řádek zvlášť",
+      "addAmenity": "Přidat skupinu",
+      "downloads": "Soubory ke stažení",
+      "titleCs": "Název česky",
+      "titleEn": "Název anglicky",
+      "addDownload": "Přidat soubor",
+      "timeline": "Harmonogram stavby",
+      "addTimeline": "Přidat krok",
+      "descriptionCsShort": "Popis česky",
+      "descriptionEnShort": "Popis anglicky"
+    },
+    "unitForm": {
+      "newTitle": "Přidat jednotku",
+      "editTitle": "Upravit {name}",
+      "details": "Údaje o jednotce",
+      "newDescription": "Vyplňte detaily nabídky a nahrajte fotky jednotky.",
+      "needProject": "Nejdřív vytvořte projekt, až potom jednotku.",
+      "needProjectBody": "Pro přidání jednotky je potřeba alespoň jeden projekt.",
+      "createProject": "Vytvořit projekt",
+      "create": "Vytvořit jednotku",
+      "save": "Uložit změny",
+      "saving": "Ukládám…",
+      "updated": "Jednotka byla uložena.",
+      "error": "Něco se pokazilo.",
+      "project": "Projekt",
+      "selectProject": "Vyberte projekt",
+      "identifier": "ID jednotky",
+      "layout": "Dispozice",
+      "area": "Plocha (m²)",
+      "floor": "Podlaží",
+      "orientation": "Orientace",
+      "cellar": "Sklep (m²)",
+      "unitType": "Typ jednotky",
+      "balcony": "Balkon (m²)",
+      "loggia": "Lodžie (m²)",
+      "terrace": "Terasa (m²)",
+      "garden": "Předzahrádka (m²)",
+      "dealType": "Typ obchodu",
+      "status": "Stav",
+      "currency": "Měna",
+      "price": "Cena",
+      "priceOnRequest": "Cena na vyžádání",
+      "featured": "Zvýraznit na úvodní stránce",
+      "images": "Obrázky",
+      "imagesHint": "Nahrajte fotky jednotky a volitelně půdorys.",
+      "currentPhotos": "Aktuální fotky",
+      "unitPhoto": "Foto jednotky",
+      "remove": "Odstranit",
+      "photos": "Fotky",
+      "addPhotos": "Přidat fotky",
+      "photosHint": "Je potřeba alespoň jedna fotka. Můžete vybrat více souborů.",
+      "photoAltCs": "Alt text fotky (česky)",
+      "photoAltEn": "Alt text fotky (anglicky)",
+      "currentFloorPlan": "Aktuální půdorys",
+      "floorPlan": "Půdorys",
+      "floorPlanReplace": "Půdorys (nahradit)",
+      "removeFloorPlan": "Odstranit půdorys",
+      "floorPlanAltCs": "Alt text půdorysu (česky)",
+      "floorPlanAltEn": "Alt text půdorysu (anglicky)"
+    },
+    "actions": {
+      "edit": "Upravit",
+      "delete": "Smazat",
+      "cancel": "Zrušit",
+      "back": "Zpět na seznam",
+      "deleting": "Mažu…",
+      "deleteFailed": "Smazání se nepovedlo."
+    },
+    "delete": {
+      "projectTitle": "Smazat projekt {name}?",
+      "projectBlocked": "Tento projekt má stále propojené jednotky. Nejdřív je odeberte nebo přesuňte.",
+      "projectConfirm": "Projekt se smaže ze Sanity i z webu. Tuto akci nelze vrátit zpět.",
+      "projectSubmit": "Smazat projekt",
+      "unitTitle": "Smazat jednotku {name}?",
+      "unitConfirm": "Jednotka se smaže ze Sanity i z webu. Tuto akci nelze vrátit zpět.",
+      "unitSubmit": "Smazat jednotku"
+    },
+    "projectStatus": {
+      "in-progress": "V přípravě",
+      "completed": "Dokončeno",
+      "upcoming": "Připravujeme"
+    },
+    "projectType": {
+      "for-sale": "Prodej",
+      "for-rent": "Pronájem",
+      "mixed": "Prodej a pronájem"
+    },
+    "unitStatus": {
+      "available": "Volný",
+      "reserved": "Rezervováno",
+      "sold": "Prodáno",
+      "rented": "Pronajato"
+    },
+    "unitType": {
+      "apartment": "Byt",
+      "commercial": "Komerce"
+    },
+    "dealType": {
+      "sale": "Prodej",
+      "rent": "Pronájem"
+    },
+    "errors": {
+      "photoRequired": "Je potřeba alespoň jedna fotka jednotky.",
+      "heroRequired": "Hlavní foto je povinné.",
+      "invalidPassword": "Neplatné heslo.",
+      "deleteProjectHasUnits": "Nejdřív odeberte nebo přesuňte propojené jednotky."
+    }
+  }
+}
