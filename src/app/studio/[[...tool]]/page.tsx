@@ -1,11 +1,22 @@
 "use client";
 
 import { NextStudio } from "next-sanity/studio";
+import { useEffect, useState } from "react";
+import type { Config } from "sanity";
 
 import { isSanityConfigured } from "@/sanity/env";
-import config from "../../../../sanity.config";
 
 export default function StudioPage() {
+  const [config, setConfig] = useState<Config | null>(null);
+
+  useEffect(() => {
+    if (!isSanityConfigured) return;
+
+    void import("../../../../sanity.config").then((mod) => {
+      setConfig(mod.default);
+    });
+  }, []);
+
   if (!isSanityConfigured) {
     return (
       <main className="grid min-h-screen place-items-center px-6">
@@ -20,6 +31,10 @@ export default function StudioPage() {
         </div>
       </main>
     );
+  }
+
+  if (!config) {
+    return null;
   }
 
   return <NextStudio config={config} />;

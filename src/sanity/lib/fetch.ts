@@ -111,6 +111,10 @@ async function fetchFromSanity<T>(
   query: string,
   params: Record<string, unknown>,
 ): Promise<T | null> {
+  if (!sanityClient) {
+    return null;
+  }
+
   try {
     return await sanityClient.fetch<T>(query, params);
   } catch {

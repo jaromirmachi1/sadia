@@ -12,7 +12,7 @@ export default defineConfig({
   name: "default",
   title: "SADIA CMS",
   basePath: "/studio",
-  projectId,
+  projectId: projectId || "unset000",
   dataset,
   plugins: [
     structureTool({ structure }),

@@ -7,7 +7,7 @@ import {
   ADMIN_UNIT_BY_ID_QUERY,
   ADMIN_UNITS_QUERY,
 } from "@/sanity/lib/admin-queries";
-import { sanityWriteClient, isSanityWriteConfigured } from "@/sanity/lib/write-client";
+import { assertWriteClient, isSanityWriteConfigured } from "@/sanity/lib/write-client";
 import type {
   AdminProject,
   AdminProjectDetail,
@@ -51,7 +51,7 @@ export async function getAdminUnits(): Promise<AdminUnit[]> {
     return [];
   }
 
-  return sanityWriteClient.fetch<AdminUnit[]>(ADMIN_UNITS_QUERY);
+  return assertWriteClient().fetch<AdminUnit[]>(ADMIN_UNITS_QUERY);
 }
 
 type AdminUnitRaw = Omit<AdminUnitDetail, "floorPlanImage" | "photos"> & {
@@ -64,7 +64,7 @@ export async function getAdminUnit(id: string): Promise<AdminUnitDetail | null> 
     return null;
   }
 
-  const unit = await sanityWriteClient.fetch<AdminUnitRaw | null>(
+  const unit = await assertWriteClient().fetch<AdminUnitRaw | null>(
     ADMIN_UNIT_BY_ID_QUERY,
     { id },
   );
@@ -85,7 +85,7 @@ export async function getAdminProjects(): Promise<AdminProject[]> {
     return [];
   }
 
-  return sanityWriteClient.fetch<AdminProject[]>(ADMIN_PROJECTS_QUERY);
+  return assertWriteClient().fetch<AdminProject[]>(ADMIN_PROJECTS_QUERY);
 }
 
 type AdminProjectImageRaw = {
@@ -127,7 +127,7 @@ export async function getAdminProject(
     return null;
   }
 
-  const project = await sanityWriteClient.fetch<AdminProjectRaw | null>(
+  const project = await assertWriteClient().fetch<AdminProjectRaw | null>(
     ADMIN_PROJECT_BY_ID_QUERY,
     { id },
   );
@@ -197,5 +197,5 @@ export async function getAdminStats(): Promise<AdminStats> {
     };
   }
 
-  return sanityWriteClient.fetch<AdminStats>(ADMIN_STATS_QUERY);
+  return assertWriteClient().fetch<AdminStats>(ADMIN_STATS_QUERY);
 }
