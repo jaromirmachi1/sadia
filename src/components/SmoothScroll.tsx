@@ -1,7 +1,9 @@
 "use client";
 
 import Lenis from "lenis";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+
+import { usePathname } from "@/i18n/navigation";
 
 import "lenis/dist/lenis.css";
 
@@ -11,8 +13,20 @@ type SmoothScrollProps = {
   children: ReactNode;
 };
 
+function scrollToTop(lenis: Lenis | null) {
+  lenis?.scrollTo(0, { immediate: true });
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
 export function SmoothScroll({ children }: SmoothScrollProps) {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
+    history.scrollRestoration = "manual";
+
     const desktopQuery = window.matchMedia(
       `(min-width: ${DESKTOP_BREAKPOINT}px)`,
     );
@@ -20,24 +34,25 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       "(prefers-reduced-motion: reduce)",
     );
 
-    let lenis: Lenis | null = null;
     let rafId = 0;
 
     const shouldEnable = () =>
       desktopQuery.matches && !reducedMotionQuery.matches;
 
     const start = () => {
-      if (lenis || !shouldEnable()) return;
+      if (lenisRef.current || !shouldEnable()) return;
 
-      lenis = new Lenis({
+      const lenis = new Lenis({
         duration: 1.1,
         easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
         smoothWheel: true,
         anchors: true,
       });
 
+      lenisRef.current = lenis;
+
       const raf = (time: number) => {
-        lenis?.raf(time);
+        lenisRef.current?.raf(time);
         rafId = requestAnimationFrame(raf);
       };
 
@@ -46,8 +61,8 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     const stop = () => {
       cancelAnimationFrame(rafId);
-      lenis?.destroy();
-      lenis = null;
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
     };
 
     const sync = () => {
@@ -68,6 +83,10 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       stop();
     };
   }, []);
+
+  useEffect(() => {
+    scrollToTop(lenisRef.current);
+  }, [pathname]);
 
   return children;
 }

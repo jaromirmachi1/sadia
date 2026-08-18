@@ -8,7 +8,10 @@ export type AppPathname =
   | "/for-rent"
   | "/we-buy"
   | "/about"
-  | "/contact";
+  | "/contact"
+  | "/privacy"
+  | "/cookies"
+  | "/terms";
 
 export const routeKeys = {
   home: "/" as const,
@@ -19,4 +22,7 @@ export const routeKeys = {
   weBuy: "/we-buy" as const,
   about: "/about" as const,
   contact: "/contact" as const,
+  privacy: "/privacy" as const,
+  cookies: "/cookies" as const,
+  terms: "/terms" as const,
 };

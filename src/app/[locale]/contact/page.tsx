@@ -4,8 +4,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/Container";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
+import { Link } from "@/i18n/navigation";
 import { getSiteSettings } from "@/sanity/lib/fetch";
-import type { Locale } from "@/utils/routes";
+import { routeKeys, type Locale } from "@/utils/routes";
 
 type ContactPageProps = {
   params: Promise<{ locale: Locale }>;
@@ -85,6 +86,18 @@ export default async function ContactPage({ params }: ContactPageProps) {
             <Reveal delay={0.08}>
               <form className="space-y-5 border border-sadia-gray-light p-7 md:p-9">
                 <p className="text-body-sm text-sadia-gray">{t("formHint")}</p>
+                <p className="text-body-sm text-sadia-gray">
+                  {t.rich("formPrivacy", {
+                    privacy: (chunks) => (
+                      <Link
+                        href={routeKeys.privacy}
+                        className="text-sadia-navy-black underline-offset-2 hover:underline"
+                      >
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
+                </p>
                 <label className="flex flex-col gap-2 text-body-sm text-sadia-gray">
                   {t("fields.name")}
                   <input

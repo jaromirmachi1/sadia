@@ -192,6 +192,7 @@
       "phone": "Telefon",
       "message": "Zpráva",
       "submit": "Odeslat zprávu",
+      "privacyNotice": "Odesláním souhlasíte se zpracováním údajů podle <privacy>zásad ochrany osobních údajů</privacy>.",
       "successEyebrow": "Odesláno",
       "successTitle": "Děkujeme za vaši zprávu",
       "successDescription": "Ozveme se vám v nejbližší době.",
@@ -348,7 +349,7 @@
         "expectedPricePlaceholder": "např. 12 000 000 Kč",
         "message": "Popis nemovitosti",
         "messagePlaceholder": "Stav objektu, dispozice, vlastnictví, časový horizont prodeje…",
-        "consent": "Souhlasím se zpracováním osobních údajů za účelem vyřízení nabídky nemovitosti."
+        "consent": "Souhlasím se zpracováním osobních údajů za účelem vyřízení nabídky nemovitosti podle <privacy>zásad ochrany osobních údajů</privacy>."
       },
       "propertyTypes": {
         "residential": "Rezidenční nebo smíšený dům",
@@ -379,6 +380,7 @@
     "phone": "Telefon",
     "map": "Mapa sídla SADIA",
     "formHint": "Odesílání formuláře připojíme v další fázi. Zatím nás můžete kontaktovat e-mailem nebo telefonicky.",
+    "formPrivacy": "Údaje z formulářů zpracováváme podle <privacy>zásad ochrany osobních údajů</privacy>.",
     "fields": {
       "name": "Jméno",
       "email": "E-mail",
@@ -391,7 +393,22 @@
     "description": "Development nemovitostí s respektem k místu, domu a lidem, kteří v něm budou žít.",
     "addressLabel": "Sídlo",
     "address": "Radnická 376/11, Brno-město",
-    "rights": "Všechna práva vyhrazena."
+    "rights": "Všechna práva vyhrazena.",
+    "ico": "IČO",
+    "dic": "DIČ",
+    "register": "zapsaná u {court}, {file}",
+    "legalNav": "Právní informace",
+    "privacy": "Ochrana osobních údajů",
+    "cookies": "Cookies",
+    "terms": "Podmínky použití"
+  },
+  "Cookies": {
+    "bannerTitle": "Cookies",
+    "bannerBody": "Používáme nezbytné cookies k provozu webu. Analytiku Google Analytics 4 spustíme jen se souhlasem.",
+    "policyLink": "Zásady cookies",
+    "necessary": "Pouze nezbytné",
+    "acceptAll": "Přijmout vše",
+    "settings": "Nastavení cookies"
   },
   "Admin": {
     "metaTitle": "SADIA Administrace",

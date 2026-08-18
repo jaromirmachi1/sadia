@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
+import { routeKeys } from "@/utils/routes";
 
 const fieldClassName =
   "min-h-12 w-full rounded-xl border border-transparent bg-sadia-white px-4 text-body-base text-sadia-navy-black outline-none transition-colors placeholder:text-sadia-gray/80 focus-visible:border-sadia-gray-light focus-visible:ring-2 focus-visible:ring-[#4A90C0]/20";
@@ -231,7 +233,18 @@ export function WeBuyForm() {
               required
               className="mt-0.5 size-4 shrink-0 rounded border border-sadia-gray-light accent-[#4A90C0]"
             />
-            <span>{t("fields.consent")}</span>
+            <span>
+              {t.rich("fields.consent", {
+                privacy: (chunks) => (
+                  <Link
+                    href={routeKeys.privacy}
+                    className="text-sadia-navy-black underline-offset-2 hover:underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </span>
           </label>
         </FormSection>
       </div>

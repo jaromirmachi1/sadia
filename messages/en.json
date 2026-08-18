@@ -192,6 +192,7 @@
       "phone": "Phone",
       "message": "Message",
       "submit": "Send message",
+      "privacyNotice": "By sending this form you agree to the processing of your data as described in the <privacy>privacy policy</privacy>.",
       "successEyebrow": "Sent",
       "successTitle": "Thank you for your message",
       "successDescription": "We will contact you as soon as possible.",
@@ -348,7 +349,7 @@
         "expectedPricePlaceholder": "e.g. CZK 12,000,000",
         "message": "Property description",
         "messagePlaceholder": "Condition, layout, ownership, preferred timeline…",
-        "consent": "I agree to the processing of personal data for the purpose of handling this property offer."
+        "consent": "I agree to the processing of personal data for the purpose of handling this property offer, as described in the <privacy>privacy policy</privacy>."
       },
       "propertyTypes": {
         "residential": "Residential or mixed-use building",
@@ -379,6 +380,7 @@
     "phone": "Phone",
     "map": "Map of the SADIA office",
     "formHint": "Form submission lands in the next phase. For now, contact us by email or phone.",
+    "formPrivacy": "Form data is processed as described in the <privacy>privacy policy</privacy>.",
     "fields": {
       "name": "Name",
       "email": "Email",
@@ -391,7 +393,22 @@
     "description": "Property development with respect for place, architecture and the people who will call it home.",
     "addressLabel": "Office",
     "address": "Radnická 376/11, Brno-město",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "ico": "Company ID",
+    "dic": "VAT ID",
+    "register": "registered with {court}, {file}",
+    "legalNav": "Legal information",
+    "privacy": "Privacy policy",
+    "cookies": "Cookies",
+    "terms": "Terms of use"
+  },
+  "Cookies": {
+    "bannerTitle": "Cookies",
+    "bannerBody": "We use necessary cookies to run the site. Google Analytics 4 loads only with your consent.",
+    "policyLink": "Cookie policy",
+    "necessary": "Necessary only",
+    "acceptAll": "Accept all",
+    "settings": "Cookie settings"
   },
   "Admin": {
     "metaTitle": "SADIA Admin",

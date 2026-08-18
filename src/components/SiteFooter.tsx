@@ -3,17 +3,19 @@ import { getTranslations } from "next-intl/server";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Container } from "@/components/Container";
 import { Link } from "@/i18n/navigation";
+import { legalEntity } from "@/legal/entity";
+import { getSiteSettings } from "@/sanity/lib/fetch";
 import { routeKeys, type Locale } from "@/utils/routes";
 
 type SiteFooterProps = {
   locale: Locale;
 };
 
-export async function SiteFooter({ locale: _locale }: SiteFooterProps) {
-  void _locale;
-  const [t, nav] = await Promise.all([
+export async function SiteFooter({ locale }: SiteFooterProps) {
+  const [t, nav, settings] = await Promise.all([
     getTranslations("Footer"),
     getTranslations("Navigation"),
+    getSiteSettings(locale),
   ]);
 
   return (
@@ -45,17 +47,63 @@ export async function SiteFooter({ locale: _locale }: SiteFooterProps) {
             </Link>
           </nav>
 
-          <address className="not-italic">
+          <address className="not-italic text-body-base text-sadia-white/75">
             <p className="mb-3 text-body-sm uppercase tracking-[0.16em] text-sadia-gray">
               {t("addressLabel")}
             </p>
-            <p className="text-body-base text-sadia-white/75">{t("address")}</p>
+            <p className="font-medium text-sadia-white">{legalEntity.name}</p>
+            <p className="mt-3">{legalEntity.address}</p>
+            <p className="mt-2">
+              {t("ico")} {legalEntity.ico}
+            </p>
+            <p>
+              {t("dic")} {legalEntity.dic}
+            </p>
+            <p className="mt-2 text-body-sm text-sadia-white/55">
+              {t("register", {
+                court: legalEntity.court,
+                file: legalEntity.fileRef,
+              })}
+            </p>
+            <p className="mt-4">
+              <a
+                href={`mailto:${legalEntity.privacyEmail}`}
+                className="hover:text-sadia-white"
+              >
+                {legalEntity.privacyEmail}
+              </a>
+            </p>
+            {settings.phone ? (
+              <p className="mt-1">
+                <a
+                  href={`tel:${settings.phone.replace(/\s+/g, "")}`}
+                  className="hover:text-sadia-white"
+                >
+                  {settings.phone}
+                </a>
+              </p>
+            ) : null}
           </address>
         </div>
 
-        <div className="mt-16 flex flex-col gap-2 border-t border-sadia-white/10 pt-8 text-body-sm text-sadia-white/40 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} SADIA</p>
-          <p>{t("rights")}</p>
+        <div className="mt-16 flex flex-col gap-4 border-t border-sadia-white/10 pt-8 text-body-sm text-sadia-white/40 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} {legalEntity.name}
+          </p>
+          <nav
+            aria-label={t("legalNav")}
+            className="flex flex-wrap gap-x-5 gap-y-2"
+          >
+            <Link href={routeKeys.privacy} className="hover:text-sadia-white/70">
+              {t("privacy")}
+            </Link>
+            <Link href={routeKeys.cookies} className="hover:text-sadia-white/70">
+              {t("cookies")}
+            </Link>
+            <Link href={routeKeys.terms} className="hover:text-sadia-white/70">
+              {t("terms")}
+            </Link>
+          </nav>
         </div>
       </Container>
     </footer>

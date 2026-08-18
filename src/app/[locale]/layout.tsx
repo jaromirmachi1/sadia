@@ -2,6 +2,8 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
+import { CookieConsent } from "@/components/CookieConsent";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { routing } from "@/i18n/routing";
 
@@ -32,7 +34,9 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="min-h-screen antialiased">
         <NextIntlClientProvider>
+          <GoogleAnalytics />
           <SmoothScroll>{children}</SmoothScroll>
+          <CookieConsent />
         </NextIntlClientProvider>
       </body>
     </html>

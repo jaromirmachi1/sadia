@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
+import { routeKeys } from "@/utils/routes";
 
 const fieldClassName =
   "min-h-12 w-full rounded-xl border border-transparent bg-sadia-white px-4 text-body-base text-sadia-navy-black outline-none transition-colors placeholder:text-sadia-gray/80 focus-visible:border-sadia-gray-light focus-visible:ring-2 focus-visible:ring-[#4A90C0]/20";
@@ -76,6 +78,18 @@ export function ProjectInquiryForm({ projectName }: ProjectInquiryFormProps) {
           className={cn(fieldClassName, "min-h-32 resize-y py-3")}
         />
       </label>
+      <p className="text-body-sm leading-relaxed text-sadia-gray">
+        {t.rich("privacyNotice", {
+          privacy: (chunks) => (
+            <Link
+              href={routeKeys.privacy}
+              className="text-sadia-navy-black underline-offset-2 hover:underline"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
       <button
         type="submit"
         className="mt-2 inline-flex min-h-12 items-center justify-center bg-sadia-navy-black px-7 text-body-sm font-semibold text-sadia-white transition-opacity hover:opacity-90"
