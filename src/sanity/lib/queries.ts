@@ -7,6 +7,7 @@ export const PROJECTS_QUERY = defineQuery(`
     "slug": slug.current,
     status,
     type,
+    "salesMode": coalesce(salesMode, "soldByUs"),
     location,
     address,
     heroImage,
@@ -22,6 +23,7 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
     "slug": slug.current,
     status,
     type,
+    "salesMode": coalesce(salesMode, "soldByUs"),
     location,
     address,
     geo,
@@ -67,6 +69,7 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
       currency,
       priceOnRequest,
       status,
+      externalUrl,
       dealType,
       photos
     }
@@ -109,6 +112,7 @@ export const UNIT_BY_SLUG_QUERY = defineQuery(`
     currency,
     priceOnRequest,
     status,
+    externalUrl,
     dealType,
     floorPlanImage,
     photos,
@@ -116,8 +120,10 @@ export const UNIT_BY_SLUG_QUERY = defineQuery(`
       _id,
       "name": name[$locale],
       "slug": slug.current,
+      "salesMode": coalesce(salesMode, "soldByUs"),
       location,
-      address
+      address,
+      website
     }
   }
 `);

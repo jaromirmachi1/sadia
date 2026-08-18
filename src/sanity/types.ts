@@ -3,7 +3,13 @@ import type { SanityImageSource } from "@sanity/image-url";
 
 export type ProjectStatus = "in-progress" | "completed" | "upcoming";
 export type ProjectType = "for-sale" | "for-rent" | "mixed";
-export type UnitStatus = "available" | "reserved" | "sold" | "rented";
+export type ProjectSalesMode = "soldByUs" | "sellByFirm";
+export type UnitStatus =
+  | "available"
+  | "reserved"
+  | "sold"
+  | "soldThirdParty"
+  | "rented";
 export type DealType = "sale" | "rent";
 
 export type CmsImage = {
@@ -18,6 +24,7 @@ export type ProjectSummary = {
   slug: string;
   status: ProjectStatus;
   type: ProjectType;
+  salesMode: ProjectSalesMode;
   location: string;
   address?: string;
   heroImage: CmsImage;
@@ -49,6 +56,7 @@ export type UnitSummary = {
   dealType: DealType;
   featured: boolean;
   photos: CmsImage[];
+  externalUrl?: string;
   project?: {
     _id: string;
     name: string;
@@ -96,8 +104,10 @@ export type UnitDetail = UnitSummary & {
     _id: string;
     name: string;
     slug: string;
+    salesMode: ProjectSalesMode;
     location: string;
     address: string;
+    website?: string;
   };
 };
 

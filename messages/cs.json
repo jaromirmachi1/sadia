@@ -23,6 +23,7 @@
       "available": "Volný",
       "reserved": "Rezervováno",
       "sold": "Prodáno",
+      "soldThirdParty": "Prodáno",
       "rented": "Pronajato"
     }
   },
@@ -146,6 +147,7 @@
     "inquiryTitle": "Máte dotaz? Jsme tu pro vás.",
     "inquiryDescription": "Napište nám — ozveme se co nejdříve.",
     "viewUnit": "Detail",
+    "breadcrumbsLabel": "Drobečková navigace",
     "filters": {
       "layout": "Dispozice",
       "dealType": "Typ nabídky",
@@ -253,6 +255,7 @@
     }
   },
   "UnitDetail": {
+    "breadcrumbsLabel": "Drobečková navigace",
     "price": "Cena",
     "layout": "Dispozice",
     "area": "Plocha",
@@ -486,6 +489,8 @@
       "handoverCs": "Předání (česky)",
       "handoverEn": "Předání (anglicky)",
       "website": "Web projektu",
+      "salesMode": "Prodej zajišťuje",
+      "salesModeHint": "Určuje, zda jednotky otevřou detail SADIA, nebo externí web projektu.",
       "landmarksCs": "Přednosti lokality (česky, každý řádek zvlášť)",
       "landmarksEn": "Přednosti lokality (anglicky, každý řádek zvlášť)",
       "locationDescriptionCs": "Text o lokalitě (česky)",
@@ -547,6 +552,8 @@
       "garden": "Předzahrádka (m²)",
       "dealType": "Typ obchodu",
       "status": "Stav",
+      "externalUrl": "Externí odkaz",
+      "externalUrlHint": "Vyplňte pouze pro stav Prodáno (externí firma).",
       "currency": "Měna",
       "price": "Cena",
       "priceOnRequest": "Cena na vyžádání",
@@ -595,10 +602,15 @@
       "for-rent": "Pronájem",
       "mixed": "Prodej a pronájem"
     },
+    "projectSalesMode": {
+      "soldByUs": "SADIA",
+      "sellByFirm": "Externí firma"
+    },
     "unitStatus": {
       "available": "Volný",
       "reserved": "Rezervováno",
       "sold": "Prodáno",
+      "soldThirdParty": "Prodáno",
       "rented": "Pronajato"
     },
     "unitType": {

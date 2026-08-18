@@ -23,6 +23,7 @@
       "available": "Available",
       "reserved": "Reserved",
       "sold": "Sold",
+      "soldThirdParty": "Sold",
       "rented": "Rented"
     }
   },
@@ -146,6 +147,7 @@
     "inquiryTitle": "Have a question? We are here.",
     "inquiryDescription": "Write to us — we will get back to you shortly.",
     "viewUnit": "Details",
+    "breadcrumbsLabel": "Breadcrumb",
     "filters": {
       "layout": "Layout",
       "dealType": "Offer type",
@@ -253,6 +255,7 @@
     }
   },
   "UnitDetail": {
+    "breadcrumbsLabel": "Breadcrumb",
     "price": "Price",
     "layout": "Layout",
     "area": "Area",
@@ -486,6 +489,8 @@
       "handoverCs": "Handover (Czech)",
       "handoverEn": "Handover (English)",
       "website": "Project website",
+      "salesMode": "Sales handled by",
+      "salesModeHint": "Controls whether units open the SADIA detail page or the external project website.",
       "landmarksCs": "Landmarks (Czech, one per line)",
       "landmarksEn": "Landmarks (English, one per line)",
       "locationDescriptionCs": "Location text (Czech)",
@@ -547,6 +552,8 @@
       "garden": "Front garden (m²)",
       "dealType": "Deal type",
       "status": "Status",
+      "externalUrl": "External URL",
+      "externalUrlHint": "Used only when Status = Sold (third party).",
       "currency": "Currency",
       "price": "Price",
       "priceOnRequest": "Price on request",
@@ -595,10 +602,15 @@
       "for-rent": "For rent",
       "mixed": "Mixed"
     },
+    "projectSalesMode": {
+      "soldByUs": "SADIA",
+      "sellByFirm": "External firm"
+    },
     "unitStatus": {
       "available": "Available",
       "reserved": "Reserved",
       "sold": "Sold",
+      "soldThirdParty": "Sold",
       "rented": "Rented"
     },
     "unitType": {

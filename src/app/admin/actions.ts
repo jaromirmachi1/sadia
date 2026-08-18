@@ -92,6 +92,7 @@ function parseUnitFormData(formData: FormData): UnitFormValues {
     loggiaM2: optionalNumber(formData, "loggiaM2"),
     terraceM2: optionalNumber(formData, "terraceM2"),
     gardenM2: optionalNumber(formData, "gardenM2"),
+    externalUrl: String(formData.get("externalUrl") ?? "").trim() || undefined,
   };
 }
 
@@ -134,6 +135,10 @@ function buildUnitDocument(values: UnitFormValues): Record<string, unknown> {
     doc.orientation = values.orientation;
   }
 
+  if (values.externalUrl) {
+    doc.externalUrl = values.externalUrl;
+  }
+
   setOptionalNumber(doc, "cellarM2", values.cellarM2);
   setOptionalNumber(doc, "balconyM2", values.balconyM2);
   setOptionalNumber(doc, "loggiaM2", values.loggiaM2);
@@ -156,6 +161,9 @@ function unitUnsetFields(values: UnitFormValues) {
   if (typeof values.loggiaM2 !== "number") unset.push("loggiaM2");
   if (typeof values.terraceM2 !== "number") unset.push("terraceM2");
   if (typeof values.gardenM2 !== "number") unset.push("gardenM2");
+  if (values.status !== "soldThirdParty" || !values.externalUrl) {
+    unset.push("externalUrl");
+  }
 
   return unset;
 }
@@ -325,6 +333,8 @@ function parseProjectFormData(formData: FormData): ProjectFormValues {
     handoverCs: String(formData.get("handoverCs") ?? "").trim() || undefined,
     handoverEn: String(formData.get("handoverEn") ?? "").trim() || undefined,
     website: String(formData.get("website") ?? "").trim() || undefined,
+    salesMode:
+      (formData.get("salesMode") as ProjectFormValues["salesMode"]) ?? "soldByUs",
     landmarksCs: String(formData.get("landmarksCs") ?? ""),
     landmarksEn: String(formData.get("landmarksEn") ?? ""),
     locationDescriptionCs:
@@ -480,6 +490,7 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
     },
     status: values.status,
     type: values.type,
+    salesMode: values.salesMode,
     location: values.location,
     address: values.address,
     description: {

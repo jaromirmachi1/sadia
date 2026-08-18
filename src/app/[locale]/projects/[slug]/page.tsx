@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
 import { PageShell } from "@/components/PageShell";
@@ -82,11 +83,12 @@ export default async function ProjectDetailPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const [project, projects, settings, t, contact] = await Promise.all([
+  const [project, projects, settings, t, nav, contact] = await Promise.all([
     getProjectBySlug(locale, slug),
     getProjects(locale),
     getSiteSettings(locale),
     getTranslations("ProjectDetail"),
+    getTranslations("Navigation"),
     getTranslations("Contact"),
   ]);
 
@@ -169,6 +171,15 @@ export default async function ProjectDetailPage({
 
       <section className="bg-sadia-white pt-16 pb-section-sm">
         <Container>
+          <Breadcrumbs
+            label={t("breadcrumbsLabel")}
+            className="mb-10 lg:mb-12"
+            items={[
+              { label: nav("home"), href: routeKeys.home },
+              { label: nav("projects"), href: routeKeys.projects },
+              { label: project.name },
+            ]}
+          />
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
             <Reveal className="lg:col-span-7">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
@@ -301,7 +312,12 @@ export default async function ProjectDetailPage({
             {project.units.length === 0 ? (
               <p className="text-body-lg text-sadia-navy-black/70">{t("emptyUnits")}</p>
             ) : (
-              <ProjectUnitsTable locale={locale} units={project.units} />
+              <ProjectUnitsTable
+                locale={locale}
+                units={project.units}
+                projectWebsite={project.website}
+                projectSalesMode={project.salesMode}
+              />
             )}
           </div>
         </Container>

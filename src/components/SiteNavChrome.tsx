@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { BrandLogo } from "@/components/BrandLogo";
@@ -112,10 +112,13 @@ export function SiteNavChrome({
   const panelId = useId();
   const reduceMotion = useReducedMotion();
 
-  const setMenuOpen = (next: boolean) => {
-    setOpen(next);
-    onOpenChange?.(next);
-  };
+  const setMenuOpen = useCallback(
+    (next: boolean) => {
+      setOpen(next);
+      onOpenChange?.(next);
+    },
+    [onOpenChange],
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -145,7 +148,7 @@ export function SiteNavChrome({
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("resize", onResize);
     };
-  }, [open]);
+  }, [open, setMenuOpen]);
 
   const curtainDuration = reduceMotion ? 0 : 1;
   const exitDuration = reduceMotion ? 0 : 1 / 1.32;

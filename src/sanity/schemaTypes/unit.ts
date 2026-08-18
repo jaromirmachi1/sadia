@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 const layouts = [
+  "S",
   "1+kk",
   "1+1",
   "2+kk",
@@ -167,6 +168,12 @@ export const unit = defineType({
         layout: "radio",
       },
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "externalUrl",
+      title: "External URL (legacy)",
+      type: "url",
+      hidden: true,
     }),
     defineField({
       name: "dealType",

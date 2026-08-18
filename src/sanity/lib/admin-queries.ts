@@ -13,6 +13,7 @@ export const ADMIN_UNITS_QUERY = `
     status,
     dealType,
     featured,
+    externalUrl,
     _updatedAt,
     "projectId": project._ref,
     "projectName": coalesce(project->name.cs, project->name.en, "—")
@@ -41,6 +42,7 @@ export const ADMIN_UNIT_BY_ID_QUERY = `
     status,
     dealType,
     featured,
+    externalUrl,
     "projectId": project._ref,
     "projectName": coalesce(project->name.cs, project->name.en, "—"),
     floorPlanImage {
@@ -69,6 +71,7 @@ export const ADMIN_PROJECTS_QUERY = `
     "slug": slug.current,
     status,
     type,
+    "salesMode": coalesce(salesMode, "soldByUs"),
     location,
     "unitCount": count(*[_type == "unit" && references(^._id)])
   }
@@ -83,6 +86,7 @@ export const ADMIN_PROJECT_BY_ID_QUERY = `
     "slug": slug.current,
     status,
     type,
+    "salesMode": coalesce(salesMode, "soldByUs"),
     location,
     address,
     "descriptionCs": description.cs,

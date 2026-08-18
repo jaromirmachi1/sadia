@@ -73,6 +73,7 @@ export default async function AdminEditProjectPage({
               slug: project.slug,
               status: project.status,
               type: project.type,
+              salesMode: project.salesMode,
               location: project.location,
               address: project.address,
               descriptionCs: project.descriptionCs,

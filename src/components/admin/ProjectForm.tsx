@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  PROJECT_SALES_MODES,
   PROJECT_STATUSES,
   PROJECT_TYPES,
   type AdminProjectImage,
@@ -201,6 +202,7 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
   const t = useTranslations("Admin.projectForm");
   const tStatus = useTranslations("Admin.projectStatus");
   const tType = useTranslations("Admin.projectType");
+  const tSalesMode = useTranslations("Admin.projectSalesMode");
 
   return (
     <>
@@ -280,6 +282,23 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="salesMode">{t("salesMode")}</Label>
+          <select
+            id="salesMode"
+            name="salesMode"
+            defaultValue={defaultValues?.salesMode ?? "soldByUs"}
+            className={fieldClassName}
+          >
+            {PROJECT_SALES_MODES.map((salesMode) => (
+              <option key={salesMode} value={salesMode}>
+                {tSalesMode(salesMode)}
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-muted-foreground">{t("salesModeHint")}</p>
         </div>
 
         <div className="space-y-2">

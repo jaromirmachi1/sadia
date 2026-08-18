@@ -12,6 +12,7 @@ const statusVariant: Record<
   available: "default",
   reserved: "secondary",
   sold: "outline",
+  soldThirdParty: "outline",
   rented: "outline",
 };
 

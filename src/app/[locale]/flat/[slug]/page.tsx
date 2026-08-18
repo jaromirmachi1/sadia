@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
 import { PageShell } from "@/components/PageShell";
@@ -54,14 +55,19 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const [unit, t, common] = await Promise.all([
+  const [unit, t, common, nav] = await Promise.all([
     getUnitBySlug(locale, slug),
     getTranslations("UnitDetail"),
     getTranslations("Common"),
+    getTranslations("Navigation"),
   ]);
 
   if (!unit) {
     notFound();
+  }
+
+  if (unit.project.salesMode === "sellByFirm" && unit.project.website) {
+    redirect(unit.project.website);
   }
 
   const gallery = unit.photos.length > 0 ? unit.photos : [];
@@ -70,6 +76,22 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
     <PageShell locale={locale}>
       <section className="bg-sadia-white pb-section-lg pt-16">
         <Container>
+          <Breadcrumbs
+            label={t("breadcrumbsLabel")}
+            className="mb-10 lg:mb-12"
+            items={[
+              { label: nav("home"), href: routeKeys.home },
+              { label: nav("projects"), href: routeKeys.projects },
+              {
+                label: unit.project.name,
+                href: {
+                  pathname: "/projects/[slug]",
+                  params: { slug: unit.project.slug },
+                },
+              },
+              { label: `${unit.identifier} · ${unit.layout}` },
+            ]}
+          />
           <div className="grid gap-12 lg:grid-cols-[1.35fr_0.65fr] lg:items-start">
             <div>
               <Reveal>

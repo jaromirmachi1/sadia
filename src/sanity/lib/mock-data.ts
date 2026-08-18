@@ -352,6 +352,7 @@ export function getMockProjects(locale: Locale): ProjectSummary[] {
       slug: "koblizna",
       status: "completed",
       type: "for-rent",
+      salesMode: "soldByUs",
       location: "Brno · Brno-střed",
       address: "Koblížná, Brno-střed",
       heroImage: { alt: alts.evening, local: kobliznaEvening },
@@ -367,6 +368,7 @@ export function getMockProjects(locale: Locale): ProjectSummary[] {
       slug: "panorama-zabiny",
       status: "in-progress",
       type: "for-sale",
+      salesMode: "sellByFirm",
       location: "Brno · Žabiny",
       address: "Žabiny, Brno",
       heroImage: {
@@ -465,6 +467,7 @@ export function getMockUnitBySlug(
       _id: "project-koblizna",
       name: projectNames.koblizna[locale],
       slug: "koblizna",
+      salesMode: "soldByUs",
       location: "Brno · Brno-střed",
       address: "Koblížná, Brno-střed",
     },

@@ -5,6 +5,7 @@ const statusStyles: Record<UnitStatus, string> = {
   available: "bg-sadia-navy-black text-sadia-white",
   reserved: "bg-sadia-gray text-sadia-white",
   sold: "bg-sadia-navy-black text-sadia-white",
+  soldThirdParty: "bg-sadia-navy-black text-sadia-white",
   rented: "bg-sadia-navy-black text-sadia-white",
 };
 

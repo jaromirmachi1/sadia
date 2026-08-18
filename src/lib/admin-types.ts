@@ -16,9 +16,10 @@ export type AdminUnit = {
   price?: number;
   currency: string;
   priceOnRequest: boolean;
-  status: "available" | "reserved" | "sold" | "rented";
+  status: "available" | "reserved" | "sold" | "soldThirdParty" | "rented";
   dealType: "sale" | "rent";
   featured: boolean;
+  externalUrl?: string;
   projectId: string;
   projectName: string;
   _updatedAt?: string;
@@ -31,6 +32,7 @@ export type AdminUnitDetail = AdminUnit & {
 
 export type ProjectStatus = "in-progress" | "completed" | "upcoming";
 export type ProjectType = "for-sale" | "for-rent" | "mixed";
+export type ProjectSalesMode = "soldByUs" | "sellByFirm";
 
 export type AdminProject = {
   _id: string;
@@ -38,6 +40,7 @@ export type AdminProject = {
   slug: string;
   status: ProjectStatus;
   type: ProjectType;
+  salesMode: ProjectSalesMode;
   location: string;
   unitCount: number;
 };
@@ -64,6 +67,7 @@ export type AdminProjectDetail = AdminProject & {
   handoverCs?: string;
   handoverEn?: string;
   website?: string;
+  salesMode: ProjectSalesMode;
   landmarks: Array<{ cs: string; en: string }>;
   locationDescriptionCs?: string;
   locationDescriptionEn?: string;
@@ -91,6 +95,7 @@ export type ProjectFormValues = {
   slug: string;
   status: ProjectStatus;
   type: ProjectType;
+  salesMode: ProjectSalesMode;
   location: string;
   address: string;
   descriptionCs: string;
@@ -160,9 +165,11 @@ export type UnitFormValues = {
   terraceM2?: number;
   gardenM2?: number;
   unitType: "apartment" | "commercial";
+  externalUrl?: string;
 };
 
 export const UNIT_LAYOUTS = [
+  "S",
   "1+kk",
   "1+1",
   "2+kk",
@@ -193,6 +200,8 @@ export const PROJECT_STATUSES = [
 ] as const;
 
 export const PROJECT_TYPES = ["for-sale", "for-rent", "mixed"] as const;
+
+export const PROJECT_SALES_MODES = ["soldByUs", "sellByFirm"] as const;
 
 export function slugifyIdentifier(identifier: string) {
   return identifier

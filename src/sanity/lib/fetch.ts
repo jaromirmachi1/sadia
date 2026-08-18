@@ -102,6 +102,10 @@ function mapSanityUnit(
     status: unit.status as UnitSummary["status"],
     dealType: unit.dealType as UnitSummary["dealType"],
     featured: Boolean(unit.featured),
+    externalUrl:
+      typeof unit.externalUrl === "string" && unit.externalUrl.trim()
+        ? unit.externalUrl
+        : undefined,
     photos: photos as CmsImage[],
     project: unit.project as UnitSummary["project"],
   };
@@ -262,6 +266,7 @@ export async function getProjectBySlug(
     slug: project.slug as string,
     status: project.status as ProjectDetail["status"],
     type: project.type as ProjectDetail["type"],
+    salesMode: (project.salesMode as ProjectDetail["salesMode"]) ?? "soldByUs",
     location: project.location as string,
     address: project.address as string,
     geo: project.geo as ProjectDetail["geo"],

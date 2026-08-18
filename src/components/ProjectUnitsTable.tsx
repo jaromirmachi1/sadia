@@ -4,15 +4,21 @@ import { useMemo, useState } from "react";
 import { ArrowRight, ChevronsUpDown, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { formatPrice } from "@/utils/format";
-import type { UnitSummary } from "@/sanity/types";
+import type { ProjectSalesMode, UnitSummary } from "@/sanity/types";
 import type { Locale } from "@/utils/routes";
 
 type ProjectUnitsTableProps = {
   locale: Locale;
   units: UnitSummary[];
+  projectWebsite?: string;
+  projectSalesMode: ProjectSalesMode;
 };
+
+type UnitRowLink =
+  | { kind: "internal"; slug: string }
+  | { kind: "external"; href: string };
 
 type SortKey =
   | "identifier"
@@ -53,8 +59,26 @@ function outdoorSortValue(unit: UnitSummary) {
   );
 }
 
-function canOpenUnit(unit: UnitSummary) {
-  return Boolean(unit.slug) && unit.status !== "sold" && unit.status !== "rented";
+function getUnitRowLink(
+  unit: UnitSummary,
+  projectSalesMode: ProjectSalesMode,
+  projectWebsite?: string,
+): UnitRowLink | null {
+  if (projectSalesMode === "sellByFirm") {
+    return projectWebsite ? { kind: "external", href: projectWebsite } : null;
+  }
+
+  if (
+    (unit.status === "available" ||
+      unit.status === "reserved" ||
+      unit.status === "sold" ||
+      unit.status === "soldThirdParty") &&
+    unit.slug
+  ) {
+    return { kind: "internal", slug: unit.slug };
+  }
+
+  return null;
 }
 
 function priceSortValue(unit: UnitSummary) {
@@ -90,9 +114,15 @@ function priceCeilings(units: UnitSummary[]) {
   );
 }
 
-export function ProjectUnitsTable({ locale, units }: ProjectUnitsTableProps) {
+export function ProjectUnitsTable({
+  locale,
+  units,
+  projectWebsite,
+  projectSalesMode,
+}: ProjectUnitsTableProps) {
   const t = useTranslations("ProjectDetail");
   const common = useTranslations("Common");
+  const router = useRouter();
   const [layout, setLayout] = useState("all");
   const [dealType, setDealType] = useState("all");
   const [priceMax, setPriceMax] = useState("all");
@@ -122,7 +152,9 @@ export function ProjectUnitsTable({ locale, units }: ProjectUnitsTableProps) {
         (availability === "available" && unit.status === "available") ||
         (availability === "reserved" && unit.status === "reserved") ||
         (availability === "sold" &&
-          (unit.status === "sold" || unit.status === "rented"));
+          (unit.status === "sold" ||
+            unit.status === "soldThirdParty" ||
+            unit.status === "rented"));
       const max = priceMax === "all" ? null : Number(priceMax);
       const priceMatch =
         max === null ||
@@ -173,9 +205,21 @@ export function ProjectUnitsTable({ locale, units }: ProjectUnitsTableProps) {
   const selectClassName =
     "min-h-11 w-full min-w-[11rem] appearance-none rounded-none border-0 bg-transparent px-0 text-body-sm text-sadia-navy-black outline-none";
 
+  function openUnitRow(link: UnitRowLink) {
+    if (link.kind === "internal") {
+      router.push({
+        pathname: "/flat/[slug]",
+        params: { slug: link.slug },
+      });
+      return;
+    }
+
+    window.open(link.href, "_blank", "noopener,noreferrer");
+  }
+
   function priceLabel(unit: UnitSummary) {
     if (unit.status !== "available") {
-      return common(`status.${unit.status}`);
+      return common(`status.${unit.status === "soldThirdParty" ? "sold" : unit.status}`);
     }
 
     if (unit.priceOnRequest) {
@@ -332,40 +376,73 @@ export function ProjectUnitsTable({ locale, units }: ProjectUnitsTableProps) {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((unit) => (
-                <tr key={unit._id} className="border-b border-sadia-gray-light/80">
-                  <td className="py-5 pr-4 font-medium text-sadia-navy-black">
-                    {unit.identifier}
-                  </td>
-                  <td className="py-5 pr-4">{t(`unitType.${unit.unitType}`)}</td>
-                  <td className="py-5 pr-4">{t(`dealType.${unit.dealType}`)}</td>
-                  <td className="py-5 pr-4">{unit.floor}</td>
-                  <td className="py-5 pr-4">{unit.layout}</td>
-                  <td className="py-5 pr-4">{formatArea(unit.cellarM2)}</td>
-                  <td className="py-5 pr-4 whitespace-nowrap">{formatOutdoor(unit)}</td>
-                  <td className="py-5 pr-4">{formatArea(unit.areaM2)}</td>
-                  <td className="py-5 pr-4">{unit.orientation || "—"}</td>
-                  <td className="py-5 pr-4 font-semibold text-sadia-navy-black">
-                    {priceLabel(unit)}
-                  </td>
-                  <td className="py-5 text-right">
-                    {canOpenUnit(unit) ? (
-                      <Link
-                        href={{
-                          pathname: "/flat/[slug]",
-                          params: { slug: unit.slug },
-                        }}
-                        className="inline-flex size-8 items-center justify-center text-sadia-navy-black transition-opacity hover:opacity-60"
-                        aria-label={`${t("viewUnit")} ${unit.identifier}`}
-                      >
-                        <ArrowRight className="size-4" strokeWidth={1.5} />
-                      </Link>
-                    ) : (
-                      <span className="text-sadia-gray">—</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+              {filtered.map((unit) => {
+                const rowLink = getUnitRowLink(unit, projectSalesMode, projectWebsite);
+                const isClickable = Boolean(rowLink);
+
+                return (
+                  <tr
+                    key={unit._id}
+                    onClick={() => rowLink && openUnitRow(rowLink)}
+                    onKeyDown={(event) => {
+                      if (!rowLink) return;
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openUnitRow(rowLink);
+                      }
+                    }}
+                    tabIndex={isClickable ? 0 : undefined}
+                    role={isClickable ? "link" : undefined}
+                    aria-label={
+                      isClickable
+                        ? `${t("viewUnit")} ${unit.identifier}`
+                        : undefined
+                    }
+                    className={[
+                      "border-b border-sadia-gray-light/80",
+                      isClickable
+                        ? "group cursor-pointer transition-colors duration-300 ease-out hover:bg-sadia-navy-black [&_td]:text-sadia-navy-black [&_td]:transition-colors [&_td]:duration-300 [&_td]:ease-out hover:[&_td]:text-sadia-white"
+                        : "",
+                    ].join(" ")}
+                  >
+                    <td className="py-5 pr-4 font-medium text-sadia-navy-black">
+                      {unit.identifier}
+                    </td>
+                    <td className="py-5 pr-4 text-sadia-navy-black">
+                      {t(`unitType.${unit.unitType}`)}
+                    </td>
+                    <td className="py-5 pr-4 text-sadia-navy-black">
+                      {t(`dealType.${unit.dealType}`)}
+                    </td>
+                    <td className="py-5 pr-4 text-sadia-navy-black">{unit.floor}</td>
+                    <td className="py-5 pr-4 text-sadia-navy-black">{unit.layout}</td>
+                    <td className="py-5 pr-4 text-sadia-navy-black">
+                      {formatArea(unit.cellarM2)}
+                    </td>
+                    <td className="py-5 pr-4 whitespace-nowrap text-sadia-navy-black">
+                      {formatOutdoor(unit)}
+                    </td>
+                    <td className="py-5 pr-4 text-sadia-navy-black">
+                      {formatArea(unit.areaM2)}
+                    </td>
+                    <td className="py-5 pr-4 text-sadia-navy-black">
+                      {unit.orientation || "—"}
+                    </td>
+                    <td className="py-5 pr-4 font-semibold text-sadia-navy-black">
+                      {priceLabel(unit)}
+                    </td>
+                    <td className="py-5 text-right">
+                      {isClickable ? (
+                        <span className="inline-flex size-8 items-center justify-center text-sadia-navy-black transition-colors duration-300 ease-out group-hover:text-sadia-white">
+                          <ArrowRight className="size-4" strokeWidth={1.5} />
+                        </span>
+                      ) : (
+                        <span className="text-sadia-gray">—</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

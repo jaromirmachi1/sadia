@@ -107,6 +107,21 @@ export const project = defineType({
       fieldset: "facts",
     }),
     defineField({
+      name: "salesMode",
+      title: "Sales mode",
+      type: "string",
+      initialValue: "soldByUs",
+      options: {
+        list: [
+          { title: "Sold by SADIA", value: "soldByUs" },
+          { title: "Sold by external firm", value: "sellByFirm" },
+        ],
+        layout: "radio",
+      },
+      validation: (rule) => rule.required(),
+      fieldset: "facts",
+    }),
+    defineField({
       name: "location",
       title: "Location",
       type: "string",
