@@ -187,6 +187,7 @@ export async function getProjects(locale: Locale): Promise<ProjectSummary[]> {
     slug: project.slug as string,
     status: project.status as ProjectSummary["status"],
     type: project.type as ProjectSummary["type"],
+    salesMode: (project.salesMode as ProjectSummary["salesMode"]) ?? "soldByUs",
     location: project.location as string,
     address: project.address as string | undefined,
     heroImage:
