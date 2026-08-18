@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
 import { PageShell } from "@/components/PageShell";
+import { ProjectHeroSection } from "@/components/ProjectHeroSection";
+import { ProjectLocationMap } from "@/components/ProjectLocationMap";
 import { ProjectInquiryForm } from "@/components/ProjectInquiryForm";
 import { ProjectUnitsTable } from "@/components/ProjectUnitsTable";
 import { Reveal } from "@/components/Reveal";
@@ -13,6 +14,7 @@ import { Link } from "@/i18n/navigation";
 import { getProjectBySlug, getProjects, getSiteSettings } from "@/sanity/lib/fetch";
 import type { CmsImage } from "@/sanity/types";
 import { formatPrice } from "@/utils/format";
+import { buildGoogleMapsLinkUrl } from "@/utils/maps";
 import { routeKeys, type Locale } from "@/utils/routes";
 
 type ProjectDetailPageProps = {
@@ -32,11 +34,39 @@ function uniqueImages(hero: CmsImage, gallery: CmsImage[]) {
   const seen = new Set<string>();
 
   return images.filter((image) => {
+    if (!image.local && !image.sanity) {
+      return false;
+    }
+
     const key = JSON.stringify(image.local?.src ?? image.sanity);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
+}
+
+function projectGalleryLayout(count: number) {
+  if (count > 2) {
+    return "grid gap-3 lg:h-[min(34rem,58vh)] lg:grid-cols-3 lg:grid-rows-2";
+  }
+
+  if (count === 2) {
+    return "grid gap-3 lg:h-[min(32rem,52vh)] lg:grid-cols-3";
+  }
+
+  return "grid gap-3 lg:h-[min(34rem,58vh)]";
+}
+
+function projectGalleryItemClass(index: number, count: number) {
+  if (count === 1) {
+    return "relative min-h-64 overflow-hidden rounded-2xl bg-sadia-gray-light lg:min-h-0";
+  }
+
+  if (index === 0 && count > 1) {
+    return "relative min-h-64 overflow-hidden rounded-2xl bg-sadia-gray-light lg:col-span-2 lg:row-span-2 lg:min-h-0";
+  }
+
+  return "relative min-h-48 overflow-hidden rounded-2xl bg-sadia-gray-light lg:min-h-0";
 }
 
 function websiteLabel(url: string) {
@@ -107,17 +137,24 @@ export default async function ProjectDetailPage({
     return lowest == null ? unit.price : Math.min(lowest, unit.price);
   }, undefined);
   const images = uniqueImages(project.heroImage, project.gallery);
-  const mosaic = images.slice(0, 3);
-  const restImages = images.slice(3);
+  const galleryImages = images.slice(1);
+  const mosaic = galleryImages.slice(0, 3);
+  const restImages = galleryImages.slice(3);
+  const breadcrumbItems = [
+    { label: nav("home"), href: routeKeys.home },
+    { label: nav("projects"), href: routeKeys.projects },
+    { label: project.name },
+  ];
   const related = projects.filter((item) => item.slug !== project.slug).slice(0, 3);
   const descriptionParts = paragraphs(project.description);
   const locationParts = paragraphs(project.locationDescription);
-  const googleMapsUrl = project.geo
-    ? `https://www.google.com/maps/search/?api=1&query=${project.geo.lat},${project.geo.lng}`
-    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(project.address)}`;
-  const mapUrl = project.geo
-    ? `https://www.openstreetmap.org/export/embed.html?bbox=${project.geo.lng - 0.01}%2C${project.geo.lat - 0.01}%2C${project.geo.lng + 0.01}%2C${project.geo.lat + 0.01}&layer=mapnik&marker=${project.geo.lat}%2C${project.geo.lng}`
-    : null;
+  const googleMapsUrl =
+    buildGoogleMapsLinkUrl({
+      geo: project.geo,
+      address: project.address,
+      label: project.name,
+    }) ?? undefined;
+  const showMap = Boolean(project.geo || project.address);
 
   const facts = [
     { label: t("facts.address"), value: project.address },
@@ -163,37 +200,37 @@ export default async function ProjectDetailPage({
   };
 
   return (
-    <PageShell locale={locale}>
+    <PageShell locale={locale} headerVariant="overlay">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="bg-sadia-white pt-16 pb-section-sm">
+      <ProjectHeroSection
+        name={project.name}
+        address={project.address}
+        badge={project.badge}
+        heroImage={project.heroImage}
+        breadcrumbs={breadcrumbItems}
+        breadcrumbsLabel={t("breadcrumbsLabel")}
+        scrollLabel={t("scrollLabel")}
+      />
+
+      <section id="project-content" className="bg-sadia-white py-section-sm">
         <Container>
-          <Breadcrumbs
-            label={t("breadcrumbsLabel")}
-            className="mb-10 lg:mb-12"
-            items={[
-              { label: nav("home"), href: routeKeys.home },
-              { label: nav("projects"), href: routeKeys.projects },
-              { label: project.name },
-            ]}
-          />
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
             <Reveal className="lg:col-span-7">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
-                {project.badge || project.location}
-              </p>
-              <h1 className="mt-5 text-display-md font-medium text-balance text-sadia-navy-black">
-                {project.name}
-              </h1>
               {project.tagline ? (
-                <p className="mt-5 max-w-[18ch] text-heading-lg font-medium text-sadia-navy-black">
+                <p className="max-w-[18ch] text-heading-lg font-medium text-sadia-navy-black">
                   {project.tagline}
                 </p>
               ) : null}
-              <div className="mt-8 max-w-xl space-y-5 text-body-lg leading-relaxed text-sadia-gray">
+              <div
+                className={[
+                  "max-w-xl space-y-5 text-body-lg leading-relaxed text-sadia-gray",
+                  project.tagline ? "mt-8" : "",
+                ].join(" ")}
+              >
                 {descriptionParts.length > 0 ? (
                   descriptionParts.map((part) => <p key={part}>{part}</p>)
                 ) : (
@@ -246,29 +283,23 @@ export default async function ProjectDetailPage({
       {mosaic.length > 0 ? (
         <section className="bg-sadia-white pb-section-sm" aria-label={t("gallery")}>
           <Container>
-            <div
-              className={
-                mosaic.length > 2
-                  ? "grid gap-3 lg:h-[min(34rem,58vh)] lg:grid-cols-3 lg:grid-rows-2"
-                  : mosaic.length === 2
-                    ? "grid gap-3 lg:h-[min(32rem,52vh)] lg:grid-cols-3"
-                    : "grid"
-              }
-            >
+            <div className={projectGalleryLayout(mosaic.length)}>
               {mosaic.map((image, index) => (
                 <div
                   key={`${project.slug}-mosaic-${index}`}
-                  className={
-                    index === 0 && mosaic.length > 1
-                      ? "relative min-h-64 overflow-hidden rounded-2xl bg-sadia-gray-light lg:col-span-2 lg:row-span-2 lg:min-h-0"
-                      : "relative min-h-48 overflow-hidden rounded-2xl bg-sadia-gray-light lg:min-h-0"
-                  }
+                  className={projectGalleryItemClass(index, mosaic.length)}
                 >
                   <CmsImageView
                     image={image}
                     fill
                     priority={index === 0}
-                    sizes={index === 0 ? "66vw" : "34vw"}
+                    sizes={
+                      mosaic.length === 1
+                        ? "100vw"
+                        : index === 0
+                          ? "66vw"
+                          : "34vw"
+                    }
                     className="object-cover"
                   />
                 </div>
@@ -379,6 +410,17 @@ export default async function ProjectDetailPage({
         </section>
       ) : null}
 
+      {showMap ? (
+        <section aria-label={t("map")}>
+          <ProjectLocationMap
+            title={`${project.name} – ${t("map")}`}
+            address={project.address}
+            label={project.name}
+            geo={project.geo}
+          />
+        </section>
+      ) : null}
+
       <section className="bg-muted/50 py-section-sm">
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
@@ -394,14 +436,16 @@ export default async function ProjectDetailPage({
                   ? locationParts.map((part) => <p key={part}>{part}</p>)
                   : <p>{project.address}</p>}
               </div>
-              <a
-                href={googleMapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="sadia-underline-link mt-8 inline-flex pb-1 text-body-sm font-semibold uppercase tracking-[0.14em] text-sadia-navy-black"
-              >
-                {t("openMap")}
-              </a>
+              {googleMapsUrl ? (
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="sadia-underline-link mt-8 inline-flex pb-1 text-body-sm font-semibold uppercase tracking-[0.14em] text-sadia-navy-black"
+                >
+                  {t("openMap")}
+                </a>
+              ) : null}
             </Reveal>
 
             <div className="lg:col-span-7">
@@ -421,17 +465,6 @@ export default async function ProjectDetailPage({
                       </article>
                     </Reveal>
                   ))}
-                </div>
-              ) : null}
-
-              {mapUrl ? (
-                <div className="mt-3 overflow-hidden rounded-2xl">
-                  <iframe
-                    title={t("map")}
-                    src={mapUrl}
-                    className="h-72 w-full"
-                    loading="lazy"
-                  />
                 </div>
               ) : null}
             </div>

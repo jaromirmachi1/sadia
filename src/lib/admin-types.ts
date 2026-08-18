@@ -68,6 +68,7 @@ export type AdminProjectDetail = AdminProject & {
   handoverEn?: string;
   website?: string;
   salesMode: ProjectSalesMode;
+  geo?: { lat: number; lng: number };
   landmarks: Array<{ cs: string; en: string }>;
   locationDescriptionCs?: string;
   locationDescriptionEn?: string;
@@ -98,6 +99,8 @@ export type ProjectFormValues = {
   salesMode: ProjectSalesMode;
   location: string;
   address: string;
+  mapLat?: number;
+  mapLng?: number;
   descriptionCs: string;
   descriptionEn: string;
   completionDate?: string;

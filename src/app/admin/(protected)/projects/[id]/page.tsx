@@ -76,6 +76,8 @@ export default async function AdminEditProjectPage({
               salesMode: project.salesMode,
               location: project.location,
               address: project.address,
+              mapLat: project.geo?.lat,
+              mapLng: project.geo?.lng,
               descriptionCs: project.descriptionCs,
               descriptionEn: project.descriptionEn,
               completionDate: project.completionDate,

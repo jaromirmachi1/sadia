@@ -148,6 +148,7 @@
     "inquiryDescription": "Napište nám — ozveme se co nejdříve.",
     "viewUnit": "Detail",
     "breadcrumbsLabel": "Drobečková navigace",
+    "scrollLabel": "posunout dolů",
     "filters": {
       "layout": "Dispozice",
       "dealType": "Typ nabídky",
@@ -489,6 +490,9 @@
       "handoverCs": "Předání (česky)",
       "handoverEn": "Předání (anglicky)",
       "website": "Web projektu",
+      "mapLat": "Zeměpisná šířka (mapa)",
+      "mapLng": "Zeměpisná délka (mapa)",
+      "mapCoordsHint": "Souřadnice z Google Maps. Pokud je nevyplníte, mapa použije adresu projektu.",
       "salesMode": "Prodej zajišťuje",
       "salesModeHint": "Určuje, zda jednotky otevřou detail SADIA, nebo externí web projektu.",
       "landmarksCs": "Přednosti lokality (česky, každý řádek zvlášť)",

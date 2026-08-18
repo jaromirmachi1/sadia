@@ -29,12 +29,33 @@ type BreadcrumbsProps = {
   items: BreadcrumbItem[];
   label: string;
   className?: string;
+  tone?: "default" | "light";
 };
 
-export function Breadcrumbs({ items, label, className = "" }: BreadcrumbsProps) {
+const toneStyles = {
+  default: {
+    separator: "text-[#4A90C0]/35",
+    link: "text-[#4A90C0]/70 transition-colors hover:text-[#4A90C0]",
+    current: "text-[#4A90C0]/55",
+  },
+  light: {
+    separator: "text-sadia-white/35",
+    link: "text-sadia-white/72 transition-colors hover:text-sadia-white",
+    current: "text-sadia-white/55",
+  },
+} as const;
+
+export function Breadcrumbs({
+  items,
+  label,
+  className = "",
+  tone = "default",
+}: BreadcrumbsProps) {
   if (items.length === 0) {
     return null;
   }
+
+  const styles = toneStyles[tone];
 
   return (
     <nav aria-label={label} className={className}>
@@ -45,24 +66,18 @@ export function Breadcrumbs({ items, label, className = "" }: BreadcrumbsProps) 
           return (
             <Fragment key={`${item.label}-${index}`}>
               {index > 0 ? (
-                <li
-                  aria-hidden="true"
-                  className="text-[#4A90C0]/35 select-none"
-                >
+                <li aria-hidden="true" className={`${styles.separator} select-none`}>
                   /
                 </li>
               ) : null}
               <li>
                 {item.href && !isLast ? (
-                  <Link
-                    href={item.href}
-                    className="text-[#4A90C0]/70 transition-colors hover:text-[#4A90C0]"
-                  >
+                  <Link href={item.href} className={styles.link}>
                     {item.label}
                   </Link>
                 ) : (
                   <span
-                    className="text-[#4A90C0]/55"
+                    className={styles.current}
                     aria-current={isLast ? "page" : undefined}
                   >
                     {item.label}

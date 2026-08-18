@@ -140,6 +140,8 @@ export const project = defineType({
       name: "geo",
       title: "Map location",
       type: "geopoint",
+      description:
+        "Pin shown on the full-width Google Map on the project page. You can also set this in the admin dashboard using latitude and longitude.",
       fieldset: "place",
     }),
     defineField({

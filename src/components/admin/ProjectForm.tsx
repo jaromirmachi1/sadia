@@ -322,6 +322,31 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
             required
           />
         </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="mapLat">{t("mapLat")}</Label>
+          <Input
+            id="mapLat"
+            name="mapLat"
+            type="number"
+            step="any"
+            defaultValue={defaultValues?.mapLat ?? ""}
+            placeholder="49.1952"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="mapLng">{t("mapLng")}</Label>
+          <Input
+            id="mapLng"
+            name="mapLng"
+            type="number"
+            step="any"
+            defaultValue={defaultValues?.mapLng ?? ""}
+            placeholder="16.6086"
+          />
+          <p className="text-xs text-muted-foreground">{t("mapCoordsHint")}</p>
+        </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">

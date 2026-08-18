@@ -148,6 +148,7 @@
     "inquiryDescription": "Write to us — we will get back to you shortly.",
     "viewUnit": "Details",
     "breadcrumbsLabel": "Breadcrumb",
+    "scrollLabel": "scroll to explore",
     "filters": {
       "layout": "Layout",
       "dealType": "Offer type",
@@ -489,6 +490,9 @@
       "handoverCs": "Handover (Czech)",
       "handoverEn": "Handover (English)",
       "website": "Project website",
+      "mapLat": "Map latitude",
+      "mapLng": "Map longitude",
+      "mapCoordsHint": "Coordinates from Google Maps. If left empty, the map falls back to the project address.",
       "salesMode": "Sales handled by",
       "salesModeHint": "Controls whether units open the SADIA detail page or the external project website.",
       "landmarksCs": "Landmarks (Czech, one per line)",

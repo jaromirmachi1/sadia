@@ -323,6 +323,8 @@ function parseProjectFormData(formData: FormData): ProjectFormValues {
     type: (formData.get("type") as ProjectFormValues["type"]) ?? "mixed",
     location: String(formData.get("location") ?? "").trim(),
     address: String(formData.get("address") ?? "").trim(),
+    mapLat: optionalNumber(formData, "mapLat"),
+    mapLng: optionalNumber(formData, "mapLng"),
     descriptionCs: String(formData.get("descriptionCs") ?? "").trim(),
     descriptionEn: String(formData.get("descriptionEn") ?? "").trim(),
     completionDate: String(formData.get("completionDate") ?? "").trim() || undefined,
@@ -507,6 +509,16 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
   if (tagline) doc.tagline = tagline;
   if (handover) doc.handover = handover;
   if (values.website) doc.website = values.website;
+  if (
+    typeof values.mapLat === "number" &&
+    typeof values.mapLng === "number"
+  ) {
+    doc.geo = {
+      _type: "geopoint",
+      lat: values.mapLat,
+      lng: values.mapLng,
+    };
+  }
   if (locationDescription) {
     doc.locationDescription = {
       cs: textToPortableText(values.locationDescriptionCs ?? ""),
@@ -721,6 +733,9 @@ export async function updateProjectAction(id: string, formData: FormData) {
   if (!values.taglineCs && !values.taglineEn) unset.push("tagline");
   if (!values.handoverCs && !values.handoverEn) unset.push("handover");
   if (!values.website) unset.push("website");
+  if (typeof values.mapLat !== "number" || typeof values.mapLng !== "number") {
+    unset.push("geo");
+  }
   if (!values.locationDescriptionCs && !values.locationDescriptionEn) {
     unset.push("locationDescription");
   }

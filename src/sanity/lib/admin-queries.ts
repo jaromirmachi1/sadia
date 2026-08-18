@@ -89,6 +89,7 @@ export const ADMIN_PROJECT_BY_ID_QUERY = `
     "salesMode": coalesce(salesMode, "soldByUs"),
     location,
     address,
+    geo,
     "descriptionCs": description.cs,
     "descriptionEn": description.en,
     completionDate,
