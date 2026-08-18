@@ -7,6 +7,7 @@ import { Container } from "@/components/Container";
 import { PageShell } from "@/components/PageShell";
 import { ProjectHeroSection } from "@/components/ProjectHeroSection";
 import { ProjectLocationMap } from "@/components/ProjectLocationMap";
+import { ProjectTimeline } from "@/components/ProjectTimeline";
 import { ProjectInquiryForm } from "@/components/ProjectInquiryForm";
 import { ProjectUnitsTable } from "@/components/ProjectUnitsTable";
 import { Reveal } from "@/components/Reveal";
@@ -137,9 +138,8 @@ export default async function ProjectDetailPage({
     return lowest == null ? unit.price : Math.min(lowest, unit.price);
   }, undefined);
   const images = uniqueImages(project.heroImage, project.gallery);
-  const galleryImages = images.slice(1);
-  const mosaic = galleryImages.slice(0, 3);
-  const restImages = galleryImages.slice(3);
+  const mosaic = images.slice(0, 3);
+  const restImages = images.slice(3);
   const breadcrumbItems = [
     { label: nav("home"), href: routeKeys.home },
     { label: nav("projects"), href: routeKeys.projects },
@@ -384,46 +384,14 @@ export default async function ProjectDetailPage({
       {project.timeline.length > 0 ? (
         <section className="bg-sadia-white py-section-sm">
           <Container>
-            <Reveal>
-              <h2 className="text-heading-lg font-medium text-sadia-navy-black">
-                {t("timeline")}
-              </h2>
-              <ol className="mt-10 grid gap-3 md:grid-cols-3">
-                {project.timeline.map((item, index) => (
-                  <li key={`${item.title}-${index}`} className="rounded-2xl bg-muted/50 px-6 py-7">
-                    <p className="font-display text-body-sm font-medium text-[#4A90C0]">
-                      {item.date || String(index + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-4 font-display text-heading-md font-medium text-sadia-navy-black">
-                      {item.title}
-                    </h3>
-                    {item.description ? (
-                      <p className="mt-3 text-body-base leading-relaxed text-sadia-navy-black/65">
-                        {item.description}
-                      </p>
-                    ) : null}
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
+            <ProjectTimeline heading={t("timeline")} items={project.timeline} />
           </Container>
         </section>
       ) : null}
 
-      {showMap ? (
-        <section aria-label={t("map")}>
-          <ProjectLocationMap
-            title={`${project.name} – ${t("map")}`}
-            address={project.address}
-            label={project.name}
-            geo={project.geo}
-          />
-        </section>
-      ) : null}
-
-      <section className="bg-muted/50 py-section-sm">
+      <section className="bg-muted/50 py-section-sm" aria-label={t("map")}>
         <Container>
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-stretch lg:gap-x-10">
             <Reveal className="lg:col-span-5">
               <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
                 {t("map")}
@@ -448,27 +416,37 @@ export default async function ProjectDetailPage({
               ) : null}
             </Reveal>
 
-            <div className="lg:col-span-7">
-              {project.amenities.length > 0 ? (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {project.amenities.map((group) => (
-                    <Reveal key={group.title}>
-                      <article className="h-full rounded-2xl bg-sadia-white px-6 py-7">
-                        <h3 className="font-display text-heading-md font-medium text-sadia-navy-black">
-                          {group.title}
-                        </h3>
-                        <ul className="mt-4 space-y-2 text-body-base text-sadia-navy-black/70">
-                          {group.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </article>
-                    </Reveal>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+            {showMap ? (
+              <div className="lg:col-span-7">
+                <ProjectLocationMap
+                  title={`${project.name} – ${t("map")}`}
+                  address={project.address}
+                  label={project.name}
+                  geo={project.geo}
+                  className="h-full min-h-[22rem]"
+                />
+              </div>
+            ) : null}
           </div>
+
+          {project.amenities.length > 0 ? (
+            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {project.amenities.map((group) => (
+                <Reveal key={group.title}>
+                  <article className="h-full rounded-2xl bg-sadia-white px-6 py-7">
+                    <h3 className="font-display text-heading-md font-medium text-sadia-navy-black">
+                      {group.title}
+                    </h3>
+                    <ul className="mt-4 space-y-2 text-body-base text-sadia-navy-black/70">
+                      {group.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          ) : null}
         </Container>
       </section>
 

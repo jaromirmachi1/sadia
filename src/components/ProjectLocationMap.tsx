@@ -1,10 +1,12 @@
 import { buildGoogleMapsEmbedUrl } from "@/utils/maps";
+import { cn } from "@/lib/utils";
 
 type ProjectLocationMapProps = {
   title: string;
   address: string;
   label?: string;
   geo?: { lat: number; lng: number };
+  className?: string;
 };
 
 export function ProjectLocationMap({
@@ -12,6 +14,7 @@ export function ProjectLocationMap({
   address,
   label,
   geo,
+  className,
 }: ProjectLocationMapProps) {
   const embedUrl = buildGoogleMapsEmbedUrl({
     geo,
@@ -25,11 +28,16 @@ export function ProjectLocationMap({
   }
 
   return (
-    <div className="w-full bg-sadia-gray-light/40">
+    <div
+      className={cn(
+        "overflow-hidden rounded-2xl bg-sadia-gray-light/40",
+        className,
+      )}
+    >
       <iframe
         title={title}
         src={embedUrl}
-        className="block h-[min(72vh,44rem)] w-full border-0"
+        className="block h-[min(28rem,70vh)] w-full border-0 lg:h-full lg:min-h-[28rem]"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         allowFullScreen
