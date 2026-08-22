@@ -5,6 +5,7 @@ import { Container } from "@/components/Container";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
+import { buildPageMetadata } from "@/seo/metadata";
 import { routeKeys, type Locale } from "@/utils/routes";
 
 type AboutPageProps = {
@@ -16,7 +17,12 @@ export async function generateMetadata({
 }: AboutPageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "About.metadata" });
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({
+    locale,
+    title: t("title"),
+    description: t("description"),
+    href: routeKeys.about,
+  });
 }
 
 export default async function AboutPage({ params }: AboutPageProps) {

@@ -1,6 +1,7 @@
 import { CmsImageView } from "@/components/CmsImageView";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { resolveImageAlt } from "@/seo/image";
 import type { CmsImage, ProjectSummary } from "@/sanity/types";
 
 type ProjectCardProps = {
@@ -24,16 +25,18 @@ function MosaicImage({
   image,
   priority = false,
   sizes,
+  alt,
 }: {
   image: CmsImage;
   priority?: boolean;
   sizes: string;
+  alt: string;
 }) {
   return (
     <div className="relative h-full min-h-0 overflow-hidden rounded-2xl bg-sadia-gray-light">
       <CmsImageView
         image={image}
-        alt=""
+        alt={alt}
         fill
         priority={priority}
         sizes={sizes}
@@ -55,6 +58,16 @@ export function ProjectCard({
   const sideImage = extras[0];
   const bottomImage = extras[1];
   const locationLine = project.address || project.location;
+  const heroAlt = resolveImageAlt(
+    project.heroImage,
+    `${project.name} — ${locationLine}`,
+  );
+  const sideAlt = sideImage
+    ? resolveImageAlt(sideImage, `${project.name} — galerie`)
+    : heroAlt;
+  const bottomAlt = bottomImage
+    ? resolveImageAlt(bottomImage, `${project.name} — galerie`)
+    : heroAlt;
 
   return (
     <article>
@@ -69,7 +82,7 @@ export function ProjectCard({
           <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-sadia-gray-light sm:aspect-16/10">
             <CmsImageView
               image={project.heroImage}
-              alt=""
+              alt={heroAlt}
               fill
               priority={priority}
               sizes="100vw"
@@ -99,16 +112,17 @@ export function ProjectCard({
               image={project.heroImage}
               priority={priority}
               sizes={sideImage ? "66vw" : "100vw"}
+              alt={heroAlt}
             />
           </div>
 
           {sideImage && bottomImage ? (
             <>
-              <MosaicImage image={sideImage} sizes="34vw" />
-              <MosaicImage image={bottomImage} sizes="34vw" />
+              <MosaicImage image={sideImage} sizes="34vw" alt={sideAlt} />
+              <MosaicImage image={bottomImage} sizes="34vw" alt={bottomAlt} />
             </>
           ) : sideImage ? (
-            <MosaicImage image={sideImage} sizes="34vw" />
+            <MosaicImage image={sideImage} sizes="34vw" alt={sideAlt} />
           ) : null}
         </div>
 

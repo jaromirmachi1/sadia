@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
+import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -14,6 +15,14 @@ import {
   getUnitBySlug,
   getUnitsByDealType,
 } from "@/sanity/lib/fetch";
+import {
+  buildBreadcrumbListSchema,
+  buildRealEstateListingSchema,
+  hrefForLocale,
+} from "@/seo/json-ld";
+import { buildPageMetadata } from "@/seo/metadata";
+import { resolveImageAlt, resolveOgImageUrl } from "@/seo/image";
+import { absoluteUrl } from "@/seo/site";
 import { formatPrice } from "@/utils/format";
 import type { Locale } from "@/utils/routes";
 
@@ -45,10 +54,16 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    title: `${unit.identifier} · ${unit.layout} | SADIA`,
-    description: `${unit.project.name}, ${unit.layout}, ${unit.areaM2} m²`,
-  };
+  const title = `${unit.identifier} · ${unit.layout} | SADIA`;
+  const description = `${unit.project.name}, ${unit.layout}, ${unit.areaM2} m²`;
+
+  return buildPageMetadata({
+    locale,
+    title,
+    description,
+    href: { pathname: "/flat/[slug]", params: { slug } },
+    image: unit.photos[0],
+  });
 }
 
 export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
@@ -71,9 +86,49 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
   }
 
   const gallery = unit.photos.length > 0 ? unit.photos : [];
+  const unitTitle = `${unit.identifier} · ${unit.layout}`;
+  const unitPageUrl = absoluteUrl(
+    hrefForLocale(locale, { pathname: "/flat/[slug]", params: { slug } }),
+  );
+  const photoAlt = (index: number) =>
+    gallery[index]
+      ? resolveImageAlt(
+          gallery[index],
+          `${unitTitle} — ${unit.project.name} (${index + 1})`,
+        )
+      : `${unitTitle} — ${unit.project.name}`;
+
+  const jsonLd = [
+    buildRealEstateListingSchema({
+      name: unitTitle,
+      description: `${unit.project.name}, ${unit.layout}, ${unit.areaM2} m², ${unit.project.address}`,
+      url: unitPageUrl,
+      image: gallery[0] ? resolveOgImageUrl(gallery[0]) : undefined,
+      address: unit.project.address,
+      locality: unit.project.location,
+      floorSize: unit.areaM2,
+      numberOfRooms: unit.layout,
+      price: unit.price,
+      priceCurrency: unit.currency,
+      priceOnRequest: unit.priceOnRequest,
+      dealType: unit.dealType,
+      availability: unit.status,
+    }),
+    buildBreadcrumbListSchema([
+      { name: nav("home"), href: routeKeys.home, locale },
+      { name: nav("projects"), href: routeKeys.projects, locale },
+      {
+        name: unit.project.name,
+        href: { pathname: "/projects/[slug]", params: { slug: unit.project.slug } },
+        locale,
+      },
+      { name: unitTitle, locale },
+    ]),
+  ];
 
   return (
     <PageShell locale={locale}>
+      <JsonLd data={jsonLd} />
       <section className="bg-sadia-white pb-section-lg pt-16">
         <Container>
           <Breadcrumbs
@@ -124,6 +179,7 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
                       image={gallery[0]}
                       fill
                       priority
+                      alt={photoAlt(0)}
                       sizes="(max-width: 1023px) 100vw, 60vw"
                       className="object-cover"
                     />
@@ -139,6 +195,7 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
                         <CmsImageView
                           image={image}
                           fill
+                          alt={photoAlt(index + 1)}
                           sizes="(max-width: 767px) 100vw, 30vw"
                           className="object-cover"
                         />
@@ -155,6 +212,10 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
                       <CmsImageView
                         image={unit.floorPlanImage}
                         fill
+                        alt={resolveImageAlt(
+                          unit.floorPlanImage,
+                          `${t("floorPlan")} — ${unitTitle}`,
+                        )}
                         sizes="(max-width: 1023px) 100vw, 60vw"
                         className="object-contain p-4"
                       />

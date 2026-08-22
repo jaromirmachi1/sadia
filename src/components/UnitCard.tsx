@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { CmsImageView } from "@/components/CmsImageView";
 import { StatusBadge } from "@/components/StatusBadge";
+import { resolveImageAlt } from "@/seo/image";
 import { formatPrice } from "@/utils/format";
 import type { UnitSummary } from "@/sanity/types";
 import type { Locale } from "@/utils/routes";
@@ -34,6 +35,10 @@ export function UnitCard({
             <CmsImageView
               image={photo}
               fill
+              alt={resolveImageAlt(
+                photo,
+                `${unit.layout} ${unit.areaM2} m² — ${unit.project?.name ?? unit.identifier}`,
+              )}
               sizes="(max-width: 767px) 100vw, 33vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />

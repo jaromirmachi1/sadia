@@ -4,6 +4,7 @@ import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
+import { resolveImageAlt } from "@/seo/image";
 import type { ProjectSummary } from "@/sanity/types";
 import { routeKeys, type Locale } from "@/utils/routes";
 
@@ -118,6 +119,10 @@ export async function ProjectsStackSection({
               >
                 <CmsImageView
                   image={project.heroImage}
+                  alt={resolveImageAlt(
+                    project.heroImage,
+                    `${project.name} — ${project.location}`,
+                  )}
                   fill
                   sizes="(max-width: 767px) 100vw, 76vw"
                   className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.025]"

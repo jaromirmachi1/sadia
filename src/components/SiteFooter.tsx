@@ -4,7 +4,6 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { Container } from "@/components/Container";
 import { Link } from "@/i18n/navigation";
 import { legalEntity } from "@/legal/entity";
-import { getSiteSettings } from "@/sanity/lib/fetch";
 import { routeKeys, type Locale } from "@/utils/routes";
 
 type SiteFooterProps = {
@@ -12,10 +11,10 @@ type SiteFooterProps = {
 };
 
 export async function SiteFooter({ locale }: SiteFooterProps) {
-  const [t, nav, settings] = await Promise.all([
+  void locale;
+  const [t, nav] = await Promise.all([
     getTranslations("Footer"),
     getTranslations("Navigation"),
-    getSiteSettings(locale),
   ]);
 
   return (
@@ -67,22 +66,20 @@ export async function SiteFooter({ locale }: SiteFooterProps) {
             </p>
             <p className="mt-4">
               <a
-                href={`mailto:${legalEntity.privacyEmail}`}
+                href={`mailto:${legalEntity.email}`}
                 className="hover:text-sadia-white"
               >
-                {legalEntity.privacyEmail}
+                {legalEntity.email}
               </a>
             </p>
-            {settings.phone ? (
-              <p className="mt-1">
-                <a
-                  href={`tel:${settings.phone.replace(/\s+/g, "")}`}
-                  className="hover:text-sadia-white"
-                >
-                  {settings.phone}
-                </a>
-              </p>
-            ) : null}
+            <p className="mt-1">
+              <a
+                href={`tel:${legalEntity.phone.replace(/\s+/g, "")}`}
+                className="hover:text-sadia-white"
+              >
+                {legalEntity.phone}
+              </a>
+            </p>
           </address>
         </div>
 

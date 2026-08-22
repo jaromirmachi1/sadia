@@ -7,7 +7,8 @@ import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { WeBuyForm } from "@/components/WeBuyForm";
 import { getSiteSettings } from "@/sanity/lib/fetch";
-import type { Locale } from "@/utils/routes";
+import { buildPageMetadata } from "@/seo/metadata";
+import { routeKeys, type Locale } from "@/utils/routes";
 import janska from "@/images/janska.jpg";
 
 type WeBuyPageProps = {
@@ -37,7 +38,12 @@ export async function generateMetadata({
 }: WeBuyPageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "WeBuy.metadata" });
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({
+    locale,
+    title: t("title"),
+    description: t("description"),
+    href: routeKeys.weBuy,
+  });
 }
 
 export default async function WeBuyPage({ params }: WeBuyPageProps) {

@@ -5,7 +5,8 @@ import { CookieSettingsButton } from "@/components/CookieSettingsButton";
 import { LegalDocument } from "@/components/LegalDocument";
 import { PageShell } from "@/components/PageShell";
 import { getLegalDocument } from "@/legal/documents";
-import type { Locale } from "@/utils/routes";
+import { buildPageMetadata } from "@/seo/metadata";
+import { routeKeys, type Locale } from "@/utils/routes";
 
 type CookiesPageProps = {
   params: Promise<{ locale: Locale }>;
@@ -17,10 +18,12 @@ export async function generateMetadata({
   const { locale } = await params;
   const document = getLegalDocument(locale, "cookies");
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: `${document.title} | SADIA`,
     description: document.description,
-  };
+    href: routeKeys.cookies,
+  });
 }
 
 export default async function CookiesPage({ params }: CookiesPageProps) {

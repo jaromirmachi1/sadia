@@ -483,7 +483,7 @@ export function getMockSiteSettings(locale: Locale): SiteSettings {
         : "Radnická 376/11, Brno-město",
     registrationNumber: "",
     vatNumber: "",
-    email: "info@sadia.cz",
-    phone: "+420 000 000 000",
+    email: "adam@sadiaestate.cz",
+    phone: "+420 607 100 886",
   };
 }

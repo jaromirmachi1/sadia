@@ -402,6 +402,11 @@
     "cookies": "Cookies",
     "terms": "Podmínky použití"
   },
+  "NotFound": {
+    "title": "Stránka nenalezena | SADIA",
+    "description": "Požadovaná stránka neexistuje nebo byla přesunuta.",
+    "heading": "Stránka nenalezena"
+  },
   "Cookies": {
     "bannerTitle": "Cookies",
     "bannerBody": "Používáme nezbytné cookies k provozu webu. Analytiku Google Analytics 4 spustíme jen se souhlasem.",

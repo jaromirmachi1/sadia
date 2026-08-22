@@ -4,7 +4,8 @@ import { setRequestLocale } from "next-intl/server";
 import { LegalDocument } from "@/components/LegalDocument";
 import { PageShell } from "@/components/PageShell";
 import { getLegalDocument } from "@/legal/documents";
-import type { Locale } from "@/utils/routes";
+import { buildPageMetadata } from "@/seo/metadata";
+import { routeKeys, type Locale } from "@/utils/routes";
 
 type TermsPageProps = {
   params: Promise<{ locale: Locale }>;
@@ -16,10 +17,12 @@ export async function generateMetadata({
   const { locale } = await params;
   const document = getLegalDocument(locale, "terms");
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: `${document.title} | SADIA`,
     description: document.description,
-  };
+    href: routeKeys.terms,
+  });
 }
 
 export default async function TermsPage({ params }: TermsPageProps) {

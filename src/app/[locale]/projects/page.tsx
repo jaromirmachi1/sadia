@@ -7,6 +7,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
 import { getProjects } from "@/sanity/lib/fetch";
+import { buildPageMetadata } from "@/seo/metadata";
 import { routeKeys, type Locale } from "@/utils/routes";
 
 type ProjectsPageProps = {
@@ -45,10 +46,12 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Projects.metadata" });
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: t("title"),
     description: t("description"),
-  };
+    href: routeKeys.projects,
+  });
 }
 
 export default async function ProjectsPage({ params }: ProjectsPageProps) {

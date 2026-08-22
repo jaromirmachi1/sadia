@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
+import { JsonLd } from "@/components/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { AboutSection } from "@/sections/AboutSection";
@@ -13,6 +14,11 @@ import {
   getHomeStats,
   getProjects,
 } from "@/sanity/lib/fetch";
+import {
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+} from "@/seo/json-ld";
+import { buildPageMetadata } from "@/seo/metadata";
 import type { Locale } from "@/utils/routes";
 
 type HomePageProps = {
@@ -24,35 +30,13 @@ export async function generateMetadata({
 }: HomePageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Home.metadata" });
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
-  return {
+  return buildPageMetadata({
+    locale,
     title: t("title"),
     description: t("description"),
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      siteName: "SADIA",
-      type: "website",
-      locale: locale === "cs" ? "cs_CZ" : "en_GB",
-    },
-    twitter: {
-      card: "summary",
-      title: t("title"),
-      description: t("description"),
-    },
-    ...(siteUrl
-      ? {
-          alternates: {
-            canonical: new URL(locale === "cs" ? "/" : "/en", siteUrl),
-            languages: {
-              cs: new URL("/", siteUrl),
-              en: new URL("/en", siteUrl),
-            },
-          },
-        }
-      : {}),
-  };
+    href: "/",
+  });
 }
 
 export default async function HomePage({ params }: HomePageProps) {
@@ -63,18 +47,7 @@ export default async function HomePage({ params }: HomePageProps) {
     getTranslations({ locale, namespace: "Home.metadata" }),
   ]);
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "SADIA",
-    description: metadata("description"),
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Radnická 376/11",
-      addressLocality: "Brno",
-      addressCountry: "CZ",
-    },
-  };
+  const description = metadata("description");
 
   return (
     <>
@@ -88,11 +61,11 @@ export default async function HomePage({ params }: HomePageProps) {
         <CtaSection locale={locale} />
       </main>
       <SiteFooter locale={locale} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
-        }}
+      <JsonLd
+        data={[
+          buildOrganizationSchema(description),
+          buildWebSiteSchema(locale, description),
+        ]}
       />
     </>
   );

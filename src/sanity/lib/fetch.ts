@@ -28,6 +28,7 @@ import type {
   UnitSummary,
 } from "@/sanity/types";
 import { portableTextToPlainText } from "@/lib/admin-types";
+import { withPublicContact } from "@/legal/entity";
 import type { Locale } from "@/utils/routes";
 
 type SanityImageDoc = {
@@ -360,14 +361,14 @@ export async function getUnitBySlug(
 
 export async function getSiteSettings(locale: Locale): Promise<SiteSettings> {
   if (!isSanityConfigured) {
-    return getMockSiteSettings(locale);
+    return withPublicContact(getMockSiteSettings(locale));
   }
 
   const settings = await fetchFromSanity<SiteSettings>(SITE_SETTINGS_QUERY, {
     locale,
   });
 
-  return settings ?? getMockSiteSettings(locale);
+  return withPublicContact(settings ?? getMockSiteSettings(locale));
 }
 
 export async function getFeaturedProject(

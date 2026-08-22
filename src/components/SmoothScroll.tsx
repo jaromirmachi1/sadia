@@ -20,6 +20,49 @@ function scrollToTop(lenis: Lenis | null) {
   document.body.scrollTop = 0;
 }
 
+function flushScrollToTop(lenis: Lenis | null) {
+  scrollToTop(lenis);
+  requestAnimationFrame(() => {
+    scrollToTop(lenis);
+    requestAnimationFrame(() => scrollToTop(lenis));
+  });
+}
+
+function isInternalNavigationLink(anchor: HTMLAnchorElement) {
+  const href = anchor.getAttribute("href");
+  if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+    return false;
+  }
+
+  if (anchor.target === "_blank" || anchor.hasAttribute("download")) {
+    return false;
+  }
+
+  if (anchor.dataset.noScrollTop === "true") {
+    return false;
+  }
+
+  try {
+    const url = new URL(href, window.location.href);
+    if (url.origin !== window.location.origin) {
+      return false;
+    }
+
+    const current = new URL(window.location.href);
+    if (url.pathname === current.pathname && url.search === current.search && url.hash) {
+      return false;
+    }
+
+    return (
+      url.pathname !== current.pathname ||
+      url.search !== current.search ||
+      Boolean(url.hash)
+    );
+  } catch {
+    return false;
+  }
+}
+
 export function SmoothScroll({ children }: SmoothScrollProps) {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
@@ -85,8 +128,26 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
   }, []);
 
   useEffect(() => {
-    scrollToTop(lenisRef.current);
+    flushScrollToTop(lenisRef.current);
+    const retry = window.setTimeout(() => flushScrollToTop(lenisRef.current), 0);
+    return () => window.clearTimeout(retry);
   }, [pathname]);
+
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const anchor = (event.target as Element | null)?.closest("a");
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+      if (!isInternalNavigationLink(anchor)) return;
+
+      flushScrollToTop(lenisRef.current);
+    };
+
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
 
   return children;
 }

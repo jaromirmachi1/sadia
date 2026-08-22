@@ -402,6 +402,11 @@
     "cookies": "Cookies",
     "terms": "Terms of use"
   },
+  "NotFound": {
+    "title": "Page not found | SADIA",
+    "description": "The page you requested does not exist or has been moved.",
+    "heading": "Page not found"
+  },
   "Cookies": {
     "bannerTitle": "Cookies",
     "bannerBody": "We use necessary cookies to run the site. Google Analytics 4 loads only with your consent.",

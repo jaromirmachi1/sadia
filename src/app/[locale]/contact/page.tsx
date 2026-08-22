@@ -6,6 +6,7 @@ import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
 import { getSiteSettings } from "@/sanity/lib/fetch";
+import { buildPageMetadata } from "@/seo/metadata";
 import { routeKeys, type Locale } from "@/utils/routes";
 
 type ContactPageProps = {
@@ -17,7 +18,12 @@ export async function generateMetadata({
 }: ContactPageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Contact.metadata" });
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({
+    locale,
+    title: t("title"),
+    description: t("description"),
+    href: routeKeys.contact,
+  });
 }
 
 export default async function ContactPage({ params }: ContactPageProps) {

@@ -7,7 +7,8 @@ import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { UnitFilters } from "@/components/UnitFilters";
 import { getAllUnits, getUnitsByDealType } from "@/sanity/lib/fetch";
-import type { Locale } from "@/utils/routes";
+import { buildPageMetadata } from "@/seo/metadata";
+import { routeKeys, type Locale } from "@/utils/routes";
 
 type ListingPageProps = {
   params: Promise<{ locale: Locale }>;
@@ -79,7 +80,12 @@ export async function generateForSaleMetadata({
 }: ListingPageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "ForSale.metadata" });
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({
+    locale,
+    title: t("title"),
+    description: t("description"),
+    href: routeKeys.availability,
+  });
 }
 
 export async function generateForRentMetadata({
@@ -87,7 +93,12 @@ export async function generateForRentMetadata({
 }: ListingPageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "ForRent.metadata" });
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({
+    locale,
+    title: t("title"),
+    description: t("description"),
+    href: routeKeys.availability,
+  });
 }
 
 export function ForSalePage(props: ListingPageProps) {
@@ -106,7 +117,12 @@ export async function generateAvailabilityMetadata({
     locale,
     namespace: "Availability.metadata",
   });
-  return { title: t("title"), description: t("description") };
+  return buildPageMetadata({
+    locale,
+    title: t("title"),
+    description: t("description"),
+    href: routeKeys.availability,
+  });
 }
 
 export async function AvailabilityPage({ params }: ListingPageProps) {

@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
+import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import { ProjectHeroSection } from "@/components/ProjectHeroSection";
 import { ProjectLocationMap } from "@/components/ProjectLocationMap";
@@ -14,6 +15,14 @@ import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlug, getProjects, getSiteSettings } from "@/sanity/lib/fetch";
 import type { CmsImage } from "@/sanity/types";
+import {
+  buildApartmentComplexSchema,
+  buildBreadcrumbListSchema,
+  hrefForLocale,
+} from "@/seo/json-ld";
+import { buildPageMetadata } from "@/seo/metadata";
+import { resolveImageAlt, resolveOgImageUrl } from "@/seo/image";
+import { absoluteUrl } from "@/seo/site";
 import { formatPrice } from "@/utils/format";
 import { buildGoogleMapsLinkUrl } from "@/utils/maps";
 import { routeKeys, type Locale } from "@/utils/routes";
@@ -98,14 +107,16 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    title: `${project.name} | SADIA`,
-    description: project.description || project.location,
-    openGraph: {
-      title: `${project.name} | SADIA`,
-      description: project.description || project.location,
-    },
-  };
+  const title = `${project.name} | SADIA`;
+  const description = project.description || project.location;
+
+  return buildPageMetadata({
+    locale,
+    title,
+    description,
+    href: { pathname: "/projects/[slug]", params: { slug } },
+    image: project.heroImage,
+  });
 }
 
 export default async function ProjectDetailPage({
@@ -185,26 +196,29 @@ export default async function ProjectDetailPage({
     href?: string;
   }>;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ApartmentComplex",
-    name: project.name,
-    description: project.description,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: project.address,
-      addressLocality: project.location,
-      addressCountry: "CZ",
-    },
-    numberOfAvailableAccommodationUnits: availableUnits.length,
-  };
+  const jsonLd = [
+    buildApartmentComplexSchema({
+      name: project.name,
+      description: project.description,
+      address: project.address,
+      locality: project.location,
+      url: absoluteUrl(hrefForLocale(locale, {
+        pathname: "/projects/[slug]",
+        params: { slug },
+      })),
+      image: resolveOgImageUrl(project.heroImage),
+      availableUnits: availableUnits.length,
+    }),
+    buildBreadcrumbListSchema([
+      { name: nav("home"), href: routeKeys.home, locale },
+      { name: nav("projects"), href: routeKeys.projects, locale },
+      { name: project.name, locale },
+    ]),
+  ];
 
   return (
     <PageShell locale={locale} headerVariant="overlay">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       <ProjectHeroSection
         name={project.name}
@@ -293,6 +307,10 @@ export default async function ProjectDetailPage({
                     image={image}
                     fill
                     priority={index === 0}
+                    alt={resolveImageAlt(
+                      image,
+                      `${project.name} (${index + 1})`,
+                    )}
                     sizes={
                       mosaic.length === 1
                         ? "100vw"
@@ -316,6 +334,10 @@ export default async function ProjectDetailPage({
                     <CmsImageView
                       image={image}
                       fill
+                      alt={resolveImageAlt(
+                        image,
+                        `${project.name} — galerie ${index + 1}`,
+                      )}
                       sizes="(max-width: 1023px) 50vw, 33vw"
                       className="object-cover"
                     />
@@ -523,6 +545,7 @@ export default async function ProjectDetailPage({
                       <CmsImageView
                         image={item.heroImage}
                         fill
+                        alt={resolveImageAlt(item.heroImage, item.name)}
                         sizes="(max-width: 767px) 100vw, 33vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
