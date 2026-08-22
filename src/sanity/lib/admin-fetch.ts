@@ -1,6 +1,8 @@
 import "server-only";
 
 import {
+  ADMIN_NEWS_BY_ID_QUERY,
+  ADMIN_NEWS_QUERY,
   ADMIN_PROJECTS_QUERY,
   ADMIN_PROJECT_BY_ID_QUERY,
   ADMIN_STATS_QUERY,
@@ -9,6 +11,8 @@ import {
 } from "@/sanity/lib/admin-queries";
 import { assertWriteClient, isSanityWriteConfigured } from "@/sanity/lib/write-client";
 import type {
+  AdminNewsArticle,
+  AdminNewsArticleDetail,
   AdminProject,
   AdminProjectDetail,
   AdminStats,
@@ -186,11 +190,50 @@ export async function getAdminProject(
   };
 }
 
+export async function getAdminNewsArticles(): Promise<AdminNewsArticle[]> {
+  if (!isSanityWriteConfigured) {
+    return [];
+  }
+
+  return assertWriteClient().fetch<AdminNewsArticle[]>(ADMIN_NEWS_QUERY);
+}
+
+type AdminNewsRaw = Omit<AdminNewsArticleDetail, "bodyCs" | "bodyEn" | "heroImage"> & {
+  bodyCs: unknown;
+  bodyEn: unknown;
+  heroImage?: AdminImageRaw | null;
+};
+
+export async function getAdminNewsArticle(
+  id: string,
+): Promise<AdminNewsArticleDetail | null> {
+  if (!isSanityWriteConfigured) {
+    return null;
+  }
+
+  const article = await assertWriteClient().fetch<AdminNewsRaw | null>(
+    ADMIN_NEWS_BY_ID_QUERY,
+    { id },
+  );
+
+  if (!article) {
+    return null;
+  }
+
+  return {
+    ...article,
+    bodyCs: portableTextToPlainText(article.bodyCs),
+    bodyEn: portableTextToPlainText(article.bodyEn),
+    heroImage: mapRawImage(article.heroImage),
+  };
+}
+
 export async function getAdminStats(): Promise<AdminStats> {
   if (!isSanityWriteConfigured) {
     return {
       projects: 0,
       units: 0,
+      news: 0,
       available: 0,
       forSale: 0,
       forRent: 0,

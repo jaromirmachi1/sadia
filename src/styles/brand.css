@@ -1,4 +1,68 @@
 @layer utilities {
+  .sadia-eyebrow {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray;
+  }
+
+  .sadia-eyebrow-light {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-white/65;
+  }
+
+  .sadia-eyebrow-accent {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-[#4A90C0];
+  }
+
+  .sadia-section-kicker {
+    @apply font-display text-[clamp(1.25rem,1rem+0.55vw,2rem)] font-medium uppercase leading-none tracking-wider text-sadia-navy-black;
+  }
+
+  .sadia-heading-page {
+    @apply font-display text-display-md font-medium uppercase leading-[1.08] tracking-[-0.015em] text-balance text-sadia-navy-black;
+  }
+
+  .sadia-heading-section {
+    @apply font-display text-heading-lg font-medium uppercase leading-[1.12] tracking-tight text-balance text-sadia-navy-black;
+  }
+
+  .sadia-heading-subsection {
+    @apply font-display text-heading-md font-medium uppercase leading-[1.2] tracking-tight text-sadia-navy-black;
+  }
+
+  .sadia-statement {
+    @apply font-display text-[clamp(2.25rem,4.8vw,4.25rem)] font-medium uppercase leading-[1.05] tracking-[-0.025em] text-balance text-sadia-navy;
+  }
+
+  .sadia-statement-lg {
+    @apply font-display text-[clamp(2.25rem,5vw,6.25rem)] font-medium uppercase leading-[1.08] tracking-tight text-balance text-sadia-navy;
+  }
+
+  .sadia-lead {
+    @apply font-normal leading-[1.08] tracking-tight text-sadia-navy-black;
+  }
+
+  .sadia-lead-light {
+    @apply font-normal leading-[1.08] tracking-tight text-sadia-white;
+  }
+
+  .sadia-lead-lg {
+    @apply max-w-[25em] font-normal text-[clamp(1.6rem,1rem+1.2vw,3.25rem)] leading-[1.08] tracking-tight text-sadia-navy-black;
+  }
+
+  .sadia-lead-md {
+    @apply text-body-lg font-normal leading-[1.08] tracking-tight text-sadia-navy-black;
+  }
+
+  .sadia-meta {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-sadia-gray;
+  }
+
+  .sadia-link-caps {
+    @apply text-body-sm font-semibold uppercase tracking-[0.14em];
+  }
+
+  .sadia-title-content {
+    @apply font-display font-medium normal-case text-sadia-navy-black;
+  }
+
   .sadia-cut-20-end {
     --sadia-cut-run: clamp(3rem, 9vw, 9rem);
     clip-path: polygon(
@@ -61,6 +125,72 @@
 
   .sadia-underline-link:hover {
     background-size: 100% 1px;
+  }
+
+  .sadia-cta {
+    @apply inline-flex cursor-pointer items-center gap-4 text-left;
+  }
+
+  .sadia-cta-label {
+    @apply text-[0.75rem] font-medium uppercase tracking-[0.16em];
+  }
+
+  .sadia-cta-mark {
+    @apply grid size-12 shrink-0 place-items-center rounded-full text-[0.95rem] leading-none transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)];
+  }
+
+  .sadia-cta:hover .sadia-cta-mark,
+  .sadia-cta:focus-visible .sadia-cta-mark {
+    transform: rotate(45deg);
+  }
+
+  .sadia-cta-primary .sadia-cta-label {
+    @apply text-sadia-navy-black;
+  }
+
+  .sadia-cta-primary .sadia-cta-mark {
+    @apply bg-sadia-navy-black text-sadia-white;
+  }
+
+  .sadia-cta-inverse .sadia-cta-label {
+    @apply text-sadia-white;
+  }
+
+  .sadia-cta-inverse .sadia-cta-mark {
+    @apply bg-sadia-white text-sadia-navy-black;
+  }
+
+  .sadia-cta-ghost .sadia-cta-label {
+    @apply text-sadia-navy-black;
+  }
+
+  .sadia-cta-ghost .sadia-cta-mark {
+    @apply border border-sadia-navy-black/20 text-sadia-navy-black;
+  }
+
+  .sadia-cta-on-dark.sadia-cta-ghost .sadia-cta-label {
+    @apply text-sadia-white/80;
+  }
+
+  .sadia-cta-on-dark.sadia-cta-ghost .sadia-cta-mark {
+    @apply border-sadia-white/30 text-sadia-white;
+  }
+
+  .sadia-cta-on-dark:focus-visible {
+    @apply outline-sadia-white;
+  }
+
+  .sadia-cta:hover .sadia-cta-label,
+  .sadia-cta:focus-visible .sadia-cta-label {
+    @apply opacity-70;
+  }
+
+  .sadia-cta:focus-visible {
+    @apply outline-2 outline-offset-4 outline-sadia-navy-black;
+  }
+
+  .sadia-cta-inverse:focus-visible {
+    @apply outline-sadia-white;
   }
 }
 

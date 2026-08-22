@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 
 import {
+  getAdminNewsArticles,
   getAdminProjects,
   getAdminStats,
   getAdminUnits,
@@ -17,14 +18,16 @@ import {
 import { getAdminT } from "@/lib/admin-locale";
 
 export default async function AdminDashboardPage() {
-  const [{ t }, stats, units, projects] = await Promise.all([
+  const [{ t }, stats, units, projects, newsArticles] = await Promise.all([
     getAdminT(),
     getAdminStats(),
     getAdminUnits(),
     getAdminProjects(),
+    getAdminNewsArticles(),
   ]);
 
   const recentUnits = units.slice(0, 5);
+  const recentNews = newsArticles.slice(0, 5);
 
   return (
     <div className="space-y-8">
@@ -43,10 +46,11 @@ export default async function AdminDashboardPage() {
         </Link>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
         {[
           { label: t("dashboard.projects"), value: stats.projects },
           { label: t("dashboard.units"), value: stats.units },
+          { label: t("dashboard.news"), value: stats.news },
           { label: t("dashboard.available"), value: stats.available },
           { label: t("dashboard.forSale"), value: stats.forSale },
           { label: t("dashboard.forRent"), value: stats.forRent },
@@ -60,7 +64,7 @@ export default async function AdminDashboardPage() {
         ))}
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div className="grid gap-6 xl:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle>{t("dashboard.recentUnits")}</CardTitle>
@@ -113,6 +117,31 @@ export default async function AdminDashboardPage() {
                     {t("dashboard.unitsCount", { count: project.unitCount })}
                   </span>
                 </div>
+              ))
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{t("dashboard.recentNews")}</CardTitle>
+            <CardDescription>{t("dashboard.recentNewsDescription")}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {recentNews.length === 0 ? (
+              <p className="text-sm text-muted-foreground">{t("dashboard.noNews")}</p>
+            ) : (
+              recentNews.map((article) => (
+                <Link
+                  key={article._id}
+                  href={`/admin/news/${article._id}`}
+                  className="block rounded-lg border border-border px-4 py-3 transition-colors hover:bg-accent"
+                >
+                  <p className="font-medium">{article.title}</p>
+                  <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+                    {article.excerpt}
+                  </p>
+                </Link>
               ))
             )}
           </CardContent>

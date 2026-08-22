@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Container } from "@/components/Container";
+import { CtaLink } from "@/components/CtaLink";
 import { PageShell } from "@/components/PageShell";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
-import { Link } from "@/i18n/navigation";
 import { getProjects } from "@/sanity/lib/fetch";
 import { buildPageMetadata } from "@/seo/metadata";
 import { routeKeys, type Locale } from "@/utils/routes";
@@ -69,26 +69,18 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
         <Container>
           <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-x-10">
             <Reveal className="lg:col-span-7">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
-                {t("eyebrow")}
-              </p>
-              <h1 className="mt-5 max-w-[14ch] text-display-md font-medium text-balance text-sadia-navy-black">
-                {t("title")}
-              </h1>
+              <p className="sadia-eyebrow">{t("eyebrow")}</p>
+              <h1 className="sadia-heading-page mt-5 max-w-[14ch]">{t("title")}</h1>
             </Reveal>
 
             <Reveal delay={0.08} className="lg:col-span-5">
-              <p className="max-w-md text-body-lg leading-relaxed text-sadia-gray">
-                {t("description")}
-              </p>
+              <p className="sadia-lead-md max-w-md">{t("description")}</p>
               {projects.length > 0 ? (
                 <p className="mt-8 flex items-baseline gap-3">
                   <span className="font-display text-heading-lg font-medium tabular-nums text-sadia-navy-black">
                     {String(projects.length).padStart(2, "0")}
                   </span>
-                  <span className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-sadia-gray">
-                    {t("countLabel")}
-                  </span>
+                  <span className="sadia-meta">{t("countLabel")}</span>
                 </p>
               ) : null}
             </Reveal>
@@ -123,23 +115,12 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
         <Container>
           <Reveal className="grid items-end gap-8 lg:grid-cols-12 lg:gap-x-10">
             <div className="lg:col-span-7">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
-                {t("ctaEyebrow")}
-              </p>
-              <h2 className="mt-4 max-w-[14ch] text-heading-lg font-medium text-balance text-sadia-navy-black">
-                {t("ctaTitle")}
-              </h2>
-              <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-gray">
-                {t("ctaDescription")}
-              </p>
+              <p className="sadia-eyebrow">{t("ctaEyebrow")}</p>
+              <h2 className="sadia-heading-section mt-4 max-w-[14ch]">{t("ctaTitle")}</h2>
+              <p className="sadia-lead-md mt-5 max-w-md">{t("ctaDescription")}</p>
             </div>
             <div className="lg:col-span-5 lg:justify-self-end">
-              <Link
-                href={routeKeys.weBuy}
-                className="inline-flex min-h-12 items-center justify-center bg-sadia-navy-black px-7 text-body-sm font-semibold text-sadia-white transition-opacity hover:opacity-90"
-              >
-                {t("cta")}
-              </Link>
+              <CtaLink href={routeKeys.weBuy}>{t("cta")}</CtaLink>
             </div>
           </Reveal>
         </Container>

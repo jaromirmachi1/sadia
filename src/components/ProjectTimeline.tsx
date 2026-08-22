@@ -65,9 +65,7 @@ function TimelinePath({ vertical = false }: { vertical?: boolean }) {
 export function ProjectTimeline({ heading, items }: ProjectTimelineProps) {
   return (
     <Reveal>
-      <h2 className="text-heading-lg font-medium text-sadia-navy-black">
-        {heading}
-      </h2>
+      <h2 className="sadia-heading-section">{heading}</h2>
 
       <ol className="mt-12 flex flex-col gap-10 md:mt-16 md:flex-row md:items-start md:gap-0">
         {items.map((item, index) => {

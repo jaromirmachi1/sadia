@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
+import { CtaLink } from "@/components/CtaLink";
 import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
@@ -265,12 +266,7 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
                   </dl>
 
                   <div className="mt-8 space-y-3">
-                    <Link
-                      href={routeKeys.contact}
-                      className="inline-flex min-h-12 w-full items-center justify-center bg-sadia-navy-black px-6 text-body-sm font-semibold text-sadia-white transition-opacity hover:opacity-90"
-                    >
-                      {t("inquire")}
-                    </Link>
+                    <CtaLink href={routeKeys.contact}>{t("inquire")}</CtaLink>
                     <p className="text-body-sm text-sadia-gray">
                       {t("inquireHint")}
                     </p>

@@ -112,9 +112,7 @@ function StatCard({
           >
             <AnimatedValue value={item.value} locale={locale} />
           </p>
-          <p className="mt-4 text-body-sm font-medium uppercase tracking-[0.14em] text-sadia-gray">
-            {item.label}
-          </p>
+          <p className="sadia-meta mt-4">{item.label}</p>
         </div>
       </div>
     </motion.article>

@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { CtaButton } from "@/components/CtaLink";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { routeKeys } from "@/utils/routes";
@@ -258,12 +259,9 @@ export function WeBuyForm() {
         aria-hidden="true"
       />
 
-      <button
-        type="submit"
-        className="mt-10 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-sadia-navy-black px-8 text-body-sm font-semibold text-sadia-white transition-opacity hover:opacity-90 sm:w-auto"
-      >
+      <CtaButton type="submit" className="mt-10">
         {t("submit")}
-      </button>
+      </CtaButton>
     </form>
   );
 }

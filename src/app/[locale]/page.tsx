@@ -9,11 +9,7 @@ import { BrandStatementSection } from "@/sections/BrandStatementSection";
 import { CtaSection } from "@/sections/CtaSection";
 import { HeroSection } from "@/sections/HeroSection";
 import { ProjectsStackSection } from "@/sections/ProjectsStackSection";
-import { StatsSection } from "@/sections/StatsSection";
-import {
-  getHomeStats,
-  getProjects,
-} from "@/sanity/lib/fetch";
+import { getProjects } from "@/sanity/lib/fetch";
 import {
   buildOrganizationSchema,
   buildWebSiteSchema,
@@ -41,8 +37,7 @@ export async function generateMetadata({
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
-  const [stats, projects, metadata] = await Promise.all([
-    getHomeStats(locale),
+  const [projects, metadata] = await Promise.all([
     getProjects(locale),
     getTranslations({ locale, namespace: "Home.metadata" }),
   ]);
@@ -55,7 +50,6 @@ export default async function HomePage({ params }: HomePageProps) {
       <main>
         <HeroSection locale={locale} />
         <AboutSection />
-        <StatsSection locale={locale} stats={stats} />
         <ProjectsStackSection locale={locale} projects={projects} />
         <BrandStatementSection />
         <CtaSection locale={locale} />

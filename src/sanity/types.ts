@@ -127,3 +127,30 @@ export type SiteSettings = {
   email: string;
   phone: string;
 };
+
+export type NewsSummary = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  heroImage: CmsImage;
+};
+
+export type NewsDetail = NewsSummary & {
+  body: unknown;
+  bodyPlain: string;
+  relatedProject?: {
+    _id: string;
+    name: string;
+    slug: string;
+  };
+};
+
+export type NewsPage = {
+  articles: NewsSummary[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Container } from "@/components/Container";
+import { CtaAnchor } from "@/components/CtaLink";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { WeBuyForm } from "@/components/WeBuyForm";
@@ -26,11 +27,7 @@ const lookingKeys = [
 const whyKeys = ["capital", "direct", "history", "potential"] as const;
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
-      {children}
-    </p>
-  );
+  return <p className="sadia-eyebrow">{children}</p>;
 }
 
 export async function generateMetadata({
@@ -63,24 +60,11 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-x-10">
             <Reveal className="lg:col-span-6">
               <SectionEyebrow>{t("eyebrow")}</SectionEyebrow>
-              <h1 className="mt-6 max-w-[12ch] text-display-md font-medium text-balance text-sadia-navy-black">
-                {t("title")}
-              </h1>
-              <p className="mt-6 max-w-lg text-body-lg leading-relaxed text-sadia-gray">
-                {t("description")}
-              </p>
-              <a
-                href="#offer"
-                className="group mt-10 inline-flex items-center gap-3 text-body-sm font-semibold uppercase tracking-[0.14em] text-sadia-navy-black transition-opacity hover:opacity-70"
-              >
+              <h1 className="sadia-heading-page mt-6 max-w-[12ch]">{t("title")}</h1>
+              <p className="sadia-lead-md mt-6 max-w-lg">{t("description")}</p>
+              <CtaAnchor href="#offer" className="mt-10">
                 {t("cta")}
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </a>
+              </CtaAnchor>
             </Reveal>
 
             <Reveal delay={0.08} className="lg:col-span-6">
@@ -104,7 +88,7 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
             <Reveal className="lg:col-span-4">
               <SectionEyebrow>01</SectionEyebrow>
-              <h2 className="mt-4 max-w-[10ch] text-heading-lg font-medium text-sadia-navy-black">
+              <h2 className="sadia-heading-section mt-4 max-w-[10ch]">
                 {t("lookingTitle")}
               </h2>
               <p className="mt-5 max-w-sm text-body-lg leading-relaxed text-sadia-gray">
@@ -136,7 +120,7 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
             <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10 lg:items-start">
               <Reveal className="lg:col-span-4">
                 <SectionEyebrow>{t("formEyebrow")}</SectionEyebrow>
-                <h2 className="mt-4 max-w-[12ch] text-heading-lg font-medium text-sadia-navy-black">
+                <h2 className="sadia-heading-section mt-4 max-w-[12ch]">
                   {t("formTitle")}
                 </h2>
                 <p className="mt-5 max-w-sm text-body-lg leading-relaxed text-sadia-gray">
@@ -182,7 +166,7 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-10">
             <Reveal className="lg:col-span-5">
               <SectionEyebrow>02</SectionEyebrow>
-              <h2 className="mt-4 max-w-[14ch] text-display-md font-medium text-sadia-navy-black">
+              <h2 className="sadia-heading-page mt-4 max-w-[14ch]">
                 {t("whyTitle")}
               </h2>
               <p className="mt-6 max-w-md text-body-lg leading-relaxed text-sadia-gray">
@@ -217,7 +201,7 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
             <SectionEyebrow>
               <span className="text-sadia-white/40">03</span>
             </SectionEyebrow>
-            <h2 className="mt-6 max-w-[16ch] text-display-md font-medium text-balance">
+            <h2 className="sadia-heading-page mt-6 max-w-[16ch]">
               {t("statementTitle")}
             </h2>
             <p className="mt-8 max-w-2xl text-body-lg leading-relaxed text-sadia-white/55">

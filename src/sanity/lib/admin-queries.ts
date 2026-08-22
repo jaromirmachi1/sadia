@@ -145,8 +145,46 @@ export const ADMIN_STATS_QUERY = `
   {
     "projects": count(*[_type == "project"]),
     "units": count(*[_type == "unit"]),
+    "news": count(*[_type == "newsArticle"]),
     "available": count(*[_type == "unit" && status == "available"]),
     "forSale": count(*[_type == "unit" && dealType == "sale"]),
     "forRent": count(*[_type == "unit" && dealType == "rent"])
+  }
+`;
+
+export const ADMIN_NEWS_QUERY = `
+  *[_type == "newsArticle"] | order(publishedAt desc) {
+    _id,
+    "title": coalesce(title.cs, title.en),
+    "slug": slug.current,
+    "excerpt": coalesce(excerpt.cs, excerpt.en),
+    publishedAt,
+    "relatedProjectName": coalesce(relatedProject->name.cs, relatedProject->name.en)
+  }
+`;
+
+export const ADMIN_NEWS_BY_ID_QUERY = `
+  *[_type == "newsArticle" && _id == $id][0] {
+    _id,
+    "title": coalesce(title.cs, title.en),
+    "titleCs": title.cs,
+    "titleEn": title.en,
+    "slug": slug.current,
+    "excerpt": coalesce(excerpt.cs, excerpt.en),
+    "excerptCs": excerpt.cs,
+    "excerptEn": excerpt.en,
+    "bodyCs": body.cs,
+    "bodyEn": body.en,
+    publishedAt,
+    "relatedProjectId": relatedProject._ref,
+    "relatedProjectName": coalesce(relatedProject->name.cs, relatedProject->name.en),
+    heroImage {
+      _key,
+      alt,
+      asset->{
+        _id,
+        url
+      }
+    }
   }
 `;

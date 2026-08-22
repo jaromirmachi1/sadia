@@ -162,3 +162,33 @@ export function buildRealEstateListingSchema(input: {
     },
   };
 }
+
+export function buildNewsArticleSchema(input: {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  publishedAt: string;
+  locale: Locale;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: input.title,
+    description: input.description,
+    url: input.url,
+    datePublished: input.publishedAt,
+    inLanguage: input.locale === "cs" ? "cs-CZ" : "en-GB",
+    ...(input.image ? { image: input.image } : {}),
+    author: {
+      "@type": "Organization",
+      name: siteName,
+      url: absoluteUrl("/"),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+      url: absoluteUrl("/"),
+    },
+  };
+}

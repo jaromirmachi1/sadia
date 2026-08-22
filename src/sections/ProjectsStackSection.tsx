@@ -2,11 +2,13 @@ import { getTranslations } from "next-intl/server";
 
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
+import { CtaLink } from "@/components/CtaLink";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
 import { resolveImageAlt } from "@/seo/image";
 import type { ProjectSummary } from "@/sanity/types";
 import { routeKeys, type Locale } from "@/utils/routes";
+import { cn } from "@/lib/utils";
 
 type ProjectsStackSectionProps = {
   locale: Locale;
@@ -39,34 +41,32 @@ export async function ProjectsStackSection({
       aria-labelledby="home-projects-title"
       className="relative bg-sadia-white text-sadia-navy-black"
     >
-      <Container className="pb-[clamp(7rem,13vw,15rem)]">
-        <div className="grid gap-12 border-t border-sadia-gray-light pt-8 md:grid-cols-12 md:gap-x-10">
-          <Reveal className="md:col-span-5">
-            <p className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
-              02
-            </p>
-            <h2
-              id="home-projects-title"
-              className="max-w-[10ch] font-display text-[clamp(2.75rem,6vw,7rem)] font-medium uppercase leading-[0.9] tracking-[-0.035em]"
-            >
-              {t("title")}
-            </h2>
-          </Reveal>
+      <Container className="pb-[clamp(4rem,8vw,10rem)] pt-8 md:pt-10">
+        <div className="h-px w-full bg-sadia-gray-light" />
 
-          <Reveal
-            className="flex flex-col justify-between gap-10 md:col-span-5 md:col-start-8"
-            delay={0.08}
-          >
-            <p className="max-w-[31em] text-body-lg text-sadia-gray">
-              {t("description")}
-            </p>
-            <Link
-              href={routeKeys.projects}
-              className="sadia-underline-link w-fit pb-1 text-[0.75rem] font-medium uppercase tracking-[0.16em]"
-            >
-              {t("allProjects")}
-            </Link>
-          </Reveal>
+        <div className="grid gap-14 pt-8 md:grid-cols-12 md:gap-x-10 md:pt-10">
+          <header className="md:col-span-4">
+            <Reveal>
+              <div className="flex items-center gap-4">
+                <span
+                  aria-hidden="true"
+                  className="h-8 w-2 skew-x-[-20deg] bg-sadia-navy-black"
+                />
+                <div>
+                  <p className="sadia-eyebrow mb-1">02</p>
+                  <h2 id="home-projects-title" className="sadia-section-kicker">
+                    {t("title")}
+                  </h2>
+                </div>
+              </div>
+            </Reveal>
+          </header>
+
+          <div className="md:col-span-7 md:col-start-6">
+            <Reveal delay={0.08}>
+              <p className="sadia-lead-lg">{t("description")}</p>
+            </Reveal>
+          </div>
         </div>
       </Container>
 
@@ -77,7 +77,12 @@ export async function ProjectsStackSection({
             className="relative bg-sadia-white md:sticky md:top-[var(--sadia-header-height)] md:h-[calc(100svh-var(--sadia-header-height))]"
             style={{ zIndex: index + 1 }}
           >
-            <Container className="flex min-h-[82svh] flex-col border-t border-sadia-gray-light pb-gutter pt-5 md:h-full md:min-h-0">
+            <Container
+              className={cn(
+                "flex min-h-[82svh] flex-col pb-gutter pt-5 md:h-full md:min-h-0",
+                index > 0 && "border-t border-sadia-gray-light",
+              )}
+            >
               <div className="grid grid-cols-[2.5rem_1fr_auto] items-center gap-x-4 gap-y-2 pb-5 text-[0.6875rem] font-medium uppercase tracking-[0.08em] md:grid-cols-[4rem_1.5fr_0.8fr_0.8fr_auto] md:gap-x-8">
                 <p className="text-sadia-gray">
                   {String(index + 1).padStart(2, "0")}
@@ -138,6 +143,12 @@ export async function ProjectsStackSection({
           </article>
         ))}
       </div>
+
+      <Container className="border-t border-sadia-gray-light pb-[clamp(4rem,8vw,10rem)] pt-8 md:pt-10">
+        <Reveal className="flex justify-end" delay={0.08}>
+          <CtaLink href={routeKeys.projects}>{t("allProjects")}</CtaLink>
+        </Reveal>
+      </Container>
     </section>
   );
 }

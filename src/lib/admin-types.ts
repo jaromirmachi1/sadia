@@ -137,9 +137,44 @@ export type ProjectFormValues = {
 export type AdminStats = {
   projects: number;
   units: number;
+  news: number;
   available: number;
   forSale: number;
   forRent: number;
+};
+
+export type AdminNewsArticle = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  relatedProjectName?: string;
+};
+
+export type AdminNewsArticleDetail = AdminNewsArticle & {
+  titleCs: string;
+  titleEn: string;
+  excerptCs: string;
+  excerptEn: string;
+  bodyCs: string;
+  bodyEn: string;
+  relatedProjectId?: string;
+  heroImage?: AdminProjectImage | null;
+};
+
+export type NewsFormValues = {
+  titleCs: string;
+  titleEn: string;
+  slug: string;
+  excerptCs: string;
+  excerptEn: string;
+  bodyCs: string;
+  bodyEn: string;
+  publishedAt: string;
+  relatedProjectId?: string;
+  heroAltCs: string;
+  heroAltEn: string;
 };
 
 export type UnitFormValues = {
@@ -212,6 +247,22 @@ export function slugifyIdentifier(identifier: string) {
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+export function toDatetimeLocalValue(iso?: string) {
+  if (!iso) {
+    return "";
+  }
+
+  const date = new Date(iso);
+
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
+
+  const pad = (value: number) => String(value).padStart(2, "0");
+
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
 export function splitLines(value: string) {

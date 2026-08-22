@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Container } from "@/components/Container";
+import { CtaButton } from "@/components/CtaLink";
 import { PageShell } from "@/components/PageShell";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
@@ -41,12 +42,10 @@ export default async function ContactPage({ params }: ContactPageProps) {
         <Container>
           <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal>
-              <p className="text-body-sm font-medium uppercase tracking-[0.18em] text-sadia-gray">
-                {t("eyebrow")}
-              </p>
-              <h1 className="mt-4 max-w-[12ch] text-display-md font-medium text-sadia-navy">
-                {t("title")}
-              </h1>
+            <p className="sadia-eyebrow">{t("eyebrow")}</p>
+            <h1 className="sadia-heading-page mt-4 max-w-[12ch] text-sadia-navy">
+              {t("title")}
+            </h1>
               <p className="mt-6 max-w-md text-body-lg text-sadia-gray">
                 {t("description")}
               </p>
@@ -146,12 +145,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
                   className="hidden"
                   aria-hidden="true"
                 />
-                <button
-                  type="submit"
-                  className="inline-flex min-h-12 items-center justify-center bg-sadia-navy-black px-7 text-body-sm font-semibold text-sadia-white transition-opacity hover:opacity-90"
-                >
-                  {t("submit")}
-                </button>
+                <CtaButton type="submit">{t("submit")}</CtaButton>
               </form>
             </Reveal>
           </div>

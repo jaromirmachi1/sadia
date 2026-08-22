@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { CtaButton } from "@/components/CtaLink";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { routeKeys } from "@/utils/routes";
@@ -90,12 +91,9 @@ export function ProjectInquiryForm({ projectName }: ProjectInquiryFormProps) {
           ),
         })}
       </p>
-      <button
-        type="submit"
-        className="mt-2 inline-flex min-h-12 items-center justify-center bg-sadia-navy-black px-7 text-body-sm font-semibold text-sadia-white transition-opacity hover:opacity-90"
-      >
+      <CtaButton type="submit" className="mt-2">
         {t("submit")}
-      </button>
+      </CtaButton>
     </form>
   );
 }

@@ -353,10 +353,10 @@ export default async function ProjectDetailPage({
         <Container>
           <Reveal className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
+              <p className="sadia-eyebrow">
                 {t("unitsCount", { count: project.units.length })}
               </p>
-              <h2 className="mt-3 text-heading-lg font-medium text-sadia-navy-black">
+              <h2 className="sadia-heading-section mt-3">
                 {t("units")}
               </h2>
             </div>
@@ -380,7 +380,7 @@ export default async function ProjectDetailPage({
         <section className="bg-sadia-white py-section-sm">
           <Container>
             <Reveal>
-              <h2 className="text-heading-lg font-medium text-sadia-navy-black">
+              <h2 className="sadia-heading-section">
                 {t("downloads")}
               </h2>
               <ul className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -415,10 +415,10 @@ export default async function ProjectDetailPage({
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:items-stretch lg:gap-x-10">
             <Reveal className="lg:col-span-5">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
+              <p className="sadia-eyebrow">
                 {t("map")}
               </p>
-              <h2 className="mt-4 max-w-[12ch] text-heading-lg font-medium text-sadia-navy-black">
+              <h2 className="sadia-heading-section mt-4 max-w-[12ch]">
                 {t("locationTitle")}
               </h2>
               <div className="mt-6 max-w-md space-y-4 text-body-lg leading-relaxed text-sadia-gray">
@@ -476,10 +476,10 @@ export default async function ProjectDetailPage({
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10 lg:items-start">
             <Reveal className="lg:col-span-5">
-              <p className="text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-sadia-gray">
+              <p className="sadia-eyebrow">
                 {t("inquiryEyebrow")}
               </p>
-              <h2 className="mt-4 max-w-[14ch] text-heading-lg font-medium text-sadia-navy-black">
+              <h2 className="sadia-heading-section mt-4 max-w-[14ch]">
                 {t("inquiryTitle")}
               </h2>
               <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-gray">
@@ -521,9 +521,7 @@ export default async function ProjectDetailPage({
         <section className="bg-muted/50 py-section-sm">
           <Container>
             <Reveal className="flex items-end justify-between gap-4">
-              <h2 className="text-heading-lg font-medium text-sadia-navy-black">
-                {t("related")}
-              </h2>
+              <h2 className="sadia-heading-section">{t("related")}</h2>
               <Link
                 href={routeKeys.projects}
                 className="sadia-underline-link pb-1 text-body-sm font-semibold uppercase tracking-[0.14em]"

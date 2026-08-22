@@ -11,15 +11,9 @@ export function LegalDocument({ document, children }: LegalDocumentProps) {
     <article className="bg-sadia-white pb-section-lg pt-16">
       <Container>
         <header className="max-w-3xl">
-          <p className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-sadia-gray">
-            {document.law}
-          </p>
-          <h1 className="mt-5 text-display-md font-medium text-balance text-sadia-navy-black">
-            {document.title}
-          </h1>
-          <p className="mt-6 max-w-2xl text-body-lg leading-relaxed text-sadia-gray">
-            {document.description}
-          </p>
+          <p className="sadia-eyebrow">{document.law}</p>
+          <h1 className="sadia-heading-page mt-5 max-w-3xl">{document.title}</h1>
+          <p className="sadia-lead-md mt-6 max-w-2xl">{document.description}</p>
           <p className="mt-4 text-body-sm text-sadia-gray">
             {document.updated}
           </p>
@@ -28,9 +22,7 @@ export function LegalDocument({ document, children }: LegalDocumentProps) {
         <div className="mt-14 max-w-3xl space-y-12">
           {document.sections.map((section) => (
             <section key={section.heading}>
-              <h2 className="text-heading-md font-medium text-sadia-navy-black">
-                {section.heading}
-              </h2>
+              <h2 className="sadia-heading-subsection">{section.heading}</h2>
               {section.paragraphs?.map((paragraph) => (
                 <p
                   key={paragraph}

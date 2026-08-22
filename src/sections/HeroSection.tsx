@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { Container } from "@/components/Container";
 import { HeroMotion } from "@/components/HeroMotion";
-import koblizna from "@/images/koblizna.jpg";
+import heroImage from "@/images/byt_koblizna_said_15_1.webp";
 import type { Locale } from "@/utils/routes";
 
 type HeroSectionProps = {
@@ -22,7 +22,7 @@ export async function HeroSection({ locale }: HeroSectionProps) {
     >
       <div className="absolute inset-0" data-hero-media>
         <Image
-          src={koblizna}
+          src={heroImage}
           alt={t("imageAlt")}
           fill
           priority
@@ -38,19 +38,17 @@ export async function HeroSection({ locale }: HeroSectionProps) {
         <HeroMotion>
           <div className="grid w-full gap-8 border-t border-sadia-white/25 pt-6 md:grid-cols-12 md:items-end md:gap-x-10">
             <div className="md:col-span-8">
-              <p className="mb-5 text-[0.6875rem] font-medium uppercase tracking-[0.22em] text-sadia-white/65">
-                {t("eyebrow")}
-              </p>
+              <p className="sadia-eyebrow-light mb-5">{t("eyebrow")}</p>
               <h1
                 id="home-hero-title"
-                className="max-w-[16ch] font-display text-[clamp(2.25rem,4.8vw,4.25rem)] font-medium leading-[1.05] tracking-[-0.025em] text-balance text-sadia-white"
+                className="max-w-[16ch] font-display text-[clamp(2.25rem,4.8vw,4.25rem)] font-medium uppercase leading-[1.05] tracking-[-0.025em] text-balance text-sadia-white"
               >
                 {t("title")}
               </h1>
             </div>
 
             <div className="flex items-end justify-between gap-8 md:col-span-4 md:block">
-              <p className="max-w-sm text-body-base leading-relaxed text-sadia-white/70">
+              <p className="sadia-lead-light max-w-md text-body-lg">
                 {t("description")}
               </p>
               <a

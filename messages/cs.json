@@ -2,6 +2,7 @@
   "Navigation": {
     "home": "Domů",
     "projects": "Projekty",
+    "news": "Aktuality",
     "sale": "Prodej",
     "rent": "Pronájem",
     "availability": "Nabídka",
@@ -110,6 +111,25 @@
     "ctaTitle": "Máte dům s příběhem?",
     "ctaDescription": "Hledáme nemovitosti s charakterem v Brně a okolí. Napište nám — ozveme se s konkrétním návrhem.",
     "cta": "Nabídnout nemovitost"
+  },
+  "News": {
+    "metadata": {
+      "title": "Aktuality | SADIA",
+      "description": "Novinky ze SADIA — průběh projektů, dokončení a dění kolem našich adres v Brně."
+    },
+    "eyebrow": "Aktuality",
+    "title": "Realitní novinky",
+    "description": "Průběh projektů, dokončení a novinky ze SADIA. Sledujte, co se děje u našich adres v Brně.",
+    "readMore": "Zjistit více",
+    "empty": "Zatím zde nejsou žádné aktuality.",
+    "pagination": "Strana {current} z {total}",
+    "previous": "Předchozí",
+    "next": "Další"
+  },
+  "NewsDetail": {
+    "breadcrumbsLabel": "Drobečková navigace",
+    "relatedProject": "Související projekt",
+    "backToNews": "Zpět na aktuality"
   },
   "ProjectDetail": {
     "about": "O projektu",
@@ -272,15 +292,54 @@
       "title": "O společnosti | SADIA",
       "description": "SADIA hledá adresy s příběhem a mění přehlížené v žádané."
     },
-    "eyebrow": "O společnosti",
-    "title": "Vidíme budoucnost v místech, která ji potřebují.",
+    "eyebrow": "SADIA",
+    "title": "Stavíme s rozvahou.",
+    "lead": "Investiční a developerská společnost zaměřená na akvizice, rekonstrukce a rozvoj rezidenčních i komerčních nemovitostí.",
+    "scrollLabel": "posunout dolů",
+    "heroImageAlt": "Fasáda městského domu SADIA v Brně",
+    "approachEyebrow": "01",
     "approachTitle": "Náš přístup",
-    "p1": "Nestavíme na okraji města. Hledáme adresy s příběhem a lokality, které potřebují někoho, kdo v nich uvidí budoucnost.",
-    "p2": "Rozbité měníme v hodnotné. Přehlížené v žádané. Každý dům nejdřív posloucháme — zachováváme to, co má smysl, a doplňujeme to, co mu dovolí znovu dobře sloužit lidem i městu.",
-    "p3": "SADIA je mladší developerský tým s důrazem na kvalitu místa, pečlivou rekonstrukci a bydlení, které se drží centra.",
+    "chapters": {
+      "place": {
+        "label": "Adresa",
+        "text": "Nestavíme na okraji města. Hledáme adresy s příběhem a lokality, které potřebují někoho, kdo v nich uvidí budoucnost."
+      },
+      "craft": {
+        "label": "Rekonstrukce",
+        "text": "Rozbité měníme v hodnotné. Přehlížené v žádané. Každý dům nejdřív posloucháme — zachováváme to, co má smysl, a doplňujeme to, co mu dovolí znovu dobře sloužit lidem i městu."
+      },
+      "team": {
+        "label": "Tým",
+        "text": "SADIA je mladší developerský tým s důrazem na kvalitu místa, pečlivou rekonstrukci a bydlení, které se drží centra."
+      }
+    },
+    "principlesEyebrow": "02",
+    "principlesTitle": "Čím se řídíme",
+    "principles": {
+      "place": {
+        "title": "Místo",
+        "text": "Každý projekt začíná adresou a jejím charakterem — ne tabulkou."
+      },
+      "craft": {
+        "title": "Řemeslo",
+        "text": "Zachováváme to, co má hodnotu, a doplňujeme současný standard."
+      },
+      "centre": {
+        "title": "Centrum",
+        "text": "Stavíme bydlení, ze kterého nemusíte nikam dojíždět."
+      },
+      "time": {
+        "title": "Čas",
+        "text": "Budujeme hodnotu, která má zůstat dalším generacím."
+      }
+    },
+    "statementLabel": "Naše vize",
+    "statement": "Budujeme hodnotu pro další generace.",
+    "location": "Brno · Česká republika",
     "ctaTitle": "Chcete vědět víc?",
     "ctaDescription": "Napište nám, nebo si prohlédněte aktuální nabídku bytů.",
-    "cta": "Kontaktovat"
+    "cta": "Kontaktovat",
+    "availabilityCta": "Nabídka bytů"
   },
   "WeBuy": {
     "metadata": {
@@ -423,13 +482,15 @@
       "projects": "Projekty",
       "addProject": "Přidat projekt",
       "addUnit": "Přidat jednotku",
+      "news": "Novinky",
+      "addNews": "Přidat novinku",
       "signOut": "Odhlásit se",
       "studio": "Otevřít Sanity Studio",
       "brand": "Administrace"
     },
     "login": {
       "title": "SADIA Administrace",
-      "description": "Přihlaste se pro správu jednotek, projektů a nabídky.",
+      "description": "Přihlaste se pro správu jednotek, projektů, novinek a nabídky.",
       "password": "Heslo",
       "signIn": "Přihlásit se",
       "missingPassword": "Nastavte <name>ADMIN_PASSWORD</name> v prostředí, aby šel dashboard použít."
@@ -440,6 +501,7 @@
       "title": "Přehled obsahu",
       "projects": "Projekty",
       "units": "Jednotky",
+      "news": "Novinky",
       "available": "Volné",
       "forSale": "Prodej",
       "forRent": "Pronájem",
@@ -449,7 +511,53 @@
       "projectsCard": "Projekty",
       "projectsCardDescription": "Developmenty propojené s jednotkami.",
       "noProjects": "Zatím žádné projekty.",
+      "recentNews": "Poslední novinky",
+      "recentNewsDescription": "Nejnovější články v sekci Aktuality.",
+      "noNews": "Zatím žádné novinky.",
       "unitsCount": "{count, plural, one {# jednotka} few {# jednotky} other {# jednotek}}"
+    },
+    "newsPage": {
+      "eyebrow": "Novinky",
+      "title": "Aktuality",
+      "description": "Přidávejte, upravujte a mažte novinky zobrazené na webu v sekci Aktuality.",
+      "empty": "Zatím žádné novinky. Vytvořte první článek.",
+      "columns": {
+        "title": "Nadpis",
+        "publishedAt": "Publikováno",
+        "project": "Projekt",
+        "slug": "Slug",
+        "actions": "Akce"
+      }
+    },
+    "newsForm": {
+      "newTitle": "Přidat novinku",
+      "editTitle": "Upravit {name}",
+      "details": "Údaje o novince",
+      "newDescription": "Vyplňte text novinky v obou jazycích a nahrajte úvodní foto.",
+      "editDescription": "Slug: {slug}",
+      "create": "Vytvořit novinku",
+      "save": "Uložit změny",
+      "saving": "Ukládám…",
+      "updated": "Novinka byla uložena.",
+      "error": "Něco se pokazilo.",
+      "titleCs": "Nadpis (česky)",
+      "titleEn": "Nadpis (anglicky)",
+      "slug": "Slug",
+      "slugHint": "Nechte prázdné — vygeneruje se z českého nadpisu.",
+      "excerptCs": "Perex (česky)",
+      "excerptEn": "Perex (anglicky)",
+      "bodyCs": "Text novinky (česky)",
+      "bodyEn": "Text novinky (anglicky)",
+      "publishedAt": "Datum publikace",
+      "relatedProject": "Související projekt",
+      "noRelatedProject": "Bez propojení",
+      "images": "Obrázek",
+      "imagesHint": "Nahrajte úvodní foto zobrazené v seznamu i detailu novinky.",
+      "currentHero": "Aktuální foto",
+      "heroImage": "Úvodní foto",
+      "heroReplace": "Úvodní foto (nahradit)",
+      "heroAltCs": "Alt text (česky)",
+      "heroAltEn": "Alt text (anglicky)"
     },
     "projectsPage": {
       "eyebrow": "Projekty",
@@ -616,7 +724,10 @@
       "projectSubmit": "Smazat projekt",
       "unitTitle": "Smazat jednotku {name}?",
       "unitConfirm": "Jednotka se smaže ze Sanity i z webu. Tuto akci nelze vrátit zpět.",
-      "unitSubmit": "Smazat jednotku"
+      "unitSubmit": "Smazat jednotku",
+      "newsTitle": "Smazat novinku {name}?",
+      "newsConfirm": "Novinka se smaže ze Sanity i z webu. Tuto akci nelze vrátit zpět.",
+      "newsSubmit": "Smazat novinku"
     },
     "projectStatus": {
       "in-progress": "V přípravě",

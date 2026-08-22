@@ -128,10 +128,10 @@ export function ProjectCard({
 
         <div className="grid gap-4 pt-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-8 lg:grid-cols-12 lg:pt-8">
           <div className="lg:col-span-6">
-            <p className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-sadia-gray">
+            <p className="sadia-meta">
               {String(index).padStart(2, "0")} · {locationLine}
             </p>
-            <h2 className="mt-2 font-medium text-balance text-heading-lg text-sadia-navy-black">
+            <h2 className="sadia-title-content mt-2 text-balance text-heading-lg">
               {project.name}
             </h2>
           </div>
@@ -142,7 +142,7 @@ export function ProjectCard({
           </div>
 
           <div className="sm:col-span-2 lg:col-span-3 lg:justify-self-end">
-            <span className="inline-flex items-center gap-2 text-body-sm font-semibold uppercase tracking-[0.14em] text-sadia-navy-black">
+            <span className="sadia-link-caps inline-flex items-center gap-2">
               {viewLabel}
               <span
                 aria-hidden="true"

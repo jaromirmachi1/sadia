@@ -35,6 +35,9 @@ export async function SiteFooter({ locale }: SiteFooterProps) {
             <Link href={routeKeys.projects} className="hover:text-sadia-white">
               {nav("projects")}
             </Link>
+            <Link href={routeKeys.news} className="hover:text-sadia-white">
+              {nav("news")}
+            </Link>
             <Link href={routeKeys.weBuy} className="hover:text-sadia-white">
               {nav("weBuy")}
             </Link>

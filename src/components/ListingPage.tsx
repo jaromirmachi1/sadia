@@ -36,13 +36,11 @@ async function ListingPage({
       <section className="bg-sadia-white pb-section-lg pt-16">
         <Container>
           <Reveal>
-            <p className="text-body-sm font-medium uppercase tracking-[0.18em] text-sadia-gray">
-              {t("eyebrow")}
-            </p>
-            <h1 className="mt-4 max-w-[14ch] text-display-md font-medium text-sadia-navy">
+            <p className="sadia-eyebrow">{t("eyebrow")}</p>
+            <h1 className="sadia-heading-page mt-4 max-w-[14ch] text-sadia-navy">
               {t("title")}
             </h1>
-            <p className="mt-6 max-w-2xl text-body-lg text-sadia-gray">
+            <p className="sadia-lead-md mt-6 max-w-2xl text-sadia-navy-black/75">
               {t("description")}
             </p>
           </Reveal>
@@ -140,13 +138,11 @@ export async function AvailabilityPage({ params }: ListingPageProps) {
       <section className="bg-sadia-white pb-section-lg pt-16">
         <Container>
           <Reveal>
-            <p className="text-body-sm font-medium uppercase tracking-[0.18em] text-sadia-gray">
-              {t("eyebrow")}
-            </p>
-            <h1 className="mt-4 max-w-[14ch] text-display-md font-medium text-sadia-navy">
+            <p className="sadia-eyebrow">{t("eyebrow")}</p>
+            <h1 className="sadia-heading-page mt-4 max-w-[14ch] text-sadia-navy">
               {t("title")}
             </h1>
-            <p className="mt-6 max-w-2xl text-body-lg text-sadia-gray">
+            <p className="sadia-lead-md mt-6 max-w-2xl text-sadia-navy-black/75">
               {t("description")}
             </p>
           </Reveal>

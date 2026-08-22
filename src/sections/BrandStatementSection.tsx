@@ -13,18 +13,11 @@ export async function BrandStatementSection() {
     >
       <Container>
         <Reveal>
-          <p className="text-body-sm font-medium uppercase tracking-[0.22em] text-sadia-gray">
-            {t("eyebrow")}
-          </p>
-          <h2
-            id="brand-statement-title"
-            className="mt-10 max-w-[15ch] font-display text-[clamp(2.25rem,5vw,6.25rem)] font-medium leading-[1.08] tracking-tight text-balance text-sadia-navy"
-          >
+          <p className="sadia-eyebrow">{t("eyebrow")}</p>
+          <h2 id="brand-statement-title" className="sadia-statement-lg mt-10 max-w-[15ch]">
             {t("title")}
           </h2>
-          <p className="mt-10 max-w-xl text-body-lg leading-relaxed text-sadia-gray">
-            {t("description")}
-          </p>
+          <p className="sadia-lead-md mt-10 max-w-xl">{t("description")}</p>
         </Reveal>
       </Container>
     </section>

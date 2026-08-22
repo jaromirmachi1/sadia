@@ -2,6 +2,7 @@
   "Navigation": {
     "home": "Home",
     "projects": "Projects",
+    "news": "News",
     "sale": "For sale",
     "rent": "For rent",
     "availability": "Availability",
@@ -110,6 +111,25 @@
     "ctaTitle": "Have a building with a story?",
     "ctaDescription": "We look for properties with character in Brno and beyond. Write to us — we will come back with a concrete proposal.",
     "cta": "Offer a property"
+  },
+  "News": {
+    "metadata": {
+      "title": "News | SADIA",
+      "description": "Updates from SADIA — project progress, completions and news from our addresses in Brno."
+    },
+    "eyebrow": "News",
+    "title": "Property news",
+    "description": "Project progress, completions and updates from SADIA. Follow what is happening at our addresses in Brno.",
+    "readMore": "Read more",
+    "empty": "There are no news articles yet.",
+    "pagination": "Page {current} of {total}",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "NewsDetail": {
+    "breadcrumbsLabel": "Breadcrumb",
+    "relatedProject": "Related project",
+    "backToNews": "Back to news"
   },
   "ProjectDetail": {
     "about": "About the project",
@@ -272,15 +292,54 @@
       "title": "About | SADIA",
       "description": "SADIA finds addresses with a story and turns the overlooked into the desirable."
     },
-    "eyebrow": "About",
-    "title": "We see a future in places that need one.",
+    "eyebrow": "SADIA",
+    "title": "We build with deliberation.",
+    "lead": "An investment and development company focused on acquisitions, reconstruction and the growth of residential and commercial property.",
+    "scrollLabel": "scroll down",
+    "heroImageAlt": "Facade of a SADIA city building in Brno",
+    "approachEyebrow": "01",
     "approachTitle": "Our approach",
-    "p1": "We do not build at the edge of the city. We seek out storied addresses and places that need someone to recognise their potential.",
-    "p2": "We turn broken into valuable. Overlooked into desirable. We listen to every building first — preserving what matters and adding what it needs to serve people and the city well again.",
-    "p3": "SADIA is a younger development team focused on the quality of place, careful reconstruction and homes that stay close to the centre.",
+    "chapters": {
+      "place": {
+        "label": "Address",
+        "text": "We do not build at the edge of the city. We seek out storied addresses and places that need someone to recognise their potential."
+      },
+      "craft": {
+        "label": "Reconstruction",
+        "text": "We turn broken into valuable. Overlooked into desirable. We listen to every building first — preserving what matters and adding what it needs to serve people and the city well again."
+      },
+      "team": {
+        "label": "Team",
+        "text": "SADIA is a younger development team focused on the quality of place, careful reconstruction and homes that stay close to the centre."
+      }
+    },
+    "principlesEyebrow": "02",
+    "principlesTitle": "What we stand by",
+    "principles": {
+      "place": {
+        "title": "Place",
+        "text": "Every project begins with an address and its character — not a spreadsheet."
+      },
+      "craft": {
+        "title": "Craft",
+        "text": "We keep what has value and add a contemporary standard."
+      },
+      "centre": {
+        "title": "Centre",
+        "text": "We build homes you do not have to commute from."
+      },
+      "time": {
+        "title": "Time",
+        "text": "We build value meant to last for the next generation."
+      }
+    },
+    "statementLabel": "Our vision",
+    "statement": "We build value for the next generation.",
+    "location": "Brno · Czech Republic",
     "ctaTitle": "Want to know more?",
     "ctaDescription": "Get in touch, or browse the homes currently available.",
-    "cta": "Contact us"
+    "cta": "Contact us",
+    "availabilityCta": "Availability"
   },
   "WeBuy": {
     "metadata": {
@@ -423,13 +482,15 @@
       "projects": "Projects",
       "addProject": "Add project",
       "addUnit": "Add unit",
+      "news": "News",
+      "addNews": "Add article",
       "signOut": "Sign out",
       "studio": "Open Sanity Studio",
       "brand": "Admin"
     },
     "login": {
       "title": "SADIA Admin",
-      "description": "Sign in to manage units, projects, and availability.",
+      "description": "Sign in to manage units, projects, news, and availability.",
       "password": "Password",
       "signIn": "Sign in",
       "missingPassword": "Set <name>ADMIN_PASSWORD</name> in your environment to enable the dashboard."
@@ -440,6 +501,7 @@
       "title": "Content overview",
       "projects": "Projects",
       "units": "Units",
+      "news": "News",
       "available": "Available",
       "forSale": "For sale",
       "forRent": "For rent",
@@ -449,7 +511,53 @@
       "projectsCard": "Projects",
       "projectsCardDescription": "Active developments linked to units.",
       "noProjects": "No projects yet.",
+      "recentNews": "Recent news",
+      "recentNewsDescription": "Latest articles in the News section.",
+      "noNews": "No news yet.",
       "unitsCount": "{count, plural, one {# unit} other {# units}}"
+    },
+    "newsPage": {
+      "eyebrow": "News",
+      "title": "Articles",
+      "description": "Add, edit, or remove news articles shown on the public site.",
+      "empty": "No news yet. Create your first article.",
+      "columns": {
+        "title": "Title",
+        "publishedAt": "Published",
+        "project": "Project",
+        "slug": "Slug",
+        "actions": "Actions"
+      }
+    },
+    "newsForm": {
+      "newTitle": "Add article",
+      "editTitle": "Edit {name}",
+      "details": "Article details",
+      "newDescription": "Fill in the article in both languages and upload a cover image.",
+      "editDescription": "Slug: {slug}",
+      "create": "Create article",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "updated": "Article updated.",
+      "error": "Something went wrong.",
+      "titleCs": "Title (Czech)",
+      "titleEn": "Title (English)",
+      "slug": "Slug",
+      "slugHint": "Leave empty to generate from the Czech title.",
+      "excerptCs": "Excerpt (Czech)",
+      "excerptEn": "Excerpt (English)",
+      "bodyCs": "Article body (Czech)",
+      "bodyEn": "Article body (English)",
+      "publishedAt": "Publish date",
+      "relatedProject": "Related project",
+      "noRelatedProject": "No link",
+      "images": "Cover image",
+      "imagesHint": "Upload the cover image shown in the listing and article detail.",
+      "currentHero": "Current cover image",
+      "heroImage": "Cover image",
+      "heroReplace": "Cover image (replace)",
+      "heroAltCs": "Alt text (Czech)",
+      "heroAltEn": "Alt text (English)"
     },
     "projectsPage": {
       "eyebrow": "Projects",
@@ -616,7 +724,10 @@
       "projectSubmit": "Delete project",
       "unitTitle": "Delete unit {name}?",
       "unitConfirm": "This removes the unit from Sanity and the public site. This action cannot be undone.",
-      "unitSubmit": "Delete unit"
+      "unitSubmit": "Delete unit",
+      "newsTitle": "Delete article {name}?",
+      "newsConfirm": "This removes the article from Sanity and the public site. This action cannot be undone.",
+      "newsSubmit": "Delete article"
     },
     "projectStatus": {
       "in-progress": "In progress",
