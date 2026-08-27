@@ -1,5 +1,6 @@
 import "server-only";
 
+import sharp from "sharp";
 import type { SanityClient } from "next-sanity";
 
 import type { AdminProjectImage } from "@/lib/admin-types";
@@ -24,17 +25,61 @@ type SanityImageAsset = {
   url?: string;
 };
 
+export class InvalidAdminImageError extends Error {
+  constructor(cause?: unknown) {
+    super("INVALID_IMAGE");
+    this.name = "InvalidAdminImageError";
+    if (cause instanceof Error) {
+      this.cause = cause;
+    }
+  }
+}
+
 function imageKey() {
   return Math.random().toString(36).slice(2, 10);
 }
 
-export async function uploadImageAsset(client: SanityClient, file: File) {
-  const buffer = Buffer.from(await file.arrayBuffer());
+function toJpegFilename(name: string) {
+  const base = name.replace(/\.[^.]+$/, "").trim() || "image";
+  return `${base}.jpg`;
+}
 
-  return client.assets.upload("image", buffer, {
-    filename: file.name,
-    contentType: file.type || "application/octet-stream",
-  });
+async function normalizeImageForSanity(file: File) {
+  const input = Buffer.from(await file.arrayBuffer());
+
+  try {
+    const buffer = await sharp(input, { failOn: "none" })
+      .rotate()
+      .resize({
+        width: 3200,
+        height: 3200,
+        fit: "inside",
+        withoutEnlargement: true,
+      })
+      .jpeg({ quality: 85, mozjpeg: true })
+      .toBuffer();
+
+    return {
+      buffer,
+      filename: toJpegFilename(file.name),
+      contentType: "image/jpeg" as const,
+    };
+  } catch (error) {
+    throw new InvalidAdminImageError(error);
+  }
+}
+
+export async function uploadImageAsset(client: SanityClient, file: File) {
+  const normalized = await normalizeImageForSanity(file);
+
+  try {
+    return await client.assets.upload("image", normalized.buffer, {
+      filename: normalized.filename,
+      contentType: normalized.contentType,
+    });
+  } catch (error) {
+    throw new InvalidAdminImageError(error);
+  }
 }
 
 export function buildAccessibleImage(

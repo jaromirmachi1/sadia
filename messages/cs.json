@@ -94,6 +94,19 @@
       "description": "Prohlédněte si aktuální nabídku bytů nebo nám napište, co hledáte.",
       "primary": "Zobrazit nabídku",
       "secondary": "Napsat nám"
+    },
+    "weBuyPromo": {
+      "eyebrow": "Akvizice",
+      "title": "Rádi od\u00a0vás odkoupíme nemovitost",
+      "description": "Vy prodáváte, my kupujeme — bez prostředníků, zbytečných průtahů a\u00a0poplatků.",
+      "primary": "Nabídnout nemovitost",
+      "secondary": "Zjistit více",
+      "imageAlt": "Fasáda městské nemovitosti s charakterem"
+    },
+    "newsStack": {
+      "title": "Aktuality",
+      "allNews": "Zobrazit všechny",
+      "readMore": "Zjistit více"
     }
   },
   "Projects": {
@@ -347,7 +360,7 @@
       "description": "Hledáme domy, budovy a pozemky s potenciálem v Brně a okolí. Jednáme přímo, s respektem k místu i k vám."
     },
     "eyebrow": "Akvizice",
-    "title": "Kupujeme nemovitosti s potenciálem",
+    "title": "Kupujeme nemovitosti s\u00a0potenciálem",
     "description": "Hledáme domy, činžovní budovy i pozemky, které mají příběh. Takové, kterým umíme vrátit život — a dát jim novou budoucnost uprostřed města.",
     "cta": "Nabídnout nemovitost",
     "lookingTitle": "Co hledáme",
@@ -459,7 +472,11 @@
     "legalNav": "Právní informace",
     "privacy": "Ochrana osobních údajů",
     "cookies": "Cookies",
-    "terms": "Podmínky použití"
+    "terms": "Podmínky použití",
+    "exploreLabel": "Navigace",
+    "contactLabel": "Kontakt",
+    "credit": "Made and powered by",
+    "creditBrand": "uitherapy"
   },
   "NotFound": {
     "title": "Stránka nenalezena | SADIA",
@@ -763,6 +780,7 @@
       "photoRequired": "Je potřeba alespoň jedna fotka jednotky.",
       "heroRequired": "Hlavní foto je povinné.",
       "invalidPassword": "Neplatné heslo.",
+      "invalidImage": "Tento obrázek nejde zpracovat. Nahrajte JPG, PNG nebo WebP (iPhone HEIC často Sanity nepřijme).",
       "deleteProjectHasUnits": "Nejdřív odeberte nebo přesuňte propojené jednotky."
     }
   }

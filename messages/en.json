@@ -94,6 +94,19 @@
       "description": "Explore the homes currently available or tell us what you are looking for.",
       "primary": "View availability",
       "secondary": "Contact us"
+    },
+    "weBuyPromo": {
+      "eyebrow": "Acquisitions",
+      "title": "We would like to buy your property",
+      "description": "You sell, we buy — without intermediaries, delays or fees.",
+      "primary": "Offer a property",
+      "secondary": "Learn more",
+      "imageAlt": "Urban property facade with character"
+    },
+    "newsStack": {
+      "title": "News",
+      "allNews": "View all",
+      "readMore": "Read more"
     }
   },
   "Projects": {
@@ -459,7 +472,11 @@
     "legalNav": "Legal information",
     "privacy": "Privacy policy",
     "cookies": "Cookies",
-    "terms": "Terms of use"
+    "terms": "Terms of use",
+    "exploreLabel": "Explore",
+    "contactLabel": "Contact",
+    "credit": "Made and powered by",
+    "creditBrand": "uitherapy"
   },
   "NotFound": {
     "title": "Page not found | SADIA",
@@ -763,6 +780,7 @@
       "photoRequired": "At least one unit photo is required.",
       "heroRequired": "Hero image is required.",
       "invalidPassword": "Invalid password.",
+      "invalidImage": "This image could not be processed. Upload a JPG, PNG, or WebP (iPhone HEIC is often rejected).",
       "deleteProjectHasUnits": "Remove or reassign linked units before deleting this project."
     }
   }

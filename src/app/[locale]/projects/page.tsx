@@ -75,40 +75,36 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
 
             <Reveal delay={0.08} className="lg:col-span-5">
               <p className="sadia-lead-md max-w-md">{t("description")}</p>
-              {projects.length > 0 ? (
-                <p className="mt-8 flex items-baseline gap-3">
-                  <span className="font-display text-heading-lg font-medium tabular-nums text-sadia-navy-black">
-                    {String(projects.length).padStart(2, "0")}
-                  </span>
-                  <span className="sadia-meta">{t("countLabel")}</span>
-                </p>
-              ) : null}
             </Reveal>
           </div>
         </Container>
       </section>
 
       <section className="bg-sadia-white pb-section-sm">
-        <Container>
-          {projects.length === 0 ? (
+        {projects.length === 0 ? (
+          <Container>
             <p className="text-body-lg text-sadia-navy-black/70">{t("empty")}</p>
-          ) : (
-            <div className="grid gap-12 lg:gap-16">
-              {projects.map((project, index) => (
-                <Reveal key={project._id} delay={index * 0.06}>
-                  <ProjectCard
-                    index={index + 1}
-                    priority={index === 0}
-                    project={project}
-                    statusLabel={statusLabels[locale][project.status]}
-                    typeLabel={typeLabels[locale][project.type]}
-                    viewLabel={t("view")}
-                  />
-                </Reveal>
-              ))}
-            </div>
-          )}
-        </Container>
+          </Container>
+        ) : (
+          <div className="flex flex-col gap-px bg-sadia-gray-light">
+            {projects.map((project, index) => (
+              <Reveal key={project._id} delay={Math.min(index, 3) * 0.05}>
+                <ProjectCard
+                  index={index + 1}
+                  featured={index === 0}
+                  reversed={index > 0 && index % 2 === 0}
+                  priority={index === 0}
+                  project={project}
+                  statusLabel={
+                    statusLabels[locale][project.status] ?? project.status
+                  }
+                  typeLabel={typeLabels[locale][project.type] ?? project.type}
+                  viewLabel={t("view")}
+                />
+              </Reveal>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="bg-muted/50 py-section-sm">

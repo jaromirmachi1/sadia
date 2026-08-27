@@ -355,7 +355,7 @@ function UnitImageFields({
             id="photos"
             name="photos"
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp,image/*"
             multiple
             required={mode === "create" && photos.length === 0}
           />
@@ -421,7 +421,7 @@ function UnitImageFields({
               id="floorPlanImage"
               name="floorPlanImage"
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png,image/webp,image/*"
             />
           </div>
 
@@ -470,7 +470,6 @@ export function UnitForm({
     return (
       <form
         action={createUnitFormAction}
-        encType="multipart/form-data"
         className="space-y-8"
       >
         <UnitFields projects={projects} defaultValues={defaultValues} />
@@ -498,7 +497,6 @@ export function UnitForm({
   return (
     <form
       action={handleUpdate}
-      encType="multipart/form-data"
       className="space-y-8"
     >
       <UnitFields projects={projects} defaultValues={defaultValues} />

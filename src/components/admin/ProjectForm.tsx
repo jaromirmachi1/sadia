@@ -97,7 +97,7 @@ function ProjectImageFields({
               id="heroImage"
               name="heroImage"
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png,image/webp,image/*"
               required={mode === "create" && !heroImage}
             />
           </div>
@@ -167,7 +167,7 @@ function ProjectImageFields({
             id="gallery"
             name="gallery"
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp,image/*"
             multiple
           />
           <p className="text-xs text-muted-foreground">
@@ -633,7 +633,6 @@ export function ProjectForm({
     return (
       <form
         action={createProjectFormAction}
-        encType="multipart/form-data"
         className="space-y-8"
       >
         <ProjectFields defaultValues={defaultValues} />
@@ -659,7 +658,6 @@ export function ProjectForm({
   return (
     <form
       action={handleUpdate}
-      encType="multipart/form-data"
       className="space-y-8"
     >
       <ProjectFields defaultValues={defaultValues} />

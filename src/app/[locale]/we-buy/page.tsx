@@ -10,7 +10,7 @@ import { WeBuyForm } from "@/components/WeBuyForm";
 import { getSiteSettings } from "@/sanity/lib/fetch";
 import { buildPageMetadata } from "@/seo/metadata";
 import { routeKeys, type Locale } from "@/utils/routes";
-import janska from "@/images/janska.jpg";
+import weBuyHero from "@/images/byt_koblizna_said_15_1.webp";
 
 type WeBuyPageProps = {
   params: Promise<{ locale: Locale }>;
@@ -70,7 +70,7 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
             <Reveal delay={0.08} className="lg:col-span-6">
               <div className="relative aspect-[5/4] overflow-hidden rounded-2xl bg-sadia-gray-light lg:aspect-[4/5]">
                 <Image
-                  src={janska}
+                  src={weBuyHero}
                   alt={t("imageAlt")}
                   fill
                   priority

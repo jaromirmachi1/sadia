@@ -25,12 +25,9 @@ export async function AboutSection() {
                   aria-hidden="true"
                   className="h-8 w-2 skew-x-[-20deg] bg-sadia-navy-black"
                 />
-                <div>
-                  <p className="sadia-eyebrow mb-1">01</p>
-                  <h2 id="home-about-title" className="sadia-section-kicker">
-                    {t("title")}
-                  </h2>
-                </div>
+                <h2 id="home-about-title" className="sadia-section-kicker">
+                  {t("title")}
+                </h2>
               </div>
             </Reveal>
           </header>
@@ -53,9 +50,8 @@ export async function AboutSection() {
 
         <div className="grid items-end gap-10 border-t border-sadia-gray-light pt-6 sm:grid-cols-2">
           <Reveal>
-            <div className="sadia-meta flex gap-10">
+            <div className="sadia-meta">
               <p>{t("location")}</p>
-              <p aria-label={t("coordinatesLabel")}>49.1951° N / 16.6068° E</p>
             </div>
           </Reveal>
 

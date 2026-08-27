@@ -52,12 +52,9 @@ export async function ProjectsStackSection({
                   aria-hidden="true"
                   className="h-8 w-2 skew-x-[-20deg] bg-sadia-navy-black"
                 />
-                <div>
-                  <p className="sadia-eyebrow mb-1">02</p>
-                  <h2 id="home-projects-title" className="sadia-section-kicker">
-                    {t("title")}
-                  </h2>
-                </div>
+                <h2 id="home-projects-title" className="sadia-section-kicker">
+                  {t("title")}
+                </h2>
               </div>
             </Reveal>
           </header>

@@ -12,12 +12,31 @@ function ctaClassName({ variant = "primary", className }: CtaClassProps) {
   return cn("sadia-cta", `sadia-cta-${variant}`, className);
 }
 
+function CtaArrow() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="size-[0.95rem]"
+    >
+      <path
+        d="M4 12L12 4M12 4H6.5M12 4V9.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function CtaContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       <span className="sadia-cta-label">{children}</span>
       <span className="sadia-cta-mark" aria-hidden="true">
-        ↗
+        <CtaArrow />
       </span>
     </>
   );

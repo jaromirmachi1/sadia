@@ -190,7 +190,7 @@ function NewsFields({
               id="heroImage"
               name="heroImage"
               type="file"
-              accept="image/*"
+              accept="image/jpeg,image/png,image/webp,image/*"
               required={mode === "create"}
             />
           </div>
@@ -232,7 +232,6 @@ export function NewsForm({
     return (
       <form
         action={createNewsFormAction}
-        encType="multipart/form-data"
         className="space-y-8"
       >
         <NewsFields
@@ -248,7 +247,6 @@ export function NewsForm({
 
   return (
     <form
-      encType="multipart/form-data"
       className="space-y-8"
       onSubmit={(event) => {
         event.preventDefault();

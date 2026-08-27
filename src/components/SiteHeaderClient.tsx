@@ -61,18 +61,6 @@ export function SiteHeaderClient({
     [0, 1],
     [1, LOGO_SCALE_END],
   );
-  const headerHeight = useTransform(smoothProgress, (progress) => {
-    const desktop =
-      typeof window !== "undefined"
-        ? window.matchMedia("(min-width: 768px)").matches
-        : true;
-
-    if (desktop) {
-      return `${6.75 - progress * 0.75}rem`;
-    }
-
-    return `${5.5 - progress * 0.5}rem`;
-  });
   const headerChromeOpacity = useTransform(smoothProgress, [0, 0.45, 1], [0, 0.6, 1]);
 
   useEffect(() => {
@@ -100,12 +88,18 @@ export function SiteHeaderClient({
   }, []);
 
   useEffect(() => {
-    const unsubscribe = headerHeight.on("change", (value) => {
-      document.documentElement.style.setProperty("--sadia-header-height", value);
+    const root = document.documentElement;
+    root.style.setProperty("--sadia-header-progress", String(smoothProgress.get()));
+
+    const unsubscribe = smoothProgress.on("change", (value) => {
+      root.style.setProperty("--sadia-header-progress", String(value));
     });
 
-    return unsubscribe;
-  }, [headerHeight]);
+    return () => {
+      unsubscribe();
+      root.style.removeProperty("--sadia-header-progress");
+    };
+  }, [smoothProgress]);
 
   const useDarkChrome = isOverlay && overDarkSection;
 
@@ -129,10 +123,7 @@ export function SiteHeaderClient({
         ) : null}
 
         <Container className="relative">
-          <motion.div
-            style={{ height: headerHeight }}
-            className="flex items-center justify-between"
-          >
+          <div className="flex h-(--sadia-header-height) items-center justify-between">
             <Link
               href="/"
               aria-label="SADIA"
@@ -152,25 +143,25 @@ export function SiteHeaderClient({
             </Link>
 
             <SiteNavChrome
-            locale={locale}
-            isLight={!useDarkChrome}
-            navigation={navigation}
-            interestLabel={interestLabel}
-            menuLabel={menuLabel}
-            closeLabel={closeLabel}
-            primaryLabel={primaryLabel}
-            mobileLabel={mobileLabel}
-            onOpenChange={setMenuOpen}
+              locale={locale}
+              isLight={!useDarkChrome}
+              navigation={navigation}
+              interestLabel={interestLabel}
+              menuLabel={menuLabel}
+              closeLabel={closeLabel}
+              primaryLabel={primaryLabel}
+              mobileLabel={mobileLabel}
+              onOpenChange={setMenuOpen}
             />
-          </motion.div>
+          </div>
         </Container>
       </header>
 
       {/* Keeps page content below the fixed bar on solid pages */}
       {variant === "solid" ? (
-        <motion.div
+        <div
           aria-hidden="true"
-          style={{ height: headerHeight }}
+          className="h-(--sadia-header-height)"
         />
       ) : null}
     </>

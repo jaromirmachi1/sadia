@@ -26,13 +26,32 @@ import {
   buildGalleryImage,
   getFileFromFormData,
   getFilesFromFormData,
+  InvalidAdminImageError,
   uploadImageAsset,
 } from "@/sanity/lib/admin-images";
 
-async function adminError(key: "photoRequired" | "heroRequired" | "invalidPassword" | "deleteProjectHasUnits") {
+async function adminError(
+  key:
+    | "photoRequired"
+    | "heroRequired"
+    | "invalidPassword"
+    | "deleteProjectHasUnits"
+    | "invalidImage",
+) {
   const locale = await getAdminLocale();
   const t = await getTranslations({ locale, namespace: "Admin.errors" });
   return t(key);
+}
+
+async function uploadAdminImage(client: Parameters<typeof uploadImageAsset>[0], file: File) {
+  try {
+    return await uploadImageAsset(client, file);
+  } catch (error) {
+    if (error instanceof InvalidAdminImageError) {
+      throw new Error(await adminError("invalidImage"));
+    }
+    throw error;
+  }
 }
 
 export async function setAdminLocaleAction(formData: FormData) {
@@ -256,7 +275,7 @@ async function resolveUnitImages(
   if (photoFiles.length > 0) {
     const uploaded = await Promise.all(
       photoFiles.map(async (file) => {
-        const asset = await uploadImageAsset(client, file);
+        const asset = await uploadAdminImage(client, file);
         return buildGalleryImage(asset._id, values.photoAltCs, values.photoAltEn);
       }),
     );
@@ -274,7 +293,7 @@ async function resolveUnitImages(
   }
 
   if (floorPlanFile) {
-    const asset = await uploadImageAsset(client, floorPlanFile);
+    const asset = await uploadAdminImage(client, floorPlanFile);
     floorPlanImage = buildAccessibleImage(
       asset._id,
       values.floorPlanAltCs,
@@ -409,7 +428,7 @@ async function resolveProjectImages(
   let heroImage = options.existing?.heroImage ?? undefined;
 
   if (heroFile) {
-    const asset = await uploadImageAsset(client, heroFile);
+    const asset = await uploadAdminImage(client, heroFile);
     heroImage = buildAccessibleImage(asset._id, values.heroAltCs, values.heroAltEn);
   } else if (heroImage?.asset?._ref) {
     heroImage = {
@@ -430,7 +449,7 @@ async function resolveProjectImages(
   if (galleryFiles.length > 0) {
     const uploadedGallery = await Promise.all(
       galleryFiles.map(async (file) => {
-        const asset = await uploadImageAsset(client, file);
+        const asset = await uploadAdminImage(client, file);
         return buildGalleryImage(asset._id, galleryAltCs, galleryAltEn);
       }),
     );
@@ -830,7 +849,7 @@ async function resolveNewsHeroImage(
   let heroImage = options.existing?.heroImage ?? undefined;
 
   if (heroFile) {
-    const asset = await uploadImageAsset(client, heroFile);
+    const asset = await uploadAdminImage(client, heroFile);
     heroImage = buildAccessibleImage(asset._id, values.heroAltCs, values.heroAltEn);
   } else if (heroImage?.asset?._ref) {
     heroImage = {

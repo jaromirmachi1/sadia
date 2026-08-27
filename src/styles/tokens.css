@@ -38,7 +38,14 @@
     max(64px, var(--sadia-max))
   );
   --sadia-gutter: 40px;
-  --sadia-header-height: 4.25rem;
+  --sadia-header-progress: 0;
+  --sadia-header-height: calc(5.5rem - (var(--sadia-header-progress) * 0.5rem));
+}
+
+@media (min-width: 768px) {
+  :root {
+    --sadia-header-height: calc(6.75rem - (var(--sadia-header-progress) * 0.75rem));
+  }
 }
 
 @theme inline {
