@@ -23,6 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
     applicationName: siteName,
     creator: siteName,
     publisher: siteName,
+    manifest: "/site.webmanifest",
     formatDetection: {
       email: false,
       address: false,
