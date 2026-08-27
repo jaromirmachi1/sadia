@@ -1,11 +1,10 @@
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { loginAdminAction } from "@/app/admin/actions";
 import { AdminLocaleSwitcher } from "@/components/admin/AdminLocaleSwitcher";
+import { AdminLoginForm } from "@/components/admin/AdminLoginForm";
 import { isAdminAuthConfigured, isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAdminLocale } from "@/lib/admin-locale";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,8 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export default async function AdminLoginPage() {
   if (await isAdminAuthenticated()) {
@@ -45,21 +42,7 @@ export default async function AdminLoginPage() {
               })}
             </p>
           ) : (
-            <form action={loginAdminAction} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="password">{t("password")}</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full">
-                {t("signIn")}
-              </Button>
-            </form>
+            <AdminLoginForm />
           )}
         </CardContent>
       </Card>

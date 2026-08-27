@@ -493,6 +493,7 @@
       "description": "Sign in to manage units, projects, news, and availability.",
       "password": "Password",
       "signIn": "Sign in",
+      "signingIn": "Signing in…",
       "missingPassword": "Set <name>ADMIN_PASSWORD</name> in your environment to enable the dashboard."
     },
     "sanityWarning": "Configure <projectId>NEXT_PUBLIC_SANITY_PROJECT_ID</projectId> and <token>SANITY_API_WRITE_TOKEN</token> to sync changes with Sanity.",

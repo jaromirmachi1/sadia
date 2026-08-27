@@ -493,6 +493,7 @@
       "description": "Přihlaste se pro správu jednotek, projektů, novinek a nabídky.",
       "password": "Heslo",
       "signIn": "Přihlásit se",
+      "signingIn": "Přihlašuji…",
       "missingPassword": "Nastavte <name>ADMIN_PASSWORD</name> v prostředí, aby šel dashboard použít."
     },
     "sanityWarning": "Nastavte <projectId>NEXT_PUBLIC_SANITY_PROJECT_ID</projectId> a <token>SANITY_API_WRITE_TOKEN</token>, aby se změny ukládaly do Sanity.",

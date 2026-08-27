@@ -553,11 +553,18 @@ function revalidateProjectPaths(slug?: string) {
   }
 }
 
-export async function loginAdminAction(formData: FormData): Promise<void> {
+export type AdminLoginState = {
+  error?: string;
+};
+
+export async function loginAdminAction(
+  _prevState: AdminLoginState,
+  formData: FormData,
+): Promise<AdminLoginState> {
   const password = String(formData.get("password") ?? "");
 
   if (!(await setAdminSession(password))) {
-    throw new Error(await adminError("invalidPassword"));
+    return { error: await adminError("invalidPassword") };
   }
 
   redirect("/admin");

@@ -94,7 +94,7 @@ export async function ProjectsStackSection({
                   {project.location}
                 </p>
                 <p className="hidden text-sadia-gray md:block">
-                  {statusLabels[locale][project.status]}
+                  {statusLabels[locale]?.[project.status] ?? project.status}
                 </p>
                 <Link
                   href={{
@@ -137,7 +137,7 @@ export async function ProjectsStackSection({
 
               <div className="flex justify-between pt-4 text-[0.6875rem] uppercase tracking-[0.08em] text-sadia-gray md:hidden">
                 <p>{project.location}</p>
-                <p>{statusLabels[locale][project.status]}</p>
+                <p>{statusLabels[locale]?.[project.status] ?? project.status}</p>
               </div>
             </Container>
           </article>

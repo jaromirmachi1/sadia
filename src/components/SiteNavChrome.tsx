@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { BrandLogo } from "@/components/BrandLogo";
@@ -13,6 +13,7 @@ import { routeKeys, type Locale } from "@/utils/routes";
 const MENU_CURTAIN_EASE = [0.46, 0.69, 0.71, 1] as const;
 const MENU_ITEM_EASE = [0.16, 0.01, 0.77, 1] as const;
 const MENU_FOOTER_EASE = [0.16, 1, 0.3, 1] as const;
+const MOBILE_MENU_ID = "sadia-mobile-menu";
 
 type NavItem = {
   href: (typeof routeKeys)[keyof typeof routeKeys];
@@ -109,7 +110,6 @@ export function SiteNavChrome({
 }: SiteNavChromeProps) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const panelId = useId();
   const reduceMotion = useReducedMotion();
 
   const setMenuOpen = useCallback(
@@ -158,7 +158,7 @@ export function SiteNavChrome({
       {open ? (
         <motion.div
           key="sadia-menu"
-          id={panelId}
+          id={MOBILE_MENU_ID}
           role="dialog"
           aria-modal="true"
           aria-label={primaryLabel}
@@ -383,7 +383,7 @@ export function SiteNavChrome({
           label={open ? closeLabel : menuLabel}
           open={open}
           isLight={isLight}
-          controls={panelId}
+          controls={MOBILE_MENU_ID}
           onClick={() => setMenuOpen(!open)}
         />
       </div>
