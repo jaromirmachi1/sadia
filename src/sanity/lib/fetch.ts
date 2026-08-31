@@ -1,8 +1,6 @@
 import { isSanityConfigured } from "@/sanity/env";
 import { sanityClient } from "@/sanity/lib/client";
 import {
-  getMockNewsArticleBySlug,
-  getMockNewsArticles,
   getMockProjectBySlug,
   getMockProjects,
   getMockSiteSettings,
@@ -11,8 +9,6 @@ import {
   getMockUnitsByDealType,
 } from "@/sanity/lib/mock-data";
 import {
-  NEWS_ARTICLE_BY_SLUG_QUERY,
-  NEWS_ARTICLES_QUERY,
   PROJECT_BY_SLUG_QUERY,
   PROJECTS_QUERY,
   SITE_SETTINGS_QUERY,
@@ -22,9 +18,6 @@ import {
 import type {
   CmsImage,
   HomeStats,
-  NewsDetail,
-  NewsPage,
-  NewsSummary,
   ProjectAmenity,
   ProjectDetail,
   ProjectDownload,
@@ -37,8 +30,6 @@ import type {
 import { portableTextToPlainText } from "@/lib/admin-types";
 import { withPublicContact } from "@/legal/entity";
 import type { Locale } from "@/utils/routes";
-
-export const NEWS_PAGE_SIZE = 9;
 
 type SanityImageDoc = {
   alt?: { cs?: string; en?: string } | string;
@@ -391,103 +382,4 @@ export async function getFeaturedProject(
   }
 
   return getProjectBySlug(locale, featured.slug);
-}
-
-function mapSanityNewsArticle(
-  locale: Locale,
-  article: Record<string, unknown>,
-): NewsSummary {
-  return {
-    _id: article._id as string,
-    title: article.title as string,
-    slug: article.slug as string,
-    excerpt: article.excerpt as string,
-    publishedAt: article.publishedAt as string,
-    heroImage:
-      mapSanityImage(
-        locale,
-        article.heroImage as SanityImageDoc,
-        article.title as string,
-      ) ?? {
-        alt: article.title as string,
-      },
-  };
-}
-
-function mapSanityNewsDetail(
-  locale: Locale,
-  article: Record<string, unknown>,
-): NewsDetail {
-  const summary = mapSanityNewsArticle(locale, article);
-  const body = article.body;
-
-  return {
-    ...summary,
-    body,
-    bodyPlain: portableTextToPlainText(body),
-    relatedProject: article.relatedProject
-      ? {
-          _id: (article.relatedProject as { _id: string })._id,
-          name: (article.relatedProject as { name: string }).name,
-          slug: (article.relatedProject as { slug: string }).slug,
-        }
-      : undefined,
-  };
-}
-
-export async function getNewsArticles(locale: Locale): Promise<NewsSummary[]> {
-  if (!isSanityConfigured) {
-    return getMockNewsArticles(locale);
-  }
-
-  const articles = await fetchFromSanity<Record<string, unknown>[]>(
-    NEWS_ARTICLES_QUERY,
-    { locale },
-  );
-
-  if (!articles) {
-    return getMockNewsArticles(locale);
-  }
-
-  return articles.map((article) => mapSanityNewsArticle(locale, article));
-}
-
-export async function getNewsPage(
-  locale: Locale,
-  page = 1,
-  pageSize = NEWS_PAGE_SIZE,
-): Promise<NewsPage> {
-  const articles = await getNewsArticles(locale);
-  const total = articles.length;
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
-  const safePage = Math.min(Math.max(page, 1), totalPages);
-  const start = (safePage - 1) * pageSize;
-
-  return {
-    articles: articles.slice(start, start + pageSize),
-    total,
-    page: safePage,
-    pageSize,
-    totalPages,
-  };
-}
-
-export async function getNewsArticleBySlug(
-  locale: Locale,
-  slug: string,
-): Promise<NewsDetail | null> {
-  if (!isSanityConfigured) {
-    return getMockNewsArticleBySlug(locale, slug);
-  }
-
-  const article = await fetchFromSanity<Record<string, unknown>>(
-    NEWS_ARTICLE_BY_SLUG_QUERY,
-    { locale, slug },
-  );
-
-  if (!article) {
-    return getMockNewsArticleBySlug(locale, slug);
-  }
-
-  return mapSanityNewsDetail(locale, article);
 }

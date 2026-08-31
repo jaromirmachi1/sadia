@@ -60,9 +60,10 @@ export const project = defineType({
       type: "string",
       options: {
         list: [
-          { title: "In progress", value: "in-progress" },
-          { title: "Completed", value: "completed" },
           { title: "Upcoming", value: "upcoming" },
+          { title: "In preparation", value: "in-progress" },
+          { title: "In realization", value: "in-realization" },
+          { title: "Completed", value: "completed" },
         ],
         layout: "radio",
       },

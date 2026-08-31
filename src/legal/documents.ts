@@ -42,7 +42,7 @@ function csPrivacy(): LegalDocumentContent {
           "Zpracováváme jen údaje, které nám sami poskytnete nebo které vzniknou při návštěvě webu:",
         ],
         list: [
-          "identifikační a kontaktní údaje z formulářů (jméno, e-mail, telefon, zpráva, údaje o nabízené nemovitosti);",
+          "identifikační a kontaktní údaje z formulářů (jméno, e-mail, zpráva, údaje o nabízené nemovitosti);",
           "technické údaje o návštěvě webu (IP adresa, typ prohlížeče, stránky) v rozsahu, který nastaví hosting a, po vašem souhlasu, Google Analytics 4;",
           "údaje o vaší volbě cookies.",
         ],
@@ -121,7 +121,7 @@ function enPrivacy(): LegalDocumentContent {
         heading: "2. Data we process",
         paragraphs: ["We process data you give us or that arise from a visit:"],
         list: [
-          "identity and contact details from forms (name, email, phone, message, details of a property you offer);",
+          "identity and contact details from forms (name, email, message, details of a property you offer);",
           "technical visit data (IP address, browser, pages) from hosting and, after your consent, Google Analytics 4;",
           "your cookie choice.",
         ],

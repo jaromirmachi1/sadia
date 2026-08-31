@@ -37,13 +37,6 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required().email(),
     }),
     defineField({
-      name: "phone",
-      title: "Phone",
-      type: "string",
-      initialValue: "+420 607 100 886",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
       name: "socialLinks",
       title: "Social links",
       type: "array",

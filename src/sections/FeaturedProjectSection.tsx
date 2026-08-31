@@ -15,11 +15,13 @@ type FeaturedProjectSectionProps = {
 const statusLabels = {
   cs: {
     "in-progress": "V přípravě",
+    "in-realization": "V realizaci",
     completed: "Dokončeno",
     upcoming: "Připravujeme",
   },
   en: {
-    "in-progress": "In progress",
+    "in-progress": "In preparation",
+    "in-realization": "Under construction",
     completed: "Completed",
     upcoming: "Upcoming",
   },

@@ -3,7 +3,6 @@ export type Locale = "cs" | "en";
 export type AppPathname =
   | "/"
   | "/projects"
-  | "/news"
   | "/availability"
   | "/for-sale"
   | "/for-rent"
@@ -17,7 +16,6 @@ export type AppPathname =
 export const routeKeys = {
   home: "/" as const,
   projects: "/projects" as const,
-  news: "/news" as const,
   availability: "/availability" as const,
   sale: "/for-sale" as const,
   rent: "/for-rent" as const,

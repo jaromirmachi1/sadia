@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { Container } from "@/components/Container";
 import { HeroMotion } from "@/components/HeroMotion";
-import heroImage from "@/images/byt_koblizna_said_15_1.webp";
+import { HeroVideoBackground } from "@/components/HeroVideoBackground";
 import type { Locale } from "@/utils/routes";
 
 type HeroSectionProps = {
@@ -21,14 +20,7 @@ export async function HeroSection({ locale }: HeroSectionProps) {
       className="relative min-h-svh overflow-hidden bg-sadia-navy-black text-sadia-white"
     >
       <div className="absolute inset-0" data-hero-media>
-        <Image
-          src={heroImage}
-          alt={t("imageAlt")}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+        <HeroVideoBackground alt={t("imageAlt")} />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,20,46,0.42)_0%,rgba(18,20,46,0.12)_22%,rgba(18,20,46,0.16)_48%,rgba(18,20,46,0.82)_100%)]" />
         <div className="absolute inset-x-0 top-0 h-[11rem] bg-[linear-gradient(180deg,rgba(18,20,46,0.5)_0%,rgba(18,20,46,0.18)_58%,transparent_100%)] md:h-[13rem]" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,20,46,0.28)_0%,transparent_62%)]" />

@@ -117,29 +117,16 @@ export function WeBuyForm() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-2">
-              <FieldLabel htmlFor="email">{t("fields.email")}</FieldLabel>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                className={fieldClassName}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <FieldLabel htmlFor="phone">{t("fields.phone")}</FieldLabel>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                required
-                autoComplete="tel"
-                className={fieldClassName}
-              />
-            </div>
+          <div className="flex flex-col gap-2">
+            <FieldLabel htmlFor="email">{t("fields.email")}</FieldLabel>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              className={fieldClassName}
+            />
           </div>
         </FormSection>
 

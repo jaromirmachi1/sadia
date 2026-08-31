@@ -65,12 +65,6 @@ export function ProjectInquiryForm({ projectName }: ProjectInquiryFormProps) {
       </label>
       <label className="block space-y-2">
         <span className="text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-sadia-gray">
-          {t("phone")}
-        </span>
-        <input name="phone" type="tel" className={fieldClassName} />
-      </label>
-      <label className="block space-y-2">
-        <span className="text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-sadia-gray">
           {t("message")}
         </span>
         <textarea

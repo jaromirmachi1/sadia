@@ -2,7 +2,6 @@
   "Navigation": {
     "home": "Home",
     "projects": "Projects",
-    "news": "News",
     "sale": "For sale",
     "rent": "For rent",
     "availability": "Availability",
@@ -41,11 +40,11 @@
       "description": "We do not build at the edge of the city. We seek out storied addresses and places that need someone to recognise their potential.",
       "primaryCta": "Explore our projects",
       "secondaryCta": "View available homes",
-      "imageAlt": "The Koblížná building in Brno's historic centre at dusk"
+      "imageAlt": "Panoramic view of Brno buildings by SADIA"
     },
     "about": {
       "title": "About us",
-      "description": "An investment and development company focused on the acquisition, reconstruction and growth of residential and commercial real estate.",
+      "description": "An investment and development company focused on reconstruction and growth of residential and commercial real estate.",
       "statementLabel": "Our vision",
       "statement": "We build value for the next generations.",
       "location": "Brno · Czech Republic",
@@ -102,11 +101,6 @@
       "primary": "Offer a property",
       "secondary": "Learn more",
       "imageAlt": "Urban property facade with character"
-    },
-    "newsStack": {
-      "title": "News",
-      "allNews": "View all",
-      "readMore": "Read more"
     }
   },
   "Projects": {
@@ -125,25 +119,6 @@
     "ctaDescription": "We look for properties with character in Brno and beyond. Write to us — we will come back with a concrete proposal.",
     "cta": "Offer a property"
   },
-  "News": {
-    "metadata": {
-      "title": "News | SADIA",
-      "description": "Updates from SADIA — project progress, completions and news from our addresses in Brno."
-    },
-    "eyebrow": "News",
-    "title": "Property news",
-    "description": "Project progress, completions and updates from SADIA. Follow what is happening at our addresses in Brno.",
-    "readMore": "Read more",
-    "empty": "There are no news articles yet.",
-    "pagination": "Page {current} of {total}",
-    "previous": "Previous",
-    "next": "Next"
-  },
-  "NewsDetail": {
-    "breadcrumbsLabel": "Breadcrumb",
-    "relatedProject": "Related project",
-    "backToNews": "Back to news"
-  },
   "ProjectDetail": {
     "about": "About the project",
     "map": "Location",
@@ -160,7 +135,8 @@
       "website": "Project website"
     },
     "status": {
-      "in-progress": "In progress",
+      "in-progress": "In preparation",
+      "in-realization": "Under construction",
       "completed": "Completed",
       "upcoming": "Upcoming"
     },
@@ -222,7 +198,6 @@
     "form": {
       "name": "Name",
       "email": "Email",
-      "phone": "Phone",
       "message": "Message",
       "submit": "Send message",
       "privacyNotice": "By sending this form you agree to the processing of your data as described in the <privacy>privacy policy</privacy>.",
@@ -307,7 +282,7 @@
     },
     "eyebrow": "SADIA",
     "title": "We build with deliberation.",
-    "lead": "An investment and development company focused on acquisitions, reconstruction and the growth of residential and commercial property.",
+    "lead": "An investment and development company focused on reconstruction and the growth of residential and commercial property.",
     "scrollLabel": "scroll down",
     "heroImageAlt": "Facade of a SADIA city building in Brno",
     "approachEyebrow": "01",
@@ -408,7 +383,6 @@
         "firstName": "First name",
         "lastName": "Last name",
         "email": "Email",
-        "phone": "Phone",
         "propertyType": "Property type",
         "propertyTypePlaceholder": "Select type",
         "address": "Property address",
@@ -434,7 +408,7 @@
       "submit": "Send offer",
       "successEyebrow": "Sent",
       "successTitle": "Thank you for your offer",
-      "successDescription": "We will get back to you as soon as possible. For urgent enquiries, contact us by phone or email.",
+      "successDescription": "We will get back to you as soon as possible. For urgent enquiries, contact us by email.",
       "successBack": "Send another offer"
     },
     "imageAlt": "A city building with potential for careful reconstruction"
@@ -449,14 +423,12 @@
     "description": "Whether you are looking for a home or want to know more about our projects — reach out.",
     "address": "Address",
     "email": "Email",
-    "phone": "Phone",
     "map": "Map of the SADIA office",
-    "formHint": "Form submission lands in the next phase. For now, contact us by email or phone.",
+    "formHint": "Form submission lands in the next phase. For now, contact us by email.",
     "formPrivacy": "Form data is processed as described in the <privacy>privacy policy</privacy>.",
     "fields": {
       "name": "Name",
       "email": "Email",
-      "phone": "Phone",
       "message": "Message"
     },
     "submit": "Send"
@@ -499,15 +471,13 @@
       "projects": "Projects",
       "addProject": "Add project",
       "addUnit": "Add unit",
-      "news": "News",
-      "addNews": "Add article",
       "signOut": "Sign out",
       "studio": "Open Sanity Studio",
       "brand": "Admin"
     },
     "login": {
       "title": "SADIA Admin",
-      "description": "Sign in to manage units, projects, news, and availability.",
+      "description": "Sign in to manage units, projects, and availability.",
       "password": "Password",
       "signIn": "Sign in",
       "signingIn": "Signing in…",
@@ -519,7 +489,6 @@
       "title": "Content overview",
       "projects": "Projects",
       "units": "Units",
-      "news": "News",
       "available": "Available",
       "forSale": "For sale",
       "forRent": "For rent",
@@ -529,53 +498,7 @@
       "projectsCard": "Projects",
       "projectsCardDescription": "Active developments linked to units.",
       "noProjects": "No projects yet.",
-      "recentNews": "Recent news",
-      "recentNewsDescription": "Latest articles in the News section.",
-      "noNews": "No news yet.",
       "unitsCount": "{count, plural, one {# unit} other {# units}}"
-    },
-    "newsPage": {
-      "eyebrow": "News",
-      "title": "Articles",
-      "description": "Add, edit, or remove news articles shown on the public site.",
-      "empty": "No news yet. Create your first article.",
-      "columns": {
-        "title": "Title",
-        "publishedAt": "Published",
-        "project": "Project",
-        "slug": "Slug",
-        "actions": "Actions"
-      }
-    },
-    "newsForm": {
-      "newTitle": "Add article",
-      "editTitle": "Edit {name}",
-      "details": "Article details",
-      "newDescription": "Fill in the article in both languages and upload a cover image.",
-      "editDescription": "Slug: {slug}",
-      "create": "Create article",
-      "save": "Save changes",
-      "saving": "Saving...",
-      "updated": "Article updated.",
-      "error": "Something went wrong.",
-      "titleCs": "Title (Czech)",
-      "titleEn": "Title (English)",
-      "slug": "Slug",
-      "slugHint": "Leave empty to generate from the Czech title.",
-      "excerptCs": "Excerpt (Czech)",
-      "excerptEn": "Excerpt (English)",
-      "bodyCs": "Article body (Czech)",
-      "bodyEn": "Article body (English)",
-      "publishedAt": "Publish date",
-      "relatedProject": "Related project",
-      "noRelatedProject": "No link",
-      "images": "Cover image",
-      "imagesHint": "Upload the cover image shown in the listing and article detail.",
-      "currentHero": "Current cover image",
-      "heroImage": "Cover image",
-      "heroReplace": "Cover image (replace)",
-      "heroAltCs": "Alt text (Czech)",
-      "heroAltEn": "Alt text (English)"
     },
     "projectsPage": {
       "eyebrow": "Projects",
@@ -742,13 +665,11 @@
       "projectSubmit": "Delete project",
       "unitTitle": "Delete unit {name}?",
       "unitConfirm": "This removes the unit from Sanity and the public site. This action cannot be undone.",
-      "unitSubmit": "Delete unit",
-      "newsTitle": "Delete article {name}?",
-      "newsConfirm": "This removes the article from Sanity and the public site. This action cannot be undone.",
-      "newsSubmit": "Delete article"
+      "unitSubmit": "Delete unit"
     },
     "projectStatus": {
-      "in-progress": "In progress",
+      "in-progress": "In preparation",
+      "in-realization": "Under construction",
       "completed": "Completed",
       "upcoming": "Upcoming"
     },

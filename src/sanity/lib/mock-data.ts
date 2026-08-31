@@ -6,15 +6,12 @@ import kobliznaEvening from "@/images/koblizna-evening.jpg";
 import kobliznaFacade from "@/images/koblizna.jpg";
 import type {
   HomeStats,
-  NewsDetail,
-  NewsSummary,
   ProjectDetail,
   ProjectSummary,
   SiteSettings,
   UnitDetail,
   UnitSummary,
 } from "@/sanity/types";
-import { textToPortableText } from "@/lib/admin-types";
 import type { Locale } from "@/utils/routes";
 
 const projectNames = {
@@ -487,123 +484,5 @@ export function getMockSiteSettings(locale: Locale): SiteSettings {
     registrationNumber: "",
     vatNumber: "",
     email: "adam@sadiaestate.cz",
-    phone: "+420 607 100 886",
-  };
-}
-
-const newsCopy = [
-  {
-    slug: "koblizna-dokoncena",
-    publishedAt: "2026-08-19T09:00:00.000Z",
-    heroImage: kobliznaEvening,
-    relatedProjectSlug: "koblizna",
-    cs: {
-      title: "Koblížná je dokončena a připravena k nastěhování",
-      excerpt:
-        "Projekt v centru Brna je kompletně dokončený. Hotové jsou byty i společné prostory v domě s historickou adresou.",
-      body: "Projekt Koblížná v srdci Brna je kompletně dokončený. Všechny byty i společné prostory prošly proměnou, která respektuje charakter původního domu a zároveň nabízí současný standard bydlení.\n\nPro zájemce o bydlení v centru města je k dispozici aktuální nabídka volných jednotek. Kontaktujte nás pro osobní prohlídku.",
-    },
-    en: {
-      title: "Koblížná is complete and ready to move in",
-      excerpt:
-        "The central Brno project is fully finished. Apartments and shared spaces in the historic building are ready for new residents.",
-      body: "The Koblížná project in the heart of Brno is fully complete. Every apartment and shared space has been transformed with respect for the building's character while offering a contemporary living standard.\n\nFor anyone looking for a home in the city centre, the current availability of units is open. Contact us to arrange a private viewing.",
-    },
-  },
-  {
-    slug: "panorama-zabiny-pripravujeme",
-    publishedAt: "2026-08-12T09:00:00.000Z",
-    heroImage: koblizna02,
-    relatedProjectSlug: "panorama-zabiny",
-    cs: {
-      title: "Panorama Žabiny vstupuje do další fáze přípravy",
-      excerpt:
-        "Na projektu v brněnských Žabovřeskách pokračujeme v návrhu dispozic i veřejných prostor s důrazem na výhled a klid lokality.",
-      body: "Panorama Žabiny se posouvá do další fáze přípravy. Tým SADIA pracuje na finálním uspořádání bytů, společných prostor i exteriéru tak, aby projekt co nejlépe využil polohu nad městem.\n\nJakmile budou k dispozici konkrétní termíny prodeje, sdílíme je v aktualitách i na stránce projektu.",
-    },
-    en: {
-      title: "Panorama Žabiny enters the next planning phase",
-      excerpt:
-        "At our Žabovřesky site we continue shaping layouts and shared spaces with a focus on views and the calm of the neighbourhood.",
-      body: "Panorama Žabiny is moving into the next planning phase. The SADIA team is refining apartment layouts, shared spaces and the exterior so the project makes the most of its elevated position above the city.\n\nOnce concrete sales milestones are confirmed, we will share them here and on the project page.",
-    },
-  },
-  {
-    slug: "sadia-kupuje-nemovitosti-brno",
-    publishedAt: "2026-08-05T09:00:00.000Z",
-    heroImage: kobliznaFacade,
-    cs: {
-      title: "SADIA hledá nemovitosti s potenciálem v Brně",
-      excerpt:
-        "Rozšiřujeme portfolio o domy, budovy a pozemky, kde dává smysl proměna s respektem k místu i původní architektuře.",
-      body: "SADIA aktivně vyhledává nemovitosti v Brně a okolí, které mají potenciál pro proměnu v kvalitní bydlení nebo smysluplný rozvoj lokality.\n\nJednáme přímo s majiteli. Pokud máte dům, budovu nebo pozemek, který by mohl získat novou kapitolu, napište nám přes formulář Kupujeme.",
-    },
-    en: {
-      title: "SADIA is looking for properties with potential in Brno",
-      excerpt:
-        "We are expanding our portfolio with buildings and land where transformation can respect place and original architecture.",
-      body: "SADIA is actively looking for properties in Brno and the surrounding area that can become quality homes or meaningful neighbourhood development.\n\nWe negotiate directly with owners. If you have a house, building or plot that deserves a new chapter, reach out through our We Buy form.",
-    },
-  },
-] as const;
-
-function buildMockNewsArticles(locale: Locale): NewsSummary[] {
-  return newsCopy.map((item) => {
-    const copy = item[locale];
-
-    return {
-      _id: `news-${item.slug}`,
-      title: copy.title,
-      slug: item.slug,
-      excerpt: copy.excerpt,
-      publishedAt: item.publishedAt,
-      heroImage: {
-        alt: copy.title,
-        local: item.heroImage,
-      },
-    };
-  });
-}
-
-export function getMockNewsArticles(locale: Locale): NewsSummary[] {
-  return buildMockNewsArticles(locale);
-}
-
-export function getMockNewsArticleBySlug(
-  locale: Locale,
-  slug: string,
-): NewsDetail | null {
-  const item = newsCopy.find((entry) => entry.slug === slug);
-
-  if (!item) {
-    return null;
-  }
-
-  const copy = item[locale];
-  const summary = buildMockNewsArticles(locale).find(
-    (article) => article.slug === slug,
-  );
-
-  if (!summary) {
-    return null;
-  }
-
-  const paragraphs = copy.body.split("\n\n").filter(Boolean);
-
-  return {
-    ...summary,
-    body: paragraphs.flatMap((paragraph) => textToPortableText(paragraph)),
-    bodyPlain: copy.body,
-    relatedProject:
-      "relatedProjectSlug" in item && item.relatedProjectSlug
-        ? {
-            _id: `project-${item.relatedProjectSlug}`,
-            name:
-              item.relatedProjectSlug === "koblizna"
-                ? projectNames.koblizna[locale]
-                : projectNames.zabiny[locale],
-            slug: item.relatedProjectSlug,
-          }
-        : undefined,
   };
 }

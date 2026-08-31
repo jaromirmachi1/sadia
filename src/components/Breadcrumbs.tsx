@@ -10,7 +10,6 @@ export type BreadcrumbItem = {
 type AppHref =
   | "/"
   | "/projects"
-  | "/news"
   | "/availability"
   | "/for-sale"
   | "/for-rent"
@@ -19,10 +18,6 @@ type AppHref =
   | "/contact"
   | {
       pathname: "/projects/[slug]";
-      params: { slug: string };
-    }
-  | {
-      pathname: "/news/[slug]";
       params: { slug: string };
     }
   | {

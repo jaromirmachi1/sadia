@@ -17,12 +17,14 @@ type ProjectsStackSectionProps = {
 
 const statusLabels = {
   cs: {
-    "in-progress": "Ve výstavbě",
+    "in-progress": "V přípravě",
+    "in-realization": "V realizaci",
     completed: "Dokončeno",
     upcoming: "Připravujeme",
   },
   en: {
-    "in-progress": "Under construction",
+    "in-progress": "In preparation",
+    "in-realization": "Under construction",
     completed: "Completed",
     upcoming: "Upcoming",
   },

@@ -3,7 +3,6 @@ import type { SchemaTypeDefinition } from "sanity";
 import { accessibleImage } from "./accessibleImage";
 import { localizedBlockContent } from "./localizedBlockContent";
 import { localizedString } from "./localizedString";
-import { newsArticle } from "./newsArticle";
 import { project } from "./project";
 import { siteSettings } from "./siteSettings";
 import { unit } from "./unit";
@@ -14,6 +13,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   accessibleImage,
   project,
   unit,
-  newsArticle,
   siteSettings,
 ];

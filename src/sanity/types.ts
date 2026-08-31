@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 import type { SanityImageSource } from "@sanity/image-url";
 
-export type ProjectStatus = "in-progress" | "completed" | "upcoming";
+export type ProjectStatus = "in-progress" | "in-realization" | "completed" | "upcoming";
 export type ProjectType = "for-sale" | "for-rent" | "mixed";
 export type ProjectSalesMode = "soldByUs" | "sellByFirm";
 export type UnitStatus =
@@ -125,32 +125,4 @@ export type SiteSettings = {
   registrationNumber?: string;
   vatNumber?: string;
   email: string;
-  phone: string;
-};
-
-export type NewsSummary = {
-  _id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  publishedAt: string;
-  heroImage: CmsImage;
-};
-
-export type NewsDetail = NewsSummary & {
-  body: unknown;
-  bodyPlain: string;
-  relatedProject?: {
-    _id: string;
-    name: string;
-    slug: string;
-  };
-};
-
-export type NewsPage = {
-  articles: NewsSummary[];
-  total: number;
-  page: number;
-  pageSize: number;
-  totalPages: number;
 };

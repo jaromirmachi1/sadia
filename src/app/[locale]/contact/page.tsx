@@ -72,19 +72,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
                     </a>
                   </dd>
                 </div>
-                <div>
-                  <dt className="text-body-sm uppercase tracking-[0.12em] text-sadia-gray">
-                    {t("phone")}
-                  </dt>
-                  <dd className="mt-2">
-                    <a
-                      href={`tel:${settings.phone.replace(/\s+/g, "")}`}
-                      className="font-semibold text-sadia-navy hover:opacity-70"
-                    >
-                      {settings.phone}
-                    </a>
-                  </dd>
-                </div>
               </dl>
             </Reveal>
 
@@ -117,14 +104,6 @@ export default async function ContactPage({ params }: ContactPageProps) {
                     name="email"
                     type="email"
                     required
-                    className="min-h-11 border border-sadia-gray-light px-3 text-body-base text-sadia-navy-black"
-                  />
-                </label>
-                <label className="flex flex-col gap-2 text-body-sm text-sadia-gray">
-                  {t("fields.phone")}
-                  <input
-                    name="phone"
-                    type="tel"
                     className="min-h-11 border border-sadia-gray-light px-3 text-body-base text-sadia-navy-black"
                   />
                 </label>

@@ -30,7 +30,7 @@ export type AdminUnitDetail = AdminUnit & {
   photos: AdminProjectImage[];
 };
 
-export type ProjectStatus = "in-progress" | "completed" | "upcoming";
+export type ProjectStatus = "in-progress" | "in-realization" | "completed" | "upcoming";
 export type ProjectType = "for-sale" | "for-rent" | "mixed";
 export type ProjectSalesMode = "soldByUs" | "sellByFirm";
 
@@ -137,44 +137,9 @@ export type ProjectFormValues = {
 export type AdminStats = {
   projects: number;
   units: number;
-  news: number;
   available: number;
   forSale: number;
   forRent: number;
-};
-
-export type AdminNewsArticle = {
-  _id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  publishedAt: string;
-  relatedProjectName?: string;
-};
-
-export type AdminNewsArticleDetail = AdminNewsArticle & {
-  titleCs: string;
-  titleEn: string;
-  excerptCs: string;
-  excerptEn: string;
-  bodyCs: string;
-  bodyEn: string;
-  relatedProjectId?: string;
-  heroImage?: AdminProjectImage | null;
-};
-
-export type NewsFormValues = {
-  titleCs: string;
-  titleEn: string;
-  slug: string;
-  excerptCs: string;
-  excerptEn: string;
-  bodyCs: string;
-  bodyEn: string;
-  publishedAt: string;
-  relatedProjectId?: string;
-  heroAltCs: string;
-  heroAltEn: string;
 };
 
 export type UnitFormValues = {
@@ -232,9 +197,10 @@ export const DEAL_TYPES = ["sale", "rent"] as const;
 export const UNIT_TYPES = ["apartment", "commercial"] as const;
 
 export const PROJECT_STATUSES = [
-  "in-progress",
-  "completed",
   "upcoming",
+  "in-progress",
+  "in-realization",
+  "completed",
 ] as const;
 
 export const PROJECT_TYPES = ["for-sale", "for-rent", "mixed"] as const;

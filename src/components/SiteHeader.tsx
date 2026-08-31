@@ -17,7 +17,6 @@ export async function SiteHeader({
     { href: routeKeys.home, label: t("home") },
     { href: routeKeys.about, label: t("about") },
     { href: routeKeys.projects, label: t("projects") },
-    { href: routeKeys.news, label: t("news") },
     { href: routeKeys.weBuy, label: t("weBuy") },
     { href: routeKeys.contact, label: t("contact") },
   ] as const;

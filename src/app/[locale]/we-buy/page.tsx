@@ -127,30 +127,17 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
                   {t("formDescription")}
                 </p>
 
-                <div className="mt-10 space-y-4">
-                  <a
-                    href={`mailto:${settings.email}`}
-                    className="block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
-                  >
-                    <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
-                      {contact("email")}
-                    </p>
-                    <p className="mt-1 font-medium text-sadia-navy-black">
-                      {settings.email}
-                    </p>
-                  </a>
-                  <a
-                    href={`tel:${settings.phone.replace(/\s+/g, "")}`}
-                    className="block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
-                  >
-                    <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
-                      {contact("phone")}
-                    </p>
-                    <p className="mt-1 font-medium text-sadia-navy-black">
-                      {settings.phone}
-                    </p>
-                  </a>
-                </div>
+                <a
+                  href={`mailto:${settings.email}`}
+                  className="mt-10 block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
+                >
+                  <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
+                    {contact("email")}
+                  </p>
+                  <p className="mt-1 font-medium text-sadia-navy-black">
+                    {settings.email}
+                  </p>
+                </a>
               </Reveal>
 
               <Reveal delay={0.08} className="lg:col-span-8">

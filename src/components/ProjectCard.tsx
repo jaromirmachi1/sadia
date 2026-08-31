@@ -6,7 +6,6 @@ import type { ProjectSummary } from "@/sanity/types";
 
 type ProjectCardProps = {
   index: number;
-  featured?: boolean;
   reversed?: boolean;
   priority?: boolean;
   project: ProjectSummary;
@@ -43,7 +42,6 @@ function CardArrow({ className }: { className?: string }) {
 
 export function ProjectCard({
   index,
-  featured = false,
   reversed = false,
   priority = false,
   project,
@@ -57,58 +55,6 @@ export function ProjectCard({
     `${project.name} — ${locationLine}`,
   );
   const number = String(index).padStart(2, "0");
-
-  if (featured) {
-    return (
-      <article>
-        <Link
-          href={{
-            pathname: "/projects/[slug]",
-            params: { slug: project.slug },
-          }}
-          className="group relative block overflow-hidden bg-sadia-navy-black text-sadia-white focus-visible:outline-2 focus-visible:outline-offset-4"
-        >
-          <div className="relative min-h-[32rem] md:min-h-[40rem] lg:min-h-[min(78svh,46rem)]">
-            <CmsImageView
-              image={project.heroImage}
-              alt={heroAlt}
-              fill
-              priority={priority}
-              sizes="100vw"
-              className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.035]"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,20,46,0.08)_0%,rgba(18,20,46,0.12)_42%,rgba(18,20,46,0.82)_100%)]" />
-          </div>
-
-          <div className="absolute inset-x-0 bottom-0 z-2 grid gap-8 px-6 pb-8 pt-24 sm:px-10 lg:grid-cols-12 lg:items-end lg:px-14 lg:pb-12">
-            <div className="lg:col-span-8">
-              <p className="sadia-eyebrow-light">
-                {number} · {locationLine}
-              </p>
-              <h2 className="mt-4 max-w-[16ch] font-display text-[clamp(2.25rem,5vw,4.75rem)] font-medium uppercase leading-[0.95] tracking-[-0.03em] text-balance">
-                {project.name}
-              </h2>
-            </div>
-
-            <div className="flex items-end justify-between gap-6 lg:col-span-4 lg:flex-col lg:items-end lg:text-right">
-              <div>
-                <p className="text-[0.75rem] font-medium uppercase tracking-[0.16em]">
-                  {statusLabel}
-                </p>
-                <p className="mt-2 text-[0.75rem] uppercase tracking-[0.14em] text-sadia-white/65">
-                  {typeLabel}
-                </p>
-              </div>
-              <span className="inline-flex items-center gap-3 text-[0.75rem] font-medium uppercase tracking-[0.16em]">
-                {viewLabel}
-                <CardArrow className="border border-white/35" />
-              </span>
-            </div>
-          </div>
-        </Link>
-      </article>
-    );
-  }
 
   return (
     <article>

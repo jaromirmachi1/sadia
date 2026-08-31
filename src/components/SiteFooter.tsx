@@ -12,7 +12,6 @@ type SiteFooterProps = {
 
 const exploreLinks = [
   { href: routeKeys.projects, key: "projects" },
-  { href: routeKeys.news, key: "news" },
   { href: routeKeys.weBuy, key: "weBuy" },
   { href: routeKeys.about, key: "about" },
   { href: routeKeys.contact, key: "contact" },
@@ -78,20 +77,12 @@ export async function SiteFooter({ locale }: SiteFooterProps) {
                   {legalEntity.address}
                 </p>
 
-                <div className="mt-6 flex flex-col gap-2">
-                  <a
-                    href={`mailto:${legalEntity.email}`}
-                    className="text-body-base text-sadia-white/80 transition-colors hover:text-sadia-white"
-                  >
-                    {legalEntity.email}
-                  </a>
-                  <a
-                    href={`tel:${legalEntity.phone.replace(/\s+/g, "")}`}
-                    className="text-body-base text-sadia-white/80 transition-colors hover:text-sadia-white"
-                  >
-                    {legalEntity.phone}
-                  </a>
-                </div>
+                <a
+                  href={`mailto:${legalEntity.email}`}
+                  className="mt-6 inline-block text-body-base text-sadia-white/80 transition-colors hover:text-sadia-white"
+                >
+                  {legalEntity.email}
+                </a>
 
                 <dl className="mt-8 space-y-1 text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-white/40">
                   <div className="flex gap-2">

@@ -135,43 +135,10 @@ export const SITE_SETTINGS_QUERY = defineQuery(`
     registrationNumber,
     vatNumber,
     email,
-    phone,
     socialLinks,
     "footerNavigation": footerNavigation[] {
       "label": label[$locale],
       href
     }
   }
-`);
-
-export const NEWS_ARTICLES_QUERY = defineQuery(`
-  *[_type == "newsArticle"] | order(publishedAt desc) {
-    _id,
-    "title": title[$locale],
-    "slug": slug.current,
-    "excerpt": excerpt[$locale],
-    publishedAt,
-    heroImage
-  }
-`);
-
-export const NEWS_ARTICLE_BY_SLUG_QUERY = defineQuery(`
-  *[_type == "newsArticle" && slug.current == $slug][0] {
-    _id,
-    "title": title[$locale],
-    "slug": slug.current,
-    "excerpt": excerpt[$locale],
-    "body": body[$locale],
-    publishedAt,
-    heroImage,
-    relatedProject-> {
-      _id,
-      "name": name[$locale],
-      "slug": slug.current
-    }
-  }
-`);
-
-export const NEWS_ARTICLE_COUNT_QUERY = defineQuery(`
-  count(*[_type == "newsArticle"])
 `);

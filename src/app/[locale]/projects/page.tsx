@@ -17,11 +17,13 @@ type ProjectsPageProps = {
 const statusLabels = {
   cs: {
     "in-progress": "V přípravě",
+    "in-realization": "V realizaci",
     completed: "Dokončeno",
     upcoming: "Připravujeme",
   },
   en: {
-    "in-progress": "In progress",
+    "in-progress": "In preparation",
+    "in-realization": "Under construction",
     completed: "Completed",
     upcoming: "Upcoming",
   },
@@ -91,8 +93,7 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
               <Reveal key={project._id} delay={Math.min(index, 3) * 0.05}>
                 <ProjectCard
                   index={index + 1}
-                  featured={index === 0}
-                  reversed={index > 0 && index % 2 === 0}
+                  reversed={index % 2 === 1}
                   priority={index === 0}
                   project={project}
                   statusLabel={

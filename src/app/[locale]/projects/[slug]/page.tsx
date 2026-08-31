@@ -485,30 +485,17 @@ export default async function ProjectDetailPage({
               <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-gray">
                 {t("inquiryDescription")}
               </p>
-              <div className="mt-8 space-y-3">
-                <a
-                  href={`mailto:${settings.email}`}
-                  className="block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
-                >
-                  <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
-                    {contact("email")}
-                  </p>
-                  <p className="mt-1 font-medium text-sadia-navy-black">
-                    {settings.email}
-                  </p>
-                </a>
-                <a
-                  href={`tel:${settings.phone.replace(/\s+/g, "")}`}
-                  className="block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
-                >
-                  <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
-                    {contact("phone")}
-                  </p>
-                  <p className="mt-1 font-medium text-sadia-navy-black">
-                    {settings.phone}
-                  </p>
-                </a>
-              </div>
+              <a
+                href={`mailto:${settings.email}`}
+                className="mt-8 block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
+              >
+                <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
+                  {contact("email")}
+                </p>
+                <p className="mt-1 font-medium text-sadia-navy-black">
+                  {settings.email}
+                </p>
+              </a>
             </Reveal>
             <Reveal delay={0.08} className="rounded-2xl bg-muted/50 p-6 lg:col-span-7 lg:p-8">
               <ProjectInquiryForm projectName={project.name} />
