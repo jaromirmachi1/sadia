@@ -31,10 +31,18 @@ type HeroVideoBackgroundProps = {
 export function HeroVideoBackground({ alt }: HeroVideoBackgroundProps) {
   const reduceMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
+  const showVideo = mounted && reduceMotion !== true;
+  const posterAlt = mounted && reduceMotion === true ? alt : "";
+
   useEffect(() => {
-    if (reduceMotion) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!showVideo) {
       return;
     }
 
@@ -62,28 +70,28 @@ export function HeroVideoBackground({ alt }: HeroVideoBackgroundProps) {
       video.removeEventListener("loadeddata", handleReady);
       video.removeEventListener("canplay", handleCanPlay);
     };
-  }, [reduceMotion]);
+  }, [showVideo]);
 
   return (
     <div className="absolute inset-0 saturate-[0.72]">
       <Image
         src={HERO_POSTER}
-        alt={reduceMotion ? alt : ""}
-        aria-hidden={reduceMotion ? undefined : true}
+        alt={posterAlt}
+        aria-hidden={posterAlt ? undefined : true}
         fill
         priority
         sizes="100vw"
         className="object-cover object-center"
       />
 
-      {!reduceMotion ? (
+      {showVideo ? (
         <video
           ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="none"
           poster={HERO_POSTER}
           aria-hidden
           className={cn(
