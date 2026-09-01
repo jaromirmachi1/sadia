@@ -15,22 +15,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
 
 type DeleteProjectButtonProps = {
   projectId: string;
   label: string;
-  unitCount: number;
 };
 
-export function DeleteProjectButton({
-  projectId,
-  label,
-  unitCount,
-}: DeleteProjectButtonProps) {
+export function DeleteProjectButton({ projectId, label }: DeleteProjectButtonProps) {
   const t = useTranslations("Admin");
   const [isPending, startTransition] = useTransition();
-  const blocked = unitCount > 0;
 
   const handleDelete = () => {
     startTransition(async () => {
@@ -46,31 +39,19 @@ export function DeleteProjectButton({
 
   return (
     <Dialog>
-      <DialogTrigger
-        className={cn(
-          buttonVariants({ variant: "destructive", size: "sm" }),
-          blocked && "pointer-events-none opacity-50",
-        )}
-        disabled={blocked}
-      >
+      <DialogTrigger className={buttonVariants({ variant: "destructive", size: "sm" })}>
         {t("actions.delete")}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("delete.projectTitle", { name: label })}</DialogTitle>
-          <DialogDescription>
-            {blocked ? t("delete.projectBlocked") : t("delete.projectConfirm")}
-          </DialogDescription>
+          <DialogDescription>{t("delete.projectConfirm")}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogTrigger className={buttonVariants({ variant: "outline" })}>
             {t("actions.cancel")}
           </DialogTrigger>
-          <Button
-            variant="destructive"
-            disabled={isPending || blocked}
-            onClick={handleDelete}
-          >
+          <Button variant="destructive" disabled={isPending} onClick={handleDelete}>
             {isPending ? t("actions.deleting") : t("delete.projectSubmit")}
           </Button>
         </DialogFooter>

@@ -49,6 +49,7 @@
       "statement": "We build value for the next generations.",
       "location": "Brno · Czech Republic",
       "coordinatesLabel": "Coordinates of Brno",
+      "imageAlt": "A SADIA project façade at dusk in central Brno",
       "cta": "Discover our vision"
     },
     "stats": {
@@ -90,8 +91,8 @@
     "cta": {
       "eyebrow": "Find your next home",
       "title": "Looking for an address with character?",
-      "description": "Explore the homes currently available or tell us what you are looking for.",
-      "primary": "View availability",
+      "description": "Explore our projects in Brno or tell us what you are looking for.",
+      "primary": "View projects",
       "secondary": "Contact us"
     },
     "weBuyPromo": {
@@ -325,9 +326,9 @@
     "statement": "We build value for the next generation.",
     "location": "Brno · Czech Republic",
     "ctaTitle": "Want to know more?",
-    "ctaDescription": "Get in touch, or browse the homes currently available.",
+    "ctaDescription": "Get in touch, or explore our projects in Brno.",
     "cta": "Contact us",
-    "availabilityCta": "Availability"
+    "projectsCta": "Our projects"
   },
   "WeBuy": {
     "metadata": {
@@ -467,17 +468,15 @@
     "metaTitle": "SADIA Admin",
     "nav": {
       "dashboard": "Dashboard",
-      "units": "Units",
       "projects": "Projects",
       "addProject": "Add project",
-      "addUnit": "Add unit",
       "signOut": "Sign out",
       "studio": "Open Sanity Studio",
       "brand": "Admin"
     },
     "login": {
       "title": "SADIA Admin",
-      "description": "Sign in to manage units, projects, and availability.",
+      "description": "Sign in to manage projects.",
       "password": "Password",
       "signIn": "Sign in",
       "signingIn": "Signing in…",
@@ -488,17 +487,9 @@
       "eyebrow": "Dashboard",
       "title": "Content overview",
       "projects": "Projects",
-      "units": "Units",
-      "available": "Available",
-      "forSale": "For sale",
-      "forRent": "For rent",
-      "recentUnits": "Recent units",
-      "recentUnitsDescription": "Latest units in the portfolio.",
-      "noUnits": "No units yet.",
       "projectsCard": "Projects",
-      "projectsCardDescription": "Active developments linked to units.",
-      "noProjects": "No projects yet.",
-      "unitsCount": "{count, plural, one {# unit} other {# units}}"
+      "projectsCardDescription": "Your developments and their status.",
+      "noProjects": "No projects yet."
     },
     "projectsPage": {
       "eyebrow": "Projects",
@@ -510,24 +501,7 @@
         "location": "Location",
         "status": "Status",
         "type": "Type",
-        "units": "Units",
         "slug": "Slug",
-        "actions": "Actions"
-      }
-    },
-    "unitsPage": {
-      "eyebrow": "Units",
-      "title": "Flats & units",
-      "description": "Add, edit, or remove units including photos and floor plans.",
-      "empty": "No units yet. Create your first unit.",
-      "onRequest": "On request",
-      "columns": {
-        "unit": "Unit",
-        "project": "Project",
-        "layout": "Layout",
-        "deal": "Deal",
-        "status": "Status",
-        "price": "Price",
         "actions": "Actions"
       }
     },
@@ -536,8 +510,7 @@
       "editTitle": "Edit {name}",
       "details": "Project details",
       "newDescription": "Add project details and upload hero and gallery images.",
-      "editDescription": "Slug: {slug} · {units}",
-      "linkedUnits": "{count, plural, one {# linked unit} other {# linked units}}",
+      "editDescription": "Slug: {slug}",
       "create": "Create project",
       "save": "Save changes",
       "saving": "Saving...",
@@ -565,7 +538,7 @@
       "mapLng": "Map longitude",
       "mapCoordsHint": "Coordinates from Google Maps. If left empty, the map falls back to the project address.",
       "salesMode": "Sales handled by",
-      "salesModeHint": "Controls whether units open the SADIA detail page or the external project website.",
+      "salesModeHint": "Controls whether visitors see the SADIA detail page or the external project website.",
       "landmarksCs": "Landmarks (Czech, one per line)",
       "landmarksEn": "Landmarks (English, one per line)",
       "locationDescriptionCs": "Location text (Czech)",
@@ -599,57 +572,6 @@
       "descriptionCsShort": "Description CS",
       "descriptionEnShort": "Description EN"
     },
-    "unitForm": {
-      "newTitle": "Add unit",
-      "editTitle": "Edit {name}",
-      "details": "Unit details",
-      "newDescription": "Fill in listing details and upload unit photos.",
-      "needProject": "Create a project before adding units.",
-      "needProjectBody": "You need at least one project before adding units.",
-      "createProject": "Create project",
-      "create": "Create unit",
-      "save": "Save changes",
-      "saving": "Saving...",
-      "updated": "Unit updated.",
-      "error": "Something went wrong.",
-      "project": "Project",
-      "selectProject": "Select project",
-      "identifier": "Unit ID",
-      "layout": "Layout",
-      "area": "Area (m²)",
-      "floor": "Floor",
-      "orientation": "Orientation",
-      "cellar": "Cellar (m²)",
-      "unitType": "Unit type",
-      "balcony": "Balcony (m²)",
-      "loggia": "Loggia (m²)",
-      "terrace": "Terrace (m²)",
-      "garden": "Front garden (m²)",
-      "dealType": "Deal type",
-      "status": "Status",
-      "externalUrl": "External URL",
-      "externalUrlHint": "Used only when Status = Sold (third party).",
-      "currency": "Currency",
-      "price": "Price",
-      "priceOnRequest": "Price on request",
-      "featured": "Featured on homepage",
-      "images": "Images",
-      "imagesHint": "Upload unit photos and an optional floor plan.",
-      "currentPhotos": "Current photos",
-      "unitPhoto": "Unit photo",
-      "remove": "Remove",
-      "photos": "Photos",
-      "addPhotos": "Add photos",
-      "photosHint": "At least one photo is required. You can select multiple files.",
-      "photoAltCs": "Photo alt text (Czech)",
-      "photoAltEn": "Photo alt text (English)",
-      "currentFloorPlan": "Current floor plan",
-      "floorPlan": "Floor plan",
-      "floorPlanReplace": "Floor plan (replace)",
-      "removeFloorPlan": "Remove floor plan",
-      "floorPlanAltCs": "Floor plan alt (Czech)",
-      "floorPlanAltEn": "Floor plan alt (English)"
-    },
     "actions": {
       "edit": "Edit",
       "delete": "Delete",
@@ -660,12 +582,8 @@
     },
     "delete": {
       "projectTitle": "Delete project {name}?",
-      "projectBlocked": "This project still has linked units. Remove or reassign them first.",
       "projectConfirm": "This removes the project from Sanity and the public site. This action cannot be undone.",
-      "projectSubmit": "Delete project",
-      "unitTitle": "Delete unit {name}?",
-      "unitConfirm": "This removes the unit from Sanity and the public site. This action cannot be undone.",
-      "unitSubmit": "Delete unit"
+      "projectSubmit": "Delete project"
     },
     "projectStatus": {
       "in-progress": "In preparation",
@@ -682,27 +600,10 @@
       "soldByUs": "SADIA",
       "sellByFirm": "External firm"
     },
-    "unitStatus": {
-      "available": "Available",
-      "reserved": "Reserved",
-      "sold": "Sold",
-      "soldThirdParty": "Sold",
-      "rented": "Rented"
-    },
-    "unitType": {
-      "apartment": "Apartment",
-      "commercial": "Commercial"
-    },
-    "dealType": {
-      "sale": "Sale",
-      "rent": "Rent"
-    },
     "errors": {
-      "photoRequired": "At least one unit photo is required.",
       "heroRequired": "Hero image is required.",
       "invalidPassword": "Invalid password.",
-      "invalidImage": "This image could not be processed. Upload a JPG, PNG, or WebP (iPhone HEIC is often rejected).",
-      "deleteProjectHasUnits": "Remove or reassign linked units before deleting this project."
+      "invalidImage": "This image could not be processed. Upload a JPG, PNG, or WebP (iPhone HEIC is often rejected)."
     }
   }
 }

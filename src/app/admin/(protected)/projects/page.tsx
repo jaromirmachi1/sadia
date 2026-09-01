@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 
-import {
-  ProjectStatusBadge,
-  ProjectTypeBadge,
-} from "@/components/admin/ProjectBadges";
+import { ProjectStatusBadge } from "@/components/admin/ProjectBadges";
 import { DeleteProjectButton } from "@/components/admin/DeleteProjectButton";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -48,8 +45,6 @@ export default async function AdminProjectsPage() {
               <TableHead>{t("projectsPage.columns.project")}</TableHead>
               <TableHead>{t("projectsPage.columns.location")}</TableHead>
               <TableHead>{t("projectsPage.columns.status")}</TableHead>
-              <TableHead>{t("projectsPage.columns.type")}</TableHead>
-              <TableHead>{t("projectsPage.columns.units")}</TableHead>
               <TableHead>{t("projectsPage.columns.slug")}</TableHead>
               <TableHead className="text-right">{t("projectsPage.columns.actions")}</TableHead>
             </TableRow>
@@ -57,7 +52,7 @@ export default async function AdminProjectsPage() {
           <TableBody>
             {projects.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="py-10 text-center text-muted-foreground">
+                <TableCell colSpan={5} className="py-10 text-center text-muted-foreground">
                   {t("projectsPage.empty")}
                 </TableCell>
               </TableRow>
@@ -69,10 +64,6 @@ export default async function AdminProjectsPage() {
                   <TableCell>
                     <ProjectStatusBadge status={project.status} />
                   </TableCell>
-                  <TableCell>
-                    <ProjectTypeBadge type={project.type} />
-                  </TableCell>
-                  <TableCell>{project.unitCount}</TableCell>
                   <TableCell>
                     <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
                       {project.slug}
@@ -89,7 +80,6 @@ export default async function AdminProjectsPage() {
                       <DeleteProjectButton
                         projectId={project._id}
                         label={project.name}
-                        unitCount={project.unitCount}
                       />
                     </div>
                   </TableCell>

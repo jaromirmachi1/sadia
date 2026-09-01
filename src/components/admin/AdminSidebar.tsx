@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Building2, Home, LayoutDashboard, LogOut, Plus } from "lucide-react";
+import { Building2, LayoutDashboard, LogOut, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { logoutAdminAction } from "@/app/admin/actions";
@@ -19,7 +19,6 @@ export async function AdminSidebar({ className }: AdminSidebarProps) {
 
   const navItems = [
     { href: "/admin", label: t("nav.dashboard"), icon: LayoutDashboard },
-    { href: "/admin/units", label: t("nav.units"), icon: Home },
     { href: "/admin/projects", label: t("nav.projects"), icon: Building2 },
   ] as const;
 
@@ -61,11 +60,6 @@ export async function AdminSidebar({ className }: AdminSidebarProps) {
         <Link href="/admin/projects/new" className={buttonVariants({ className: "w-full" })}>
           <Plus className="size-4" />
           {t("nav.addProject")}
-        </Link>
-
-        <Link href="/admin/units/new" className={buttonVariants({ variant: "outline", className: "w-full" })}>
-          <Plus className="size-4" />
-          {t("nav.addUnit")}
         </Link>
 
         <form action={logoutAdminAction}>

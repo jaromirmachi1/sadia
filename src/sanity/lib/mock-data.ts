@@ -9,8 +9,6 @@ import type {
   ProjectDetail,
   ProjectSummary,
   SiteSettings,
-  UnitDetail,
-  UnitSummary,
 } from "@/sanity/types";
 import type { Locale } from "@/utils/routes";
 
@@ -225,120 +223,9 @@ const unitCopy = {
   },
 } as const;
 
-function buildUnits(locale: Locale): UnitSummary[] {
-  const alts = unitCopy[locale].alts;
-
-  return [
-    {
-      _id: "unit-koblizna-1",
-      identifier: "A1",
-      slug: "koblizna-a1",
-      layout: "2+kk",
-      unitType: "apartment",
-      areaM2: 48,
-      floor: 2,
-      orientation: "JZ",
-      cellarM2: 3.2,
-      balconyM2: 6.4,
-      price: 24500,
-      currency: "CZK",
-      priceOnRequest: false,
-      status: "available",
-      dealType: "rent",
-      featured: true,
-      photos: [{ alt: alts.living, local: koblizna01 }],
-      project: {
-        _id: "project-koblizna",
-        name: projectNames.koblizna[locale],
-        slug: "koblizna",
-        location: "Brno · Brno-střed",
-      },
-    },
-    {
-      _id: "unit-koblizna-2",
-      identifier: "A2",
-      slug: "koblizna-a2",
-      layout: "1+kk",
-      unitType: "apartment",
-      areaM2: 34,
-      floor: 3,
-      orientation: "SV",
-      cellarM2: 2.1,
-      price: 18900,
-      currency: "CZK",
-      priceOnRequest: false,
-      status: "available",
-      dealType: "rent",
-      featured: true,
-      photos: [{ alt: alts.kitchen, local: koblizna02 }],
-      project: {
-        _id: "project-koblizna",
-        name: projectNames.koblizna[locale],
-        slug: "koblizna",
-        location: "Brno · Brno-střed",
-      },
-    },
-    {
-      _id: "unit-koblizna-3",
-      identifier: "B1",
-      slug: "koblizna-b1",
-      layout: "2+1",
-      unitType: "apartment",
-      areaM2: 62,
-      floor: 4,
-      orientation: "JV",
-      cellarM2: 4.8,
-      terraceM2: 8.1,
-      price: 28900,
-      currency: "CZK",
-      priceOnRequest: false,
-      status: "reserved",
-      dealType: "rent",
-      featured: false,
-      photos: [{ alt: alts.bedroom, local: koblizna07 }],
-      project: {
-        _id: "project-koblizna",
-        name: projectNames.koblizna[locale],
-        slug: "koblizna",
-        location: "Brno · Brno-střed",
-      },
-    },
-    {
-      _id: "unit-koblizna-4",
-      identifier: "B2",
-      slug: "koblizna-b2",
-      layout: "2+kk",
-      unitType: "apartment",
-      areaM2: 51,
-      floor: 5,
-      orientation: "JZ",
-      cellarM2: 3.4,
-      loggiaM2: 4.2,
-      price: 25900,
-      currency: "CZK",
-      priceOnRequest: false,
-      status: "available",
-      dealType: "rent",
-      featured: false,
-      photos: [{ alt: alts.kitchen, local: koblizna04 }],
-      project: {
-        _id: "project-koblizna",
-        name: projectNames.koblizna[locale],
-        slug: "koblizna",
-        location: "Brno · Brno-střed",
-      },
-    },
-  ];
-}
-
 export function getMockStats(): HomeStats {
-  const units = buildUnits("cs");
   return {
     projects: 2,
-    units: units.length,
-    totalSqm: units.reduce((sum, unit) => sum + unit.areaM2, 0),
-    forSale: 0,
-    forRent: units.filter((unit) => unit.status === "available").length,
   };
 }
 
@@ -351,7 +238,6 @@ export function getMockProjects(locale: Locale): ProjectSummary[] {
       name: projectNames.koblizna[locale],
       slug: "koblizna",
       status: "completed",
-      type: "for-rent",
       salesMode: "soldByUs",
       location: "Brno · Brno-střed",
       address: "Koblížná, Brno-střed",
@@ -367,7 +253,6 @@ export function getMockProjects(locale: Locale): ProjectSummary[] {
       name: projectNames.zabiny[locale],
       slug: "panorama-zabiny",
       status: "in-progress",
-      type: "for-sale",
       salesMode: "sellByFirm",
       location: "Brno · Žabiny",
       address: "Žabiny, Brno",
@@ -433,44 +318,6 @@ export function getMockProjectBySlug(
     landmarks: [...copy.landmarks[locale]],
     handover: copy.handover[locale],
     locationDescription: copy.locationDescription[locale],
-    amenities: copy.amenities[locale].map((group) => ({
-      title: group.title,
-      items: [...group.items],
-    })),
-    downloads: [],
-    timeline: copy.timeline[locale].map((item) => ({ ...item })),
-    units: slug === "panorama-zabiny" ? [] : buildUnits(locale),
-  };
-}
-
-export function getMockUnitsByDealType(
-  locale: Locale,
-  dealType: "sale" | "rent",
-): UnitSummary[] {
-  return buildUnits(locale).filter((unit) => unit.dealType === dealType);
-}
-
-export function getMockUnitBySlug(
-  locale: Locale,
-  slug: string,
-): UnitDetail | null {
-  const unit = buildUnits(locale).find((item) => item.slug === slug);
-
-  if (!unit) {
-    return null;
-  }
-
-  return {
-    ...unit,
-    floorPlanImage: undefined,
-    project: {
-      _id: "project-koblizna",
-      name: projectNames.koblizna[locale],
-      slug: "koblizna",
-      salesMode: "soldByUs",
-      location: "Brno · Brno-střed",
-      address: "Koblížná, Brno-střed",
-    },
   };
 }
 

@@ -29,19 +29,6 @@ const statusLabels = {
   },
 } as const;
 
-const typeLabels = {
-  cs: {
-    "for-sale": "Prodej",
-    "for-rent": "Pronájem",
-    mixed: "Prodej a pronájem",
-  },
-  en: {
-    "for-sale": "For sale",
-    "for-rent": "For rent",
-    mixed: "Sale and rent",
-  },
-} as const;
-
 export async function generateMetadata({
   params,
 }: ProjectsPageProps): Promise<Metadata> {
@@ -99,7 +86,6 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
                   statusLabel={
                     statusLabels[locale][project.status] ?? project.status
                   }
-                  typeLabel={typeLabels[locale][project.type] ?? project.type}
                   viewLabel={t("view")}
                 />
               </Reveal>

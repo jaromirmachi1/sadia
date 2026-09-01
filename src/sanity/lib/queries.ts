@@ -6,7 +6,6 @@ export const PROJECTS_QUERY = defineQuery(`
     "name": name[$locale],
     "slug": slug.current,
     status,
-    type,
     "salesMode": coalesce(salesMode, "soldByUs"),
     location,
     address,
@@ -22,7 +21,6 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
     "name": name[$locale],
     "slug": slug.current,
     status,
-    type,
     "salesMode": coalesce(salesMode, "soldByUs"),
     location,
     address,
@@ -36,95 +34,7 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
     "handover": handover[$locale],
     website,
     "locationDescription": locationDescription[$locale],
-    "amenities": amenities[] {
-      "title": title[$locale],
-      "items": items[][$locale]
-    },
-    "downloads": downloads[] {
-      "title": title[$locale],
-      "url": coalesce(url, file.asset->url)
-    },
-    "timeline": timeline[] {
-      "title": title[$locale],
-      date,
-      "description": description[$locale]
-    },
     completionDate,
-    "units": *[_type == "unit" && project._ref == ^._id] | order(floor asc, identifier asc) {
-      _id,
-      identifier,
-      "slug": slug.current,
-      layout,
-      "unitType": coalesce(unitType, "apartment"),
-      areaM2,
-      floor,
-      orientation,
-      cellarM2,
-      outdoorM2,
-      balconyM2,
-      loggiaM2,
-      terraceM2,
-      gardenM2,
-      price,
-      currency,
-      priceOnRequest,
-      status,
-      externalUrl,
-      dealType,
-      photos
-    }
-  }
-`);
-
-export const UNITS_BY_DEAL_TYPE_QUERY = defineQuery(`
-  *[_type == "unit" && dealType == $dealType] | order(featured desc, price asc) {
-    _id,
-    identifier,
-    "slug": slug.current,
-    layout,
-    areaM2,
-    floor,
-    price,
-    currency,
-    priceOnRequest,
-    status,
-    dealType,
-    featured,
-    photos,
-    project-> {
-      _id,
-      "name": name[$locale],
-      "slug": slug.current,
-      location
-    }
-  }
-`);
-
-export const UNIT_BY_SLUG_QUERY = defineQuery(`
-  *[_type == "unit" && slug.current == $slug][0] {
-    _id,
-    identifier,
-    "slug": slug.current,
-    layout,
-    areaM2,
-    floor,
-    price,
-    currency,
-    priceOnRequest,
-    status,
-    externalUrl,
-    dealType,
-    floorPlanImage,
-    photos,
-    project-> {
-      _id,
-      "name": name[$locale],
-      "slug": slug.current,
-      "salesMode": coalesce(salesMode, "soldByUs"),
-      location,
-      address,
-      website
-    }
   }
 `);
 

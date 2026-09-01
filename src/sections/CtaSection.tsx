@@ -36,7 +36,7 @@ export async function CtaSection({ locale }: CtaSectionProps) {
           </div>
 
           <div className="flex flex-col items-start gap-6 md:col-span-5 md:items-end">
-            <CtaLink href={routeKeys.availability} variant="inverse">
+            <CtaLink href={routeKeys.projects} variant="inverse">
               {t("primary")}
             </CtaLink>
             <CtaLink

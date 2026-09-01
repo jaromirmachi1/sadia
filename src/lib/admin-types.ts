@@ -1,37 +1,4 @@
-export type AdminUnit = {
-  _id: string;
-  identifier: string;
-  slug: string;
-  layout: string;
-  unitType: "apartment" | "commercial";
-  areaM2: number;
-  floor: number;
-  orientation?: string;
-  cellarM2?: number;
-  outdoorM2?: number;
-  balconyM2?: number;
-  loggiaM2?: number;
-  terraceM2?: number;
-  gardenM2?: number;
-  price?: number;
-  currency: string;
-  priceOnRequest: boolean;
-  status: "available" | "reserved" | "sold" | "soldThirdParty" | "rented";
-  dealType: "sale" | "rent";
-  featured: boolean;
-  externalUrl?: string;
-  projectId: string;
-  projectName: string;
-  _updatedAt?: string;
-};
-
-export type AdminUnitDetail = AdminUnit & {
-  floorPlanImage?: AdminProjectImage | null;
-  photos: AdminProjectImage[];
-};
-
 export type ProjectStatus = "in-progress" | "in-realization" | "completed" | "upcoming";
-export type ProjectType = "for-sale" | "for-rent" | "mixed";
 export type ProjectSalesMode = "soldByUs" | "sellByFirm";
 
 export type AdminProject = {
@@ -39,10 +6,8 @@ export type AdminProject = {
   name: string;
   slug: string;
   status: ProjectStatus;
-  type: ProjectType;
   salesMode: ProjectSalesMode;
   location: string;
-  unitCount: number;
 };
 
 export type AdminProjectImage = {
@@ -72,20 +37,6 @@ export type AdminProjectDetail = AdminProject & {
   landmarks: Array<{ cs: string; en: string }>;
   locationDescriptionCs?: string;
   locationDescriptionEn?: string;
-  amenities: Array<{
-    titleCs: string;
-    titleEn: string;
-    itemsCs: string;
-    itemsEn: string;
-  }>;
-  downloads: Array<{ titleCs: string; titleEn: string; url: string }>;
-  timeline: Array<{
-    date?: string;
-    titleCs: string;
-    titleEn: string;
-    descriptionCs?: string;
-    descriptionEn?: string;
-  }>;
   heroImage?: AdminProjectImage | null;
   gallery: AdminProjectImage[];
 };
@@ -95,7 +46,6 @@ export type ProjectFormValues = {
   nameEn: string;
   slug: string;
   status: ProjectStatus;
-  type: ProjectType;
   salesMode: ProjectSalesMode;
   location: string;
   address: string;
@@ -115,20 +65,6 @@ export type ProjectFormValues = {
   landmarksEn: string;
   locationDescriptionCs?: string;
   locationDescriptionEn?: string;
-  amenities: Array<{
-    titleCs: string;
-    titleEn: string;
-    itemsCs: string;
-    itemsEn: string;
-  }>;
-  downloads: Array<{ titleCs: string; titleEn: string; url: string }>;
-  timeline: Array<{
-    date?: string;
-    titleCs: string;
-    titleEn: string;
-    descriptionCs?: string;
-    descriptionEn?: string;
-  }>;
   heroAltCs: string;
   heroAltEn: string;
   removeGalleryKeys: string[];
@@ -136,65 +72,7 @@ export type ProjectFormValues = {
 
 export type AdminStats = {
   projects: number;
-  units: number;
-  available: number;
-  forSale: number;
-  forRent: number;
 };
-
-export type UnitFormValues = {
-  projectId: string;
-  identifier: string;
-  layout: string;
-  areaM2: number;
-  floor: number;
-  price?: number;
-  currency: "CZK" | "EUR";
-  priceOnRequest: boolean;
-  status: AdminUnit["status"];
-  dealType: AdminUnit["dealType"];
-  featured: boolean;
-  photoAltCs: string;
-  photoAltEn: string;
-  floorPlanAltCs: string;
-  floorPlanAltEn: string;
-  removePhotoKeys: string[];
-  removeFloorPlan: boolean;
-  orientation?: string;
-  cellarM2?: number;
-  outdoorM2?: number;
-  balconyM2?: number;
-  loggiaM2?: number;
-  terraceM2?: number;
-  gardenM2?: number;
-  unitType: "apartment" | "commercial";
-  externalUrl?: string;
-};
-
-export const UNIT_LAYOUTS = [
-  "S",
-  "1+kk",
-  "1+1",
-  "2+kk",
-  "2+1",
-  "3+kk",
-  "3+1",
-  "4+kk",
-  "4+1",
-  "5+kk",
-  "5+1",
-] as const;
-
-export const UNIT_STATUSES = [
-  "available",
-  "reserved",
-  "sold",
-  "rented",
-] as const;
-
-export const DEAL_TYPES = ["sale", "rent"] as const;
-
-export const UNIT_TYPES = ["apartment", "commercial"] as const;
 
 export const PROJECT_STATUSES = [
   "upcoming",
@@ -202,8 +80,6 @@ export const PROJECT_STATUSES = [
   "in-realization",
   "completed",
 ] as const;
-
-export const PROJECT_TYPES = ["for-sale", "for-rent", "mixed"] as const;
 
 export const PROJECT_SALES_MODES = ["soldByUs", "sellByFirm"] as const;
 

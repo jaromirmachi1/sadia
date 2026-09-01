@@ -27,26 +27,6 @@ export async function StatsSection({ locale, stats }: StatsSectionProps) {
       label: t("projects"),
       value: stats.projects,
     },
-    {
-      label: t("units"),
-      value: stats.units,
-    },
-    {
-      label: t("totalSqm"),
-      value: stats.totalSqm,
-    },
-    {
-      label: t("forSale"),
-      value: stats.forSale,
-    },
-    {
-      label: t("forRent"),
-      value: stats.forRent,
-    },
-    {
-      label: t("available"),
-      value: stats.forSale + stats.forRent,
-    },
   ];
 
   return (

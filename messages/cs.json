@@ -49,6 +49,7 @@
       "statement": "Budujeme hodnotu pro další generace.",
       "location": "Brno · Česká republika",
       "coordinatesLabel": "Souřadnice Brna",
+      "imageAlt": "Fasáda projektu SADIA za soumraku v centru Brna",
       "cta": "Poznat naši vizi"
     },
     "stats": {
@@ -90,8 +91,8 @@
     "cta": {
       "eyebrow": "Nové bydlení",
       "title": "Hledáte adresu, která má charakter?",
-      "description": "Prohlédněte si aktuální nabídku bytů nebo nám napište, co hledáte.",
-      "primary": "Zobrazit nabídku",
+      "description": "Prohlédněte si naše projekty v Brně nebo nám napište, co hledáte.",
+      "primary": "Prohlédnout projekty",
       "secondary": "Napsat nám"
     },
     "weBuyPromo": {
@@ -325,9 +326,9 @@
     "statement": "Budujeme hodnotu pro další generace.",
     "location": "Brno · Česká republika",
     "ctaTitle": "Chcete vědět víc?",
-    "ctaDescription": "Napište nám, nebo si prohlédněte aktuální nabídku bytů.",
+    "ctaDescription": "Napište nám, nebo si prohlédněte naše projekty.",
     "cta": "Kontaktovat",
-    "availabilityCta": "Nabídka bytů"
+    "projectsCta": "Naše projekty"
   },
   "WeBuy": {
     "metadata": {
@@ -467,17 +468,15 @@
     "metaTitle": "SADIA Administrace",
     "nav": {
       "dashboard": "Přehled",
-      "units": "Jednotky",
       "projects": "Projekty",
       "addProject": "Přidat projekt",
-      "addUnit": "Přidat jednotku",
       "signOut": "Odhlásit se",
       "studio": "Otevřít Sanity Studio",
       "brand": "Administrace"
     },
     "login": {
       "title": "SADIA Administrace",
-      "description": "Přihlaste se pro správu jednotek, projektů a nabídky.",
+      "description": "Přihlaste se pro správu projektů.",
       "password": "Heslo",
       "signIn": "Přihlásit se",
       "signingIn": "Přihlašuji…",
@@ -488,17 +487,9 @@
       "eyebrow": "Přehled",
       "title": "Přehled obsahu",
       "projects": "Projekty",
-      "units": "Jednotky",
-      "available": "Volné",
-      "forSale": "Prodej",
-      "forRent": "Pronájem",
-      "recentUnits": "Poslední jednotky",
-      "recentUnitsDescription": "Nejnovější jednotky v portfoliu.",
-      "noUnits": "Zatím žádné jednotky.",
       "projectsCard": "Projekty",
-      "projectsCardDescription": "Developmenty propojené s jednotkami.",
-      "noProjects": "Zatím žádné projekty.",
-      "unitsCount": "{count, plural, one {# jednotka} few {# jednotky} other {# jednotek}}"
+      "projectsCardDescription": "Vaše developmenty a jejich stav.",
+      "noProjects": "Zatím žádné projekty."
     },
     "projectsPage": {
       "eyebrow": "Projekty",
@@ -510,24 +501,7 @@
         "location": "Lokalita",
         "status": "Stav",
         "type": "Typ",
-        "units": "Jednotky",
         "slug": "Slug",
-        "actions": "Akce"
-      }
-    },
-    "unitsPage": {
-      "eyebrow": "Jednotky",
-      "title": "Byty a jednotky",
-      "description": "Přidávejte, upravujte a mažte jednotky včetně fotek a půdorysů.",
-      "empty": "Zatím žádné jednotky. Vytvořte první jednotku.",
-      "onRequest": "Na vyžádání",
-      "columns": {
-        "unit": "Jednotka",
-        "project": "Projekt",
-        "layout": "Dispozice",
-        "deal": "Typ",
-        "status": "Stav",
-        "price": "Cena",
         "actions": "Akce"
       }
     },
@@ -536,8 +510,7 @@
       "editTitle": "Upravit {name}",
       "details": "Údaje o projektu",
       "newDescription": "Vyplňte detaily projektu a nahrajte hlavní foto i galerii.",
-      "editDescription": "Slug: {slug} · {units}",
-      "linkedUnits": "{count, plural, one {# propojená jednotka} few {# propojené jednotky} other {# propojených jednotek}}",
+      "editDescription": "Slug: {slug}",
       "create": "Vytvořit projekt",
       "save": "Uložit změny",
       "saving": "Ukládám…",
@@ -565,7 +538,7 @@
       "mapLng": "Zeměpisná délka (mapa)",
       "mapCoordsHint": "Souřadnice z Google Maps. Pokud je nevyplníte, mapa použije adresu projektu.",
       "salesMode": "Prodej zajišťuje",
-      "salesModeHint": "Určuje, zda jednotky otevřou detail SADIA, nebo externí web projektu.",
+      "salesModeHint": "Určuje, zda návštěvníci uvidí detail SADIA, nebo externí web projektu.",
       "landmarksCs": "Přednosti lokality (česky, každý řádek zvlášť)",
       "landmarksEn": "Přednosti lokality (anglicky, každý řádek zvlášť)",
       "locationDescriptionCs": "Text o lokalitě (česky)",
@@ -599,57 +572,6 @@
       "descriptionCsShort": "Popis česky",
       "descriptionEnShort": "Popis anglicky"
     },
-    "unitForm": {
-      "newTitle": "Přidat jednotku",
-      "editTitle": "Upravit {name}",
-      "details": "Údaje o jednotce",
-      "newDescription": "Vyplňte detaily nabídky a nahrajte fotky jednotky.",
-      "needProject": "Nejdřív vytvořte projekt, až potom jednotku.",
-      "needProjectBody": "Pro přidání jednotky je potřeba alespoň jeden projekt.",
-      "createProject": "Vytvořit projekt",
-      "create": "Vytvořit jednotku",
-      "save": "Uložit změny",
-      "saving": "Ukládám…",
-      "updated": "Jednotka byla uložena.",
-      "error": "Něco se pokazilo.",
-      "project": "Projekt",
-      "selectProject": "Vyberte projekt",
-      "identifier": "ID jednotky",
-      "layout": "Dispozice",
-      "area": "Plocha (m²)",
-      "floor": "Podlaží",
-      "orientation": "Orientace",
-      "cellar": "Sklep (m²)",
-      "unitType": "Typ jednotky",
-      "balcony": "Balkon (m²)",
-      "loggia": "Lodžie (m²)",
-      "terrace": "Terasa (m²)",
-      "garden": "Předzahrádka (m²)",
-      "dealType": "Typ obchodu",
-      "status": "Stav",
-      "externalUrl": "Externí odkaz",
-      "externalUrlHint": "Vyplňte pouze pro stav Prodáno (externí firma).",
-      "currency": "Měna",
-      "price": "Cena",
-      "priceOnRequest": "Cena na vyžádání",
-      "featured": "Zvýraznit na úvodní stránce",
-      "images": "Obrázky",
-      "imagesHint": "Nahrajte fotky jednotky a volitelně půdorys.",
-      "currentPhotos": "Aktuální fotky",
-      "unitPhoto": "Foto jednotky",
-      "remove": "Odstranit",
-      "photos": "Fotky",
-      "addPhotos": "Přidat fotky",
-      "photosHint": "Je potřeba alespoň jedna fotka. Můžete vybrat více souborů.",
-      "photoAltCs": "Alt text fotky (česky)",
-      "photoAltEn": "Alt text fotky (anglicky)",
-      "currentFloorPlan": "Aktuální půdorys",
-      "floorPlan": "Půdorys",
-      "floorPlanReplace": "Půdorys (nahradit)",
-      "removeFloorPlan": "Odstranit půdorys",
-      "floorPlanAltCs": "Alt text půdorysu (česky)",
-      "floorPlanAltEn": "Alt text půdorysu (anglicky)"
-    },
     "actions": {
       "edit": "Upravit",
       "delete": "Smazat",
@@ -660,12 +582,8 @@
     },
     "delete": {
       "projectTitle": "Smazat projekt {name}?",
-      "projectBlocked": "Tento projekt má stále propojené jednotky. Nejdřív je odeberte nebo přesuňte.",
       "projectConfirm": "Projekt se smaže ze Sanity i z webu. Tuto akci nelze vrátit zpět.",
-      "projectSubmit": "Smazat projekt",
-      "unitTitle": "Smazat jednotku {name}?",
-      "unitConfirm": "Jednotka se smaže ze Sanity i z webu. Tuto akci nelze vrátit zpět.",
-      "unitSubmit": "Smazat jednotku"
+      "projectSubmit": "Smazat projekt"
     },
     "projectStatus": {
       "in-progress": "V přípravě",
@@ -682,27 +600,10 @@
       "soldByUs": "SADIA",
       "sellByFirm": "Externí firma"
     },
-    "unitStatus": {
-      "available": "Volný",
-      "reserved": "Rezervováno",
-      "sold": "Prodáno",
-      "soldThirdParty": "Prodáno",
-      "rented": "Pronajato"
-    },
-    "unitType": {
-      "apartment": "Byt",
-      "commercial": "Komerce"
-    },
-    "dealType": {
-      "sale": "Prodej",
-      "rent": "Pronájem"
-    },
     "errors": {
-      "photoRequired": "Je potřeba alespoň jedna fotka jednotky.",
       "heroRequired": "Hlavní foto je povinné.",
       "invalidPassword": "Neplatné heslo.",
-      "invalidImage": "Tento obrázek nejde zpracovat. Nahrajte JPG, PNG nebo WebP (iPhone HEIC často Sanity nepřijme).",
-      "deleteProjectHasUnits": "Nejdřív odeberte nebo přesuňte propojené jednotky."
+      "invalidImage": "Tento obrázek nejde zpracovat. Nahrajte JPG, PNG nebo WebP (iPhone HEIC často Sanity nepřijme)."
     }
   }
 }

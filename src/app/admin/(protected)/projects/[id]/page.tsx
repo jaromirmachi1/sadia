@@ -43,11 +43,7 @@ export default async function AdminEditProjectPage({
           <Link href="/admin/projects" className={buttonVariants({ variant: "outline" })}>
             {t("actions.back")}
           </Link>
-          <DeleteProjectButton
-            projectId={project._id}
-            label={project.name}
-            unitCount={project.unitCount}
-          />
+          <DeleteProjectButton projectId={project._id} label={project.name} />
         </div>
       </div>
 
@@ -55,10 +51,7 @@ export default async function AdminEditProjectPage({
         <CardHeader>
           <CardTitle>{t("projectForm.details")}</CardTitle>
           <CardDescription>
-            {t("projectForm.editDescription", {
-              slug: project.slug,
-              units: t("projectForm.linkedUnits", { count: project.unitCount }),
-            })}
+            {t("projectForm.editDescription", { slug: project.slug })}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -72,7 +65,6 @@ export default async function AdminEditProjectPage({
               nameEn: project.nameEn,
               slug: project.slug,
               status: project.status,
-              type: project.type,
               salesMode: project.salesMode,
               location: project.location,
               address: project.address,
@@ -92,9 +84,6 @@ export default async function AdminEditProjectPage({
               landmarksEn: project.landmarks.map((item) => item.en).join("\n"),
               locationDescriptionCs: project.locationDescriptionCs,
               locationDescriptionEn: project.locationDescriptionEn,
-              amenities: project.amenities,
-              downloads: project.downloads,
-              timeline: project.timeline,
               heroAltCs: project.heroImage?.altCs,
               heroAltEn: project.heroImage?.altEn,
             }}

@@ -71,21 +71,6 @@ export const project = defineType({
       fieldset: "facts",
     }),
     defineField({
-      name: "type",
-      title: "Offer type",
-      type: "string",
-      options: {
-        list: [
-          { title: "For sale", value: "for-sale" },
-          { title: "For rent", value: "for-rent" },
-          { title: "Mixed", value: "mixed" },
-        ],
-        layout: "radio",
-      },
-      validation: (rule) => rule.required(),
-      fieldset: "facts",
-    }),
-    defineField({
       name: "handover",
       title: "Handover",
       type: "localizedString",
@@ -152,35 +137,6 @@ export const project = defineType({
       fieldset: "place",
     }),
     defineField({
-      name: "amenities",
-      title: "Amenities nearby",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          name: "amenityGroup",
-          fields: [
-            defineField({
-              name: "title",
-              title: "Category",
-              type: "localizedString",
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: "items",
-              title: "Places",
-              type: "array",
-              of: [defineArrayMember({ type: "localizedString" })],
-            }),
-          ],
-          preview: {
-            select: { title: "title.cs" },
-          },
-        }),
-      ],
-      fieldset: "place",
-    }),
-    defineField({
       name: "heroImage",
       title: "Hero image",
       type: "accessibleImage",
@@ -194,83 +150,6 @@ export const project = defineType({
       of: [defineArrayMember({ type: "accessibleImage" })],
       validation: (rule) => rule.unique(),
       fieldset: "media",
-    }),
-    defineField({
-      name: "downloads",
-      title: "Downloads",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          name: "projectDownload",
-          fields: [
-            defineField({
-              name: "title",
-              title: "Title",
-              type: "localizedString",
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: "url",
-              title: "File URL",
-              type: "url",
-            }),
-            defineField({
-              name: "file",
-              title: "File",
-              type: "file",
-            }),
-          ],
-          preview: {
-            select: { title: "title.cs" },
-          },
-        }),
-      ],
-    }),
-    defineField({
-      name: "timeline",
-      title: "Construction timeline",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          name: "timelineItem",
-          fields: [
-            defineField({
-              name: "date",
-              title: "Date label",
-              type: "string",
-              description: "For example Q1 2026 or 2027.",
-            }),
-            defineField({
-              name: "title",
-              title: "Title",
-              type: "localizedString",
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: "description",
-              title: "Description",
-              type: "localizedString",
-            }),
-          ],
-          preview: {
-            select: { title: "title.cs", subtitle: "date" },
-          },
-        }),
-      ],
-    }),
-    defineField({
-      name: "units",
-      title: "Units",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "reference",
-          to: [{ type: "unit" }],
-        }),
-      ],
-      validation: (rule) => rule.unique(),
     }),
   ],
   preview: {

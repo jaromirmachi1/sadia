@@ -201,8 +201,8 @@ export default async function AboutPage({ params }: AboutPageProps) {
 
               <div className="mt-12 flex flex-col gap-6 sm:flex-row sm:items-center">
                 <CtaLink href={routeKeys.contact}>{t("cta")}</CtaLink>
-                <CtaLink href={routeKeys.availability} variant="ghost">
-                  {t("availabilityCta")}
+                <CtaLink href={routeKeys.projects} variant="ghost">
+                  {t("projectsCta")}
                 </CtaLink>
               </div>
             </Reveal>

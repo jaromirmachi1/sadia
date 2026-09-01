@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getPathname } from "@/i18n/navigation";
-import { getAllUnits, getProjects } from "@/sanity/lib/fetch";
+import { getProjects } from "@/sanity/lib/fetch";
 import { indexableStaticRoutes } from "@/seo/routes";
 import { getMetadataBase } from "@/seo/site";
 import { routing } from "@/i18n/routing";
@@ -33,10 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  const [projects, units] = await Promise.all([
-    getProjects("cs"),
-    getAllUnits("cs"),
-  ]);
+  const projects = await getProjects("cs");
 
   for (const project of projects) {
     const href = {
@@ -49,28 +46,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.85,
-      alternates: {
-        languages: Object.fromEntries(
-          routing.locales.map((locale) => [
-            locale,
-            new URL(getPathname({ locale, href }), base).toString(),
-          ]),
-        ),
-      },
-    });
-  }
-
-  for (const unit of units) {
-    const href = {
-      pathname: "/flat/[slug]" as const,
-      params: { slug: unit.slug },
-    };
-
-    entries.push({
-      url: new URL(getPathname({ locale: "cs", href }), base).toString(),
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.8,
       alternates: {
         languages: Object.fromEntries(
           routing.locales.map((locale) => [

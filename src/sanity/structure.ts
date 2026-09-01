@@ -5,7 +5,6 @@ export const structure: StructureResolver = (S) =>
     .title("Content")
     .items([
       S.documentTypeListItem("project").title("Projects"),
-      S.documentTypeListItem("unit").title("Units"),
       S.divider(),
       S.listItem()
         .id("siteSettings")

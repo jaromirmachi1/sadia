@@ -27,19 +27,6 @@ const statusLabels = {
   },
 } as const;
 
-const typeLabels = {
-  cs: {
-    "for-sale": "Byty k prodeji",
-    "for-rent": "Byty k pronájmu",
-    mixed: "Prodej a pronájem",
-  },
-  en: {
-    "for-sale": "Homes for sale",
-    "for-rent": "Homes for rent",
-    mixed: "Sale and rent",
-  },
-} as const;
-
 export async function FeaturedProjectSection({
   locale,
   project,
@@ -96,14 +83,6 @@ export async function FeaturedProjectSection({
                 </dt>
                 <dd className="mt-2 text-body-base font-medium text-sadia-white">
                   {statusLabels[locale][project.status]}
-                </dd>
-              </div>
-              <div>
-                <dt className="uppercase tracking-[0.16em] text-sadia-gray">
-                  {t("typeLabel")}
-                </dt>
-                <dd className="mt-2 text-body-base font-medium text-sadia-white">
-                  {typeLabels[locale][project.type]}
                 </dd>
               </div>
             </dl>

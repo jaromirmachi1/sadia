@@ -10,7 +10,6 @@ type ProjectCardProps = {
   priority?: boolean;
   project: ProjectSummary;
   statusLabel: string;
-  typeLabel: string;
   viewLabel: string;
 };
 
@@ -46,7 +45,6 @@ export function ProjectCard({
   priority = false,
   project,
   statusLabel,
-  typeLabel,
   viewLabel,
 }: ProjectCardProps) {
   const locationLine = project.address || project.location;
@@ -102,9 +100,6 @@ export function ProjectCard({
             <div>
               <p className="text-[0.75rem] font-medium uppercase tracking-[0.16em]">
                 {statusLabel}
-              </p>
-              <p className="mt-2 text-[0.75rem] uppercase tracking-[0.14em] text-sadia-gray">
-                {typeLabel}
               </p>
             </div>
             <span className="inline-flex items-center gap-3 text-[0.75rem] font-medium uppercase tracking-[0.16em]">

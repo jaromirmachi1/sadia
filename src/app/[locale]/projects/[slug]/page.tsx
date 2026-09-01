@@ -8,9 +8,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import { ProjectHeroSection } from "@/components/ProjectHeroSection";
 import { ProjectLocationMap } from "@/components/ProjectLocationMap";
-import { ProjectTimeline } from "@/components/ProjectTimeline";
 import { ProjectInquiryForm } from "@/components/ProjectInquiryForm";
-import { ProjectUnitsTable } from "@/components/ProjectUnitsTable";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlug, getProjects, getSiteSettings } from "@/sanity/lib/fetch";
@@ -23,7 +21,6 @@ import {
 import { buildPageMetadata } from "@/seo/metadata";
 import { resolveImageAlt, resolveOgImageUrl } from "@/seo/image";
 import { absoluteUrl } from "@/seo/site";
-import { formatPrice } from "@/utils/format";
 import { buildGoogleMapsLinkUrl } from "@/utils/maps";
 import { routeKeys, type Locale } from "@/utils/routes";
 
@@ -138,16 +135,6 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  const availableUnits = project.units.filter(
-    (unit) => unit.status === "available",
-  );
-  const pricedUnits = availableUnits.filter(
-    (unit) => !unit.priceOnRequest && typeof unit.price === "number",
-  );
-  const priceFrom = pricedUnits.reduce<number | undefined>((lowest, unit) => {
-    if (typeof unit.price !== "number") return lowest;
-    return lowest == null ? unit.price : Math.min(lowest, unit.price);
-  }, undefined);
   const images = uniqueImages(project.heroImage, project.gallery);
   const mosaic = images.slice(0, 3);
   const restImages = images.slice(3);
@@ -173,20 +160,6 @@ export default async function ProjectDetailPage({
     project.handover
       ? { label: t("facts.handover"), value: project.handover }
       : null,
-    {
-      label: t("facts.available"),
-      value: String(availableUnits.length),
-    },
-    priceFrom != null
-      ? {
-          label: t("facts.priceFrom"),
-          value: formatPrice(
-            priceFrom,
-            pricedUnits[0]?.currency ?? "CZK",
-            locale,
-          ),
-        }
-      : null,
     project.website
       ? { label: t("facts.website"), value: websiteLabel(project.website), href: project.website }
       : null,
@@ -207,7 +180,6 @@ export default async function ProjectDetailPage({
         params: { slug },
       })),
       image: resolveOgImageUrl(project.heroImage),
-      availableUnits: availableUnits.length,
     }),
     buildBreadcrumbListSchema([
       { name: nav("home"), href: routeKeys.home, locale },
@@ -349,68 +321,6 @@ export default async function ProjectDetailPage({
         </section>
       ) : null}
 
-      <section className="bg-muted/50 py-section-sm">
-        <Container>
-          <Reveal className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="sadia-eyebrow">
-                {t("unitsCount", { count: project.units.length })}
-              </p>
-              <h2 className="sadia-heading-section mt-3">
-                {t("units")}
-              </h2>
-            </div>
-          </Reveal>
-          <div className="mt-8">
-            {project.units.length === 0 ? (
-              <p className="text-body-lg text-sadia-navy-black/70">{t("emptyUnits")}</p>
-            ) : (
-              <ProjectUnitsTable
-                locale={locale}
-                units={project.units}
-                projectWebsite={project.website}
-                projectSalesMode={project.salesMode}
-              />
-            )}
-          </div>
-        </Container>
-      </section>
-
-      {project.downloads.length > 0 ? (
-        <section className="bg-sadia-white py-section-sm">
-          <Container>
-            <Reveal>
-              <h2 className="sadia-heading-section">
-                {t("downloads")}
-              </h2>
-              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-                {project.downloads.map((file) => (
-                  <li key={file.url}>
-                    <a
-                      href={file.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-between rounded-xl bg-muted/60 px-5 py-4 text-body-base font-medium text-sadia-navy-black transition-colors hover:bg-muted"
-                    >
-                      <span>{file.title}</span>
-                      <span aria-hidden="true">↓</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </Container>
-        </section>
-      ) : null}
-
-      {project.timeline.length > 0 ? (
-        <section className="bg-sadia-white py-section-sm">
-          <Container>
-            <ProjectTimeline heading={t("timeline")} items={project.timeline} />
-          </Container>
-        </section>
-      ) : null}
-
       <section className="bg-muted/50 py-section-sm" aria-label={t("map")}>
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:items-stretch lg:gap-x-10">
@@ -450,25 +360,6 @@ export default async function ProjectDetailPage({
               </div>
             ) : null}
           </div>
-
-          {project.amenities.length > 0 ? (
-            <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {project.amenities.map((group) => (
-                <Reveal key={group.title}>
-                  <article className="h-full rounded-2xl bg-sadia-white px-6 py-7">
-                    <h3 className="font-display text-heading-md font-medium text-sadia-navy-black">
-                      {group.title}
-                    </h3>
-                    <ul className="mt-4 space-y-2 text-body-base text-sadia-navy-black/70">
-                      {group.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          ) : null}
         </Container>
       </section>
 

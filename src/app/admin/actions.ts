@@ -17,7 +17,6 @@ import {
   slugifyIdentifier,
   textToPortableText,
   type ProjectFormValues,
-  type UnitFormValues,
 } from "@/lib/admin-types";
 import { assertWriteClient } from "@/sanity/lib/write-client";
 import {
@@ -30,12 +29,7 @@ import {
 } from "@/sanity/lib/admin-images";
 
 async function adminError(
-  key:
-    | "photoRequired"
-    | "heroRequired"
-    | "invalidPassword"
-    | "deleteProjectHasUnits"
-    | "invalidImage",
+  key: "heroRequired" | "invalidPassword" | "invalidImage",
 ) {
   const locale = await getAdminLocale();
   const t = await getTranslations({ locale, namespace: "Admin.errors" });
@@ -73,265 +67,11 @@ function optionalNumber(formData: FormData, key: string) {
   return Number.isNaN(value) ? undefined : value;
 }
 
-function parseUnitFormData(formData: FormData): UnitFormValues {
-  const identifier = String(formData.get("identifier") ?? "").trim();
-
-  return {
-    projectId: String(formData.get("projectId") ?? ""),
-    identifier,
-    layout: String(formData.get("layout") ?? "2+kk"),
-    unitType:
-      formData.get("unitType") === "commercial" ? "commercial" : "apartment",
-    areaM2: Number(formData.get("areaM2") ?? 0),
-    floor: Number(formData.get("floor") ?? 0),
-    price: optionalNumber(formData, "price"),
-    currency: (formData.get("currency") as "CZK" | "EUR") ?? "CZK",
-    priceOnRequest: formData.get("priceOnRequest") === "on",
-    status: (formData.get("status") as UnitFormValues["status"]) ?? "available",
-    dealType: (formData.get("dealType") as UnitFormValues["dealType"]) ?? "rent",
-    featured: formData.get("featured") === "on",
-    photoAltCs:
-      String(formData.get("photoAltCs") ?? "").trim() || identifier,
-    photoAltEn:
-      String(formData.get("photoAltEn") ?? "").trim() || identifier,
-    floorPlanAltCs:
-      String(formData.get("floorPlanAltCs") ?? "").trim() ||
-      `Půdorys ${identifier}`,
-    floorPlanAltEn:
-      String(formData.get("floorPlanAltEn") ?? "").trim() ||
-      `Floor plan ${identifier}`,
-    removePhotoKeys: formData
-      .getAll("removePhotos")
-      .map((value) => String(value))
-      .filter(Boolean),
-    removeFloorPlan: formData.get("removeFloorPlan") === "on",
-    orientation: String(formData.get("orientation") ?? "").trim() || undefined,
-    cellarM2: optionalNumber(formData, "cellarM2"),
-    balconyM2: optionalNumber(formData, "balconyM2"),
-    loggiaM2: optionalNumber(formData, "loggiaM2"),
-    terraceM2: optionalNumber(formData, "terraceM2"),
-    gardenM2: optionalNumber(formData, "gardenM2"),
-    externalUrl: String(formData.get("externalUrl") ?? "").trim() || undefined,
-  };
-}
-
-function setOptionalNumber(
-  doc: Record<string, unknown>,
-  key: string,
-  value?: number,
-) {
-  if (typeof value === "number" && !Number.isNaN(value)) {
-    doc[key] = value;
-  }
-}
-
-function buildUnitDocument(values: UnitFormValues): Record<string, unknown> {
-  const slug = slugifyIdentifier(values.identifier);
-
-  const doc: Record<string, unknown> = {
-    _type: "unit",
-    project: {
-      _type: "reference",
-      _ref: values.projectId,
-    },
-    identifier: values.identifier.trim(),
-    slug: {
-      _type: "slug",
-      current: slug,
-    },
-    layout: values.layout,
-    unitType: values.unitType,
-    areaM2: values.areaM2,
-    floor: values.floor,
-    currency: values.currency,
-    priceOnRequest: values.priceOnRequest,
-    status: values.status,
-    dealType: values.dealType,
-    featured: values.featured,
-  };
-
-  if (values.orientation) {
-    doc.orientation = values.orientation;
-  }
-
-  if (values.externalUrl) {
-    doc.externalUrl = values.externalUrl;
-  }
-
-  setOptionalNumber(doc, "cellarM2", values.cellarM2);
-  setOptionalNumber(doc, "balconyM2", values.balconyM2);
-  setOptionalNumber(doc, "loggiaM2", values.loggiaM2);
-  setOptionalNumber(doc, "terraceM2", values.terraceM2);
-  setOptionalNumber(doc, "gardenM2", values.gardenM2);
-
-  if (!values.priceOnRequest) {
-    doc.price = values.price ?? 0;
-  }
-
-  return doc;
-}
-
-function unitUnsetFields(values: UnitFormValues) {
-  const unset: string[] = ["outdoorM2"];
-
-  if (!values.orientation) unset.push("orientation");
-  if (typeof values.cellarM2 !== "number") unset.push("cellarM2");
-  if (typeof values.balconyM2 !== "number") unset.push("balconyM2");
-  if (typeof values.loggiaM2 !== "number") unset.push("loggiaM2");
-  if (typeof values.terraceM2 !== "number") unset.push("terraceM2");
-  if (typeof values.gardenM2 !== "number") unset.push("gardenM2");
-  if (values.status !== "soldThirdParty" || !values.externalUrl) {
-    unset.push("externalUrl");
-  }
-
-  return unset;
-}
-
-function unitReference(unitId: string) {
-  return {
-    _key: unitId.replace(/[^a-zA-Z0-9_-]/g, "").slice(-24) ||
-      Math.random().toString(36).slice(2, 10),
-    _type: "reference" as const,
-    _ref: unitId,
-  };
-}
-
-async function getProjectSlug(projectId: string) {
-  const client = assertWriteClient();
-  return client.fetch<string | null>(
-    `*[_type == "project" && _id == $id][0].slug.current`,
-    { id: projectId },
-  );
-}
-
-async function attachUnitToProject(projectId: string, unitId: string) {
-  if (!projectId || !unitId) return;
-
-  const client = assertWriteClient();
-  await client
-    .patch(projectId)
-    .setIfMissing({ units: [] })
-    .unset([`units[_ref=="${unitId}"]`])
-    .append("units", [unitReference(unitId)])
-    .commit({ autoGenerateArrayKeys: true });
-}
-
-async function detachUnitFromProject(projectId: string, unitId: string) {
-  if (!projectId || !unitId) return;
-
-  const client = assertWriteClient();
-  await client
-    .patch(projectId)
-    .unset([`units[_ref=="${unitId}"]`])
-    .commit();
-}
-
-async function revalidateUnitPublicPaths(projectId?: string | null) {
-  revalidatePath("/admin");
-  revalidatePath("/admin/units");
-  revalidatePath("/nabidka");
-  revalidatePath("/en/availability");
-  revalidatePath("/projekty");
-  revalidatePath("/en/projects");
-
-  if (!projectId) return;
-
-  const slug = await getProjectSlug(projectId);
-  if (slug) {
-    revalidatePath(`/projekty/${slug}`);
-    revalidatePath(`/en/projects/${slug}`);
-  }
-}
-
-type ExistingUnitImages = {
-  floorPlanImage?: {
-    asset?: { _ref: string };
-    alt?: { cs?: string; en?: string };
-  } | null;
-  photos?: Array<{
-    _key?: string;
-    asset?: { _ref: string };
-    alt?: { cs?: string; en?: string };
-  }> | null;
-};
-
-async function resolveUnitImages(
-  formData: FormData,
-  values: UnitFormValues,
-  options: {
-    requirePhotos?: boolean;
-    existing?: ExistingUnitImages | null;
-  } = {},
-) {
-  const client = assertWriteClient();
-  const photoFiles = getFilesFromFormData(formData, "photos");
-  const floorPlanFile = getFileFromFormData(formData, "floorPlanImage");
-
-  let photos = (options.existing?.photos ?? []).filter(
-    (image) => image._key && !values.removePhotoKeys.includes(image._key),
-  );
-
-  if (photoFiles.length > 0) {
-    const uploaded = await Promise.all(
-      photoFiles.map(async (file) => {
-        const asset = await uploadAdminImage(client, file);
-        return buildGalleryImage(asset._id, values.photoAltCs, values.photoAltEn);
-      }),
-    );
-    photos = [...photos, ...uploaded];
-  }
-
-  if (options.requirePhotos && photos.length === 0) {
-    throw new Error(await adminError("photoRequired"));
-  }
-
-  let floorPlanImage = options.existing?.floorPlanImage ?? undefined;
-
-  if (values.removeFloorPlan) {
-    floorPlanImage = undefined;
-  }
-
-  if (floorPlanFile) {
-    const asset = await uploadAdminImage(client, floorPlanFile);
-    floorPlanImage = buildAccessibleImage(
-      asset._id,
-      values.floorPlanAltCs,
-      values.floorPlanAltEn,
-    );
-  } else if (floorPlanImage?.asset?._ref) {
-    floorPlanImage = {
-      ...floorPlanImage,
-      alt: {
-        cs: values.floorPlanAltCs,
-        en: values.floorPlanAltEn,
-      },
-    };
-  }
-
-  return { photos, floorPlanImage };
-}
-
 function parseProjectFormData(formData: FormData): ProjectFormValues {
   const nameCs = String(formData.get("nameCs") ?? "").trim();
   const slugInput = String(formData.get("slug") ?? "").trim();
   const heroAltCs = String(formData.get("heroAltCs") ?? "").trim();
   const heroAltEn = String(formData.get("heroAltEn") ?? "").trim();
-  const amenityTitleCs = formData.getAll("amenityTitleCs").map((value) => String(value));
-  const amenityTitleEn = formData.getAll("amenityTitleEn").map((value) => String(value));
-  const amenityItemsCs = formData.getAll("amenityItemsCs").map((value) => String(value));
-  const amenityItemsEn = formData.getAll("amenityItemsEn").map((value) => String(value));
-  const downloadTitleCs = formData.getAll("downloadTitleCs").map((value) => String(value));
-  const downloadTitleEn = formData.getAll("downloadTitleEn").map((value) => String(value));
-  const downloadUrl = formData.getAll("downloadUrl").map((value) => String(value));
-  const timelineDate = formData.getAll("timelineDate").map((value) => String(value));
-  const timelineTitleCs = formData.getAll("timelineTitleCs").map((value) => String(value));
-  const timelineTitleEn = formData.getAll("timelineTitleEn").map((value) => String(value));
-  const timelineDescriptionCs = formData
-    .getAll("timelineDescriptionCs")
-    .map((value) => String(value));
-  const timelineDescriptionEn = formData
-    .getAll("timelineDescriptionEn")
-    .map((value) => String(value));
 
   return {
     nameCs,
@@ -339,7 +79,6 @@ function parseProjectFormData(formData: FormData): ProjectFormValues {
     slug: slugInput || slugifyIdentifier(nameCs),
     status:
       (formData.get("status") as ProjectFormValues["status"]) ?? "upcoming",
-    type: (formData.get("type") as ProjectFormValues["type"]) ?? "mixed",
     location: String(formData.get("location") ?? "").trim(),
     address: String(formData.get("address") ?? "").trim(),
     mapLat: optionalNumber(formData, "mapLat"),
@@ -362,33 +101,6 @@ function parseProjectFormData(formData: FormData): ProjectFormValues {
       String(formData.get("locationDescriptionCs") ?? "").trim() || undefined,
     locationDescriptionEn:
       String(formData.get("locationDescriptionEn") ?? "").trim() || undefined,
-    amenities: Array.from(
-      { length: Math.max(amenityTitleCs.length, amenityTitleEn.length) },
-      (_, index) => ({
-        titleCs: amenityTitleCs[index]?.trim() ?? "",
-        titleEn: amenityTitleEn[index]?.trim() ?? "",
-        itemsCs: amenityItemsCs[index] ?? "",
-        itemsEn: amenityItemsEn[index] ?? "",
-      }),
-    ).filter((item) => item.titleCs || item.titleEn),
-    downloads: Array.from(
-      { length: Math.max(downloadTitleCs.length, downloadUrl.length) },
-      (_, index) => ({
-        titleCs: downloadTitleCs[index]?.trim() ?? "",
-        titleEn: downloadTitleEn[index]?.trim() ?? "",
-        url: downloadUrl[index]?.trim() ?? "",
-      }),
-    ).filter((item) => item.url && (item.titleCs || item.titleEn)),
-    timeline: Array.from(
-      { length: Math.max(timelineTitleCs.length, timelineTitleEn.length) },
-      (_, index) => ({
-        date: timelineDate[index]?.trim() || undefined,
-        titleCs: timelineTitleCs[index]?.trim() ?? "",
-        titleEn: timelineTitleEn[index]?.trim() ?? "",
-        descriptionCs: timelineDescriptionCs[index]?.trim() || undefined,
-        descriptionEn: timelineDescriptionEn[index]?.trim() || undefined,
-      }),
-    ).filter((item) => item.titleCs || item.titleEn),
     heroAltCs: heroAltCs || nameCs,
     heroAltEn: heroAltEn || String(formData.get("nameEn") ?? "").trim() || nameCs,
     removeGalleryKeys: formData
@@ -471,34 +183,6 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
     values.locationDescriptionEn,
   );
   const landmarks = localizedList(values.landmarksCs, values.landmarksEn);
-  const amenities = values.amenities
-    .map((group) => {
-      const title = localizedValue(group.titleCs, group.titleEn);
-      const items = localizedList(group.itemsCs, group.itemsEn);
-
-      if (!title) return null;
-
-      return {
-        _type: "amenityGroup",
-        _key: Math.random().toString(36).slice(2, 10),
-        title,
-        items,
-      };
-    })
-    .filter(Boolean);
-  const downloads = values.downloads.map((item) => ({
-    _type: "projectDownload",
-    _key: Math.random().toString(36).slice(2, 10),
-    title: localizedValue(item.titleCs, item.titleEn),
-    url: item.url,
-  }));
-  const timeline = values.timeline.map((item) => ({
-    _type: "timelineItem",
-    _key: Math.random().toString(36).slice(2, 10),
-    date: item.date,
-    title: localizedValue(item.titleCs, item.titleEn),
-    description: localizedValue(item.descriptionCs, item.descriptionEn),
-  }));
 
   const doc: Record<string, unknown> = {
     name: {
@@ -510,7 +194,6 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
       current: values.slug,
     },
     status: values.status,
-    type: values.type,
     salesMode: values.salesMode,
     location: values.location,
     address: values.address,
@@ -519,9 +202,6 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
       en: textToPortableText(values.descriptionEn),
     },
     landmarks,
-    amenities,
-    downloads,
-    timeline,
   };
 
   if (badge) doc.badge = badge;
@@ -593,111 +273,6 @@ export async function logoutAdminAction() {
   redirect("/admin/login");
 }
 
-export async function createUnitFormAction(formData: FormData) {
-  await createUnitAction(formData);
-}
-
-export async function updateUnitFormAction(id: string, formData: FormData) {
-  return updateUnitAction(id, formData);
-}
-
-export async function createUnitAction(formData: FormData) {
-  await requireAdmin();
-  const client = assertWriteClient();
-  const values = parseUnitFormData(formData);
-  const images = await resolveUnitImages(formData, values, { requirePhotos: true });
-
-  const doc = {
-    ...buildUnitDocument(values),
-    photos: images.photos,
-    ...(images.floorPlanImage ? { floorPlanImage: images.floorPlanImage } : {}),
-  } as unknown as { _type: string; [key: string]: unknown };
-
-  const created = await client.create(doc);
-  await attachUnitToProject(values.projectId, created._id);
-  await revalidateUnitPublicPaths(values.projectId);
-
-  redirect(`/admin/units/${created._id}`);
-}
-
-export async function updateUnitAction(id: string, formData: FormData) {
-  await requireAdmin();
-  const client = assertWriteClient();
-  const values = parseUnitFormData(formData);
-
-  const existing = await client.fetch<
-    (ExistingUnitImages & { projectId?: string }) | null
-  >(
-    `*[_type == "unit" && _id == $id][0] {
-      floorPlanImage,
-      photos,
-      "projectId": project._ref
-    }`,
-    { id },
-  );
-
-  const images = await resolveUnitImages(formData, values, {
-    requirePhotos: true,
-    existing,
-  });
-
-  const fields = {
-    ...buildUnitDocument(values),
-    photos: images.photos,
-  };
-
-  const patch = client.patch(id).set(fields);
-  const unsetUnit = unitUnsetFields(values);
-
-  if (values.priceOnRequest) {
-    unsetUnit.push("price");
-  }
-
-  if (unsetUnit.length > 0) {
-    patch.unset(unsetUnit);
-  }
-
-  if (images.floorPlanImage) {
-    patch.set({ floorPlanImage: images.floorPlanImage });
-  } else {
-    patch.unset(["floorPlanImage"]);
-  }
-
-  await patch.commit();
-
-  const previousProjectId = existing?.projectId;
-  if (previousProjectId && previousProjectId !== values.projectId) {
-    await detachUnitFromProject(previousProjectId, id);
-  }
-  await attachUnitToProject(values.projectId, id);
-  await revalidateUnitPublicPaths(values.projectId);
-  if (previousProjectId && previousProjectId !== values.projectId) {
-    await revalidateUnitPublicPaths(previousProjectId);
-  }
-  revalidatePath(`/admin/units/${id}`);
-
-  return { success: true };
-}
-
-export async function deleteUnitAction(id: string) {
-  await requireAdmin();
-  const client = assertWriteClient();
-
-  const existing = await client.fetch<{ projectId?: string } | null>(
-    `*[_type == "unit" && _id == $id][0] { "projectId": project._ref }`,
-    { id },
-  );
-
-  if (existing?.projectId) {
-    await detachUnitFromProject(existing.projectId, id);
-  }
-
-  await client.delete(id);
-  await revalidateUnitPublicPaths(existing?.projectId);
-
-  redirect("/admin/units");
-}
-
 export async function createProjectFormAction(formData: FormData) {
   await createProjectAction(formData);
 }
@@ -747,7 +322,7 @@ export async function updateProjectAction(id: string, formData: FormData) {
   };
 
   const patch = client.patch(id).set(fields);
-  const unset: string[] = [];
+  const unset: string[] = ["type", "amenities", "downloads", "timeline"];
 
   if (values.completionDate) {
     patch.set({ completionDate: values.completionDate });
@@ -782,17 +357,12 @@ export async function deleteProjectAction(id: string) {
   await requireAdmin();
   const client = assertWriteClient();
 
-  const project = await client.fetch<{ slug: string; unitCount: number }>(
+  const project = await client.fetch<{ slug: string }>(
     `*[_type == "project" && _id == $id][0] {
-      "slug": slug.current,
-      "unitCount": count(*[_type == "unit" && references(^._id)])
+      "slug": slug.current
     }`,
     { id },
   );
-
-  if (project?.unitCount && project.unitCount > 0) {
-    throw new Error(await adminError("deleteProjectHasUnits"));
-  }
 
   await client.delete(id);
 

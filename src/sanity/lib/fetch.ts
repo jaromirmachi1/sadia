@@ -5,27 +5,18 @@ import {
   getMockProjects,
   getMockSiteSettings,
   getMockStats,
-  getMockUnitBySlug,
-  getMockUnitsByDealType,
 } from "@/sanity/lib/mock-data";
 import {
   PROJECT_BY_SLUG_QUERY,
   PROJECTS_QUERY,
   SITE_SETTINGS_QUERY,
-  UNIT_BY_SLUG_QUERY,
-  UNITS_BY_DEAL_TYPE_QUERY,
 } from "@/sanity/lib/queries";
 import type {
   CmsImage,
   HomeStats,
-  ProjectAmenity,
   ProjectDetail,
-  ProjectDownload,
   ProjectSummary,
-  ProjectTimelineItem,
   SiteSettings,
-  UnitDetail,
-  UnitSummary,
 } from "@/sanity/types";
 import { portableTextToPlainText } from "@/lib/admin-types";
 import { withPublicContact } from "@/legal/entity";
@@ -67,51 +58,6 @@ function mapSanityImage(
   };
 }
 
-function mapSanityUnit(
-  locale: Locale,
-  unit: Record<string, unknown>,
-): UnitSummary {
-  const photos = Array.isArray(unit.photos)
-    ? unit.photos
-        .map((photo) =>
-          mapSanityImage(locale, photo as SanityImageDoc, unit.identifier as string),
-        )
-        .filter(Boolean)
-    : [];
-
-  const optionalNumber = (value: unknown) =>
-    typeof value === "number" && !Number.isNaN(value) ? value : undefined;
-
-  return {
-    _id: unit._id as string,
-    identifier: unit.identifier as string,
-    slug: unit.slug as string,
-    layout: unit.layout as string,
-    unitType: unit.unitType === "commercial" ? "commercial" : "apartment",
-    areaM2: unit.areaM2 as number,
-    floor: unit.floor as number,
-    orientation: (unit.orientation as string | undefined) || undefined,
-    cellarM2: optionalNumber(unit.cellarM2),
-    outdoorM2: optionalNumber(unit.outdoorM2),
-    balconyM2: optionalNumber(unit.balconyM2),
-    loggiaM2: optionalNumber(unit.loggiaM2),
-    terraceM2: optionalNumber(unit.terraceM2),
-    gardenM2: optionalNumber(unit.gardenM2),
-    price: unit.price as number | undefined,
-    currency: (unit.currency as string) ?? "CZK",
-    priceOnRequest: Boolean(unit.priceOnRequest),
-    status: unit.status as UnitSummary["status"],
-    dealType: unit.dealType as UnitSummary["dealType"],
-    featured: Boolean(unit.featured),
-    externalUrl:
-      typeof unit.externalUrl === "string" && unit.externalUrl.trim()
-        ? unit.externalUrl
-        : undefined,
-    photos: photos as CmsImage[],
-    project: unit.project as UnitSummary["project"],
-  };
-}
-
 async function fetchFromSanity<T>(
   query: string,
   params: Record<string, unknown>,
@@ -132,39 +78,14 @@ export async function getHomeStats(locale: Locale): Promise<HomeStats> {
     return getMockStats();
   }
 
-  const [projects, saleUnits, rentUnits] = await Promise.all([
-    fetchFromSanity<unknown[]>(PROJECTS_QUERY, { locale }),
-    fetchFromSanity<unknown[]>(UNITS_BY_DEAL_TYPE_QUERY, {
-      locale,
-      dealType: "sale",
-    }),
-    fetchFromSanity<unknown[]>(UNITS_BY_DEAL_TYPE_QUERY, {
-      locale,
-      dealType: "rent",
-    }),
-  ]);
+  const projects = await fetchFromSanity<unknown[]>(PROJECTS_QUERY, { locale });
 
-  if (!projects && !saleUnits && !rentUnits) {
+  if (!projects) {
     return getMockStats();
   }
 
-  const allUnits = [...(saleUnits ?? []), ...(rentUnits ?? [])] as {
-    status?: string;
-    areaM2?: number;
-  }[];
-
   return {
-    projects: projects?.length ?? 0,
-    units: allUnits.length,
-    totalSqm: allUnits.reduce((sum, unit) => sum + (unit.areaM2 ?? 0), 0),
-    forSale:
-      saleUnits?.filter(
-        (unit) => (unit as { status?: string }).status === "available",
-      ).length ?? 0,
-    forRent:
-      rentUnits?.filter(
-        (unit) => (unit as { status?: string }).status === "available",
-      ).length ?? 0,
+    projects: projects.length,
   };
 }
 
@@ -187,7 +108,6 @@ export async function getProjects(locale: Locale): Promise<ProjectSummary[]> {
     name: project.name as string,
     slug: project.slug as string,
     status: project.status as ProjectSummary["status"],
-    type: project.type as ProjectSummary["type"],
     salesMode: (project.salesMode as ProjectSummary["salesMode"]) ?? "soldByUs",
     location: project.location as string,
     address: project.address as string | undefined,
@@ -226,15 +146,6 @@ export async function getProjectBySlug(
     return getMockProjectBySlug(locale, slug);
   }
 
-  const units = Array.isArray(project.units)
-    ? project.units
-        .filter(
-          (unit): unit is Record<string, unknown> =>
-            Boolean(unit) && typeof unit === "object" && "_id" in unit,
-        )
-        .map((unit) => mapSanityUnit(locale, unit))
-    : [];
-
   const gallery = Array.isArray(project.gallery)
     ? project.gallery
         .map((image) =>
@@ -243,31 +154,11 @@ export async function getProjectBySlug(
         .filter(Boolean)
     : [];
 
-  const amenities = Array.isArray(project.amenities)
-    ? (project.amenities as ProjectAmenity[])
-        .map((group) => ({
-          title: group.title,
-          items: (group.items ?? []).filter(Boolean),
-        }))
-        .filter((group) => group.title)
-    : [];
-
-  const downloads = Array.isArray(project.downloads)
-    ? (project.downloads as ProjectDownload[]).filter(
-        (item) => item.title && item.url,
-      )
-    : [];
-
-  const timeline = Array.isArray(project.timeline)
-    ? (project.timeline as ProjectTimelineItem[]).filter((item) => item.title)
-    : [];
-
   return {
     _id: project._id as string,
     name: project.name as string,
     slug: project.slug as string,
     status: project.status as ProjectDetail["status"],
-    type: project.type as ProjectDetail["type"],
     salesMode: (project.salesMode as ProjectDetail["salesMode"]) ?? "soldByUs",
     location: project.location as string,
     address: project.address as string,
@@ -287,75 +178,7 @@ export async function getProjectBySlug(
     locationDescription: project.locationDescription
       ? portableTextToPlainText(project.locationDescription)
       : undefined,
-    amenities,
-    downloads,
-    timeline,
     completionDate: project.completionDate as string | undefined,
-    units,
-  };
-}
-
-export async function getUnitsByDealType(
-  locale: Locale,
-  dealType: "sale" | "rent",
-): Promise<UnitSummary[]> {
-  if (!isSanityConfigured) {
-    return getMockUnitsByDealType(locale, dealType);
-  }
-
-  const units = await fetchFromSanity<Record<string, unknown>[]>(
-    UNITS_BY_DEAL_TYPE_QUERY,
-    { locale, dealType },
-  );
-
-  if (!units) {
-    return getMockUnitsByDealType(locale, dealType);
-  }
-
-  return units.map((unit) => mapSanityUnit(locale, unit));
-}
-
-export async function getAllUnits(locale: Locale): Promise<UnitSummary[]> {
-  const [saleUnits, rentUnits] = await Promise.all([
-    getUnitsByDealType(locale, "sale"),
-    getUnitsByDealType(locale, "rent"),
-  ]);
-
-  return [...saleUnits, ...rentUnits];
-}
-
-export async function getUnitBySlug(
-  locale: Locale,
-  slug: string,
-): Promise<UnitDetail | null> {
-  if (!isSanityConfigured) {
-    return getMockUnitBySlug(locale, slug);
-  }
-
-  const unit = await fetchFromSanity<Record<string, unknown>>(
-    UNIT_BY_SLUG_QUERY,
-    { locale, slug },
-  );
-
-  if (!unit) {
-    return getMockUnitBySlug(locale, slug);
-  }
-
-  const mapped = mapSanityUnit(locale, unit);
-  const project = unit.project as UnitDetail["project"] | undefined;
-
-  if (!project) {
-    return getMockUnitBySlug(locale, slug);
-  }
-
-  return {
-    ...mapped,
-    floorPlanImage: mapSanityImage(
-      locale,
-      unit.floorPlanImage as SanityImageDoc,
-      mapped.identifier,
-    ),
-    project,
   };
 }
 

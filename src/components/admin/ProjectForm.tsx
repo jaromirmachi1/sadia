@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/label";
 import {
   PROJECT_SALES_MODES,
   PROJECT_STATUSES,
-  PROJECT_TYPES,
   type AdminProjectImage,
   type ProjectFormValues,
 } from "@/lib/admin-types";
@@ -201,7 +200,6 @@ function ProjectImageFields({
 function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormValues> }) {
   const t = useTranslations("Admin.projectForm");
   const tStatus = useTranslations("Admin.projectStatus");
-  const tType = useTranslations("Admin.projectType");
   const tSalesMode = useTranslations("Admin.projectSalesMode");
 
   return (
@@ -263,22 +261,6 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
             {PROJECT_STATUSES.map((status) => (
               <option key={status} value={status}>
                 {tStatus(status)}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="type">{t("type")}</Label>
-          <select
-            id="type"
-            name="type"
-            defaultValue={defaultValues?.type ?? "mixed"}
-            className={fieldClassName}
-          >
-            {PROJECT_TYPES.map((type) => (
-              <option key={type} value={type}>
-                {tType(type)}
               </option>
             ))}
           </select>
@@ -478,144 +460,7 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
           />
         </div>
       </div>
-
-      <RepeatableAmenities defaultItems={defaultValues?.amenities} />
-      <RepeatableDownloads defaultItems={defaultValues?.downloads} />
-      <RepeatableTimeline defaultItems={defaultValues?.timeline} />
     </>
-  );
-}
-
-function RepeatableAmenities({
-  defaultItems = [],
-}: {
-  defaultItems?: ProjectFormValues["amenities"];
-}) {
-  const t = useTranslations("Admin.projectForm");
-  const [items, setItems] = useState(
-    defaultItems.length > 0
-      ? defaultItems
-      : [{ titleCs: "", titleEn: "", itemsCs: "", itemsEn: "" }],
-  );
-
-  return (
-    <fieldset className="space-y-4 rounded-xl border border-border p-4">
-      <legend className="px-1 text-sm font-medium">{t("amenities")}</legend>
-      {items.map((item, index) => (
-        <div key={index} className="grid gap-3 rounded-lg bg-muted/40 p-4 md:grid-cols-2">
-          <Input name="amenityTitleCs" defaultValue={item.titleCs} placeholder={t("categoryCs")} />
-          <Input name="amenityTitleEn" defaultValue={item.titleEn} placeholder={t("categoryEn")} />
-          <textarea
-            name="amenityItemsCs"
-            defaultValue={item.itemsCs}
-            className={textareaClassName}
-            placeholder={t("placesCs")}
-          />
-          <textarea
-            name="amenityItemsEn"
-            defaultValue={item.itemsEn}
-            className={textareaClassName}
-            placeholder={t("placesEn")}
-          />
-        </div>
-      ))}
-      <Button
-        type="button"
-        variant="outline"
-        onClick={() =>
-          setItems((current) => [
-            ...current,
-            { titleCs: "", titleEn: "", itemsCs: "", itemsEn: "" },
-          ])
-        }
-      >
-        {t("addAmenity")}
-      </Button>
-    </fieldset>
-  );
-}
-
-function RepeatableDownloads({
-  defaultItems = [],
-}: {
-  defaultItems?: ProjectFormValues["downloads"];
-}) {
-  const t = useTranslations("Admin.projectForm");
-  const [items, setItems] = useState(
-    defaultItems.length > 0
-      ? defaultItems
-      : [{ titleCs: "", titleEn: "", url: "" }],
-  );
-
-  return (
-    <fieldset className="space-y-4 rounded-xl border border-border p-4">
-      <legend className="px-1 text-sm font-medium">{t("downloads")}</legend>
-      {items.map((item, index) => (
-        <div key={index} className="grid gap-3 md:grid-cols-3">
-          <Input name="downloadTitleCs" defaultValue={item.titleCs} placeholder={t("titleCs")} />
-          <Input name="downloadTitleEn" defaultValue={item.titleEn} placeholder={t("titleEn")} />
-          <Input name="downloadUrl" type="url" defaultValue={item.url} placeholder="https://" />
-        </div>
-      ))}
-      <Button
-        type="button"
-        variant="outline"
-        onClick={() =>
-          setItems((current) => [...current, { titleCs: "", titleEn: "", url: "" }])
-        }
-      >
-        {t("addDownload")}
-      </Button>
-    </fieldset>
-  );
-}
-
-function RepeatableTimeline({
-  defaultItems = [],
-}: {
-  defaultItems?: ProjectFormValues["timeline"];
-}) {
-  const t = useTranslations("Admin.projectForm");
-  const [items, setItems] = useState(
-    defaultItems.length > 0
-      ? defaultItems
-      : [{ date: "", titleCs: "", titleEn: "", descriptionCs: "", descriptionEn: "" }],
-  );
-
-  return (
-    <fieldset className="space-y-4 rounded-xl border border-border p-4">
-      <legend className="px-1 text-sm font-medium">{t("timeline")}</legend>
-      {items.map((item, index) => (
-        <div key={index} className="grid gap-3 rounded-lg bg-muted/40 p-4 md:grid-cols-2">
-          <Input name="timelineDate" defaultValue={item.date ?? ""} placeholder="Q2 2027" />
-          <div />
-          <Input name="timelineTitleCs" defaultValue={item.titleCs} placeholder={t("titleCs")} />
-          <Input name="timelineTitleEn" defaultValue={item.titleEn} placeholder={t("titleEn")} />
-          <Input
-            name="timelineDescriptionCs"
-            defaultValue={item.descriptionCs ?? ""}
-            placeholder={t("descriptionCsShort")}
-          />
-          <Input
-            name="timelineDescriptionEn"
-            defaultValue={item.descriptionEn ?? ""}
-            placeholder={t("descriptionEnShort")}
-          />
-        </div>
-      ))}
-      <Button
-        type="button"
-        variant="outline"
-        onClick={() =>
-          setItems((current) => [
-            ...current,
-            { date: "", titleCs: "", titleEn: "", descriptionCs: "", descriptionEn: "" },
-          ])
-        }
-      >
-        {t("addTimeline")}
-      </Button>
-    </fieldset>
   );
 }
 
