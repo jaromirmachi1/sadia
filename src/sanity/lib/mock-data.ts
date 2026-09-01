@@ -247,6 +247,7 @@ export function getMockProjects(locale: Locale): ProjectSummary[] {
         { alt: alts.living, local: koblizna01 },
       ],
       completionDate: "2023-07-01",
+      showOnHomepage: true,
     },
     {
       _id: "project-panorama-zabiny",
@@ -268,8 +269,13 @@ export function getMockProjects(locale: Locale): ProjectSummary[] {
         { alt: alts.kitchen, local: koblizna04 },
       ],
       completionDate: "2027-06-01",
+      showOnHomepage: false,
     },
   ];
+}
+
+export function getMockHomepageProjects(locale: Locale): ProjectSummary[] {
+  return getMockProjects(locale).filter((project) => project.showOnHomepage !== false);
 }
 
 export function getMockProjectBySlug(
@@ -315,9 +321,7 @@ export function getMockProjectBySlug(
     description: copy.description[locale],
     badge: copy.badge[locale],
     tagline: copy.tagline[locale],
-    landmarks: [...copy.landmarks[locale]],
-    handover: copy.handover[locale],
-    locationDescription: copy.locationDescription[locale],
+    unitCount: slug === "panorama-zabiny" ? 48 : 32,
   };
 }
 

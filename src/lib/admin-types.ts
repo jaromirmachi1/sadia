@@ -8,6 +8,7 @@ export type AdminProject = {
   status: ProjectStatus;
   salesMode: ProjectSalesMode;
   location: string;
+  showOnHomepage?: boolean;
 };
 
 export type AdminProjectImage = {
@@ -29,14 +30,11 @@ export type AdminProjectDetail = AdminProject & {
   badgeEn?: string;
   taglineCs?: string;
   taglineEn?: string;
-  handoverCs?: string;
-  handoverEn?: string;
   website?: string;
+  unitCount?: number;
   salesMode: ProjectSalesMode;
+  showOnHomepage?: boolean;
   geo?: { lat: number; lng: number };
-  landmarks: Array<{ cs: string; en: string }>;
-  locationDescriptionCs?: string;
-  locationDescriptionEn?: string;
   heroImage?: AdminProjectImage | null;
   gallery: AdminProjectImage[];
 };
@@ -58,13 +56,9 @@ export type ProjectFormValues = {
   badgeEn?: string;
   taglineCs?: string;
   taglineEn?: string;
-  handoverCs?: string;
-  handoverEn?: string;
   website?: string;
-  landmarksCs: string;
-  landmarksEn: string;
-  locationDescriptionCs?: string;
-  locationDescriptionEn?: string;
+  unitCount?: number;
+  showOnHomepage: boolean;
   heroAltCs: string;
   heroAltEn: string;
   removeGalleryKeys: string[];

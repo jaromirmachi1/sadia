@@ -40,8 +40,9 @@ export async function HeroSection({ locale }: HeroSectionProps) {
             </div>
 
             <div className="flex items-end justify-between gap-8 md:col-span-4 md:block">
-              <p className="sadia-lead-light max-w-md text-body-lg">
-                {t("description")}
+              <p className="font-display text-[clamp(1.125rem,2vw,1.5rem)] font-medium uppercase leading-[1.2] tracking-[0.08em] text-sadia-white">
+                <span className="block whitespace-nowrap">{t("typesLine1")}</span>
+                <span className="block whitespace-nowrap">{t("typesLine2")}</span>
               </p>
               <a
                 href="#home-about"

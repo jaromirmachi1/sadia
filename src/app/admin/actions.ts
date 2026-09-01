@@ -90,17 +90,11 @@ function parseProjectFormData(formData: FormData): ProjectFormValues {
     badgeEn: String(formData.get("badgeEn") ?? "").trim() || undefined,
     taglineCs: String(formData.get("taglineCs") ?? "").trim() || undefined,
     taglineEn: String(formData.get("taglineEn") ?? "").trim() || undefined,
-    handoverCs: String(formData.get("handoverCs") ?? "").trim() || undefined,
-    handoverEn: String(formData.get("handoverEn") ?? "").trim() || undefined,
     website: String(formData.get("website") ?? "").trim() || undefined,
+    unitCount: optionalNumber(formData, "unitCount"),
+    showOnHomepage: formData.get("showOnHomepage") === "on",
     salesMode:
       (formData.get("salesMode") as ProjectFormValues["salesMode"]) ?? "soldByUs",
-    landmarksCs: String(formData.get("landmarksCs") ?? ""),
-    landmarksEn: String(formData.get("landmarksEn") ?? ""),
-    locationDescriptionCs:
-      String(formData.get("locationDescriptionCs") ?? "").trim() || undefined,
-    locationDescriptionEn:
-      String(formData.get("locationDescriptionEn") ?? "").trim() || undefined,
     heroAltCs: heroAltCs || nameCs,
     heroAltEn: heroAltEn || String(formData.get("nameEn") ?? "").trim() || nameCs,
     removeGalleryKeys: formData
@@ -177,12 +171,6 @@ async function resolveProjectImages(
 function buildProjectFields(values: ProjectFormValues): Record<string, unknown> {
   const badge = localizedValue(values.badgeCs, values.badgeEn);
   const tagline = localizedValue(values.taglineCs, values.taglineEn);
-  const handover = localizedValue(values.handoverCs, values.handoverEn);
-  const locationDescription = localizedValue(
-    values.locationDescriptionCs,
-    values.locationDescriptionEn,
-  );
-  const landmarks = localizedList(values.landmarksCs, values.landmarksEn);
 
   const doc: Record<string, unknown> = {
     name: {
@@ -195,19 +183,21 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
     },
     status: values.status,
     salesMode: values.salesMode,
+    showOnHomepage: values.showOnHomepage,
     location: values.location,
     address: values.address,
     description: {
       cs: textToPortableText(values.descriptionCs),
       en: textToPortableText(values.descriptionEn),
     },
-    landmarks,
   };
 
   if (badge) doc.badge = badge;
   if (tagline) doc.tagline = tagline;
-  if (handover) doc.handover = handover;
   if (values.website) doc.website = values.website;
+  if (typeof values.unitCount === "number") {
+    doc.unitCount = values.unitCount;
+  }
   if (
     typeof values.mapLat === "number" &&
     typeof values.mapLng === "number"
@@ -216,12 +206,6 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
       _type: "geopoint",
       lat: values.mapLat,
       lng: values.mapLng,
-    };
-  }
-  if (locationDescription) {
-    doc.locationDescription = {
-      cs: textToPortableText(values.locationDescriptionCs ?? ""),
-      en: textToPortableText(values.locationDescriptionEn ?? ""),
     };
   }
   if (values.completionDate) {
@@ -322,7 +306,15 @@ export async function updateProjectAction(id: string, formData: FormData) {
   };
 
   const patch = client.patch(id).set(fields);
-  const unset: string[] = ["type", "amenities", "downloads", "timeline"];
+  const unset: string[] = [
+    "type",
+    "amenities",
+    "downloads",
+    "timeline",
+    "landmarks",
+    "handover",
+    "locationDescription",
+  ];
 
   if (values.completionDate) {
     patch.set({ completionDate: values.completionDate });
@@ -332,13 +324,10 @@ export async function updateProjectAction(id: string, formData: FormData) {
 
   if (!values.badgeCs && !values.badgeEn) unset.push("badge");
   if (!values.taglineCs && !values.taglineEn) unset.push("tagline");
-  if (!values.handoverCs && !values.handoverEn) unset.push("handover");
   if (!values.website) unset.push("website");
+  if (typeof values.unitCount !== "number") unset.push("unitCount");
   if (typeof values.mapLat !== "number" || typeof values.mapLng !== "number") {
     unset.push("geo");
-  }
-  if (!values.locationDescriptionCs && !values.locationDescriptionEn) {
-    unset.push("locationDescription");
   }
 
   if (unset.length > 0) {

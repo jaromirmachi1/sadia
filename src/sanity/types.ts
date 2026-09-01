@@ -21,6 +21,7 @@ export type ProjectSummary = {
   heroImage: CmsImage;
   gallery: CmsImage[];
   completionDate?: string;
+  showOnHomepage?: boolean;
 };
 
 export type ProjectDetail = ProjectSummary & {
@@ -30,10 +31,8 @@ export type ProjectDetail = ProjectSummary & {
   description: string;
   badge?: string;
   tagline?: string;
-  landmarks: string[];
-  handover?: string;
   website?: string;
-  locationDescription?: string;
+  unitCount?: number;
 };
 
 export type HomeStats = {

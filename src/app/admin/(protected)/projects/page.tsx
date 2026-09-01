@@ -45,6 +45,7 @@ export default async function AdminProjectsPage() {
               <TableHead>{t("projectsPage.columns.project")}</TableHead>
               <TableHead>{t("projectsPage.columns.location")}</TableHead>
               <TableHead>{t("projectsPage.columns.status")}</TableHead>
+              <TableHead>{t("projectsPage.columns.homepage")}</TableHead>
               <TableHead>{t("projectsPage.columns.slug")}</TableHead>
               <TableHead className="text-right">{t("projectsPage.columns.actions")}</TableHead>
             </TableRow>
@@ -52,7 +53,7 @@ export default async function AdminProjectsPage() {
           <TableBody>
             {projects.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="py-10 text-center text-muted-foreground">
+                <TableCell colSpan={6} className="py-10 text-center text-muted-foreground">
                   {t("projectsPage.empty")}
                 </TableCell>
               </TableRow>
@@ -63,6 +64,11 @@ export default async function AdminProjectsPage() {
                   <TableCell>{project.location}</TableCell>
                   <TableCell>
                     <ProjectStatusBadge status={project.status} />
+                  </TableCell>
+                  <TableCell>
+                    {project.showOnHomepage !== false
+                      ? t("projectsPage.homepageYes")
+                      : t("projectsPage.homepageNo")}
                   </TableCell>
                   <TableCell>
                     <code className="rounded bg-muted px-1.5 py-0.5 text-xs">

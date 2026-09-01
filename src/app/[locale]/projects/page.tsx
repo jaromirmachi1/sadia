@@ -79,7 +79,6 @@ export default async function ProjectsPage({ params }: ProjectsPageProps) {
             {projects.map((project, index) => (
               <Reveal key={project._id} delay={Math.min(index, 3) * 0.05}>
                 <ProjectCard
-                  index={index + 1}
                   reversed={index % 2 === 1}
                   priority={index === 0}
                   project={project}

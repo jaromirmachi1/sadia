@@ -48,13 +48,6 @@ export const project = defineType({
       fieldset: "story",
     }),
     defineField({
-      name: "landmarks",
-      title: "Nearby landmarks",
-      type: "array",
-      of: [defineArrayMember({ type: "localizedString" })],
-      fieldset: "story",
-    }),
-    defineField({
       name: "status",
       title: "Status",
       type: "string",
@@ -71,10 +64,19 @@ export const project = defineType({
       fieldset: "facts",
     }),
     defineField({
-      name: "handover",
-      title: "Handover",
-      type: "localizedString",
-      description: "Public handover label, for example Q2 2027.",
+      name: "showOnHomepage",
+      title: "Show on homepage",
+      type: "boolean",
+      description: "When enabled, the project appears in the homepage projects section.",
+      initialValue: false,
+      fieldset: "facts",
+    }),
+    defineField({
+      name: "unitCount",
+      title: "Unit count",
+      type: "number",
+      description: "Total number of units in the project, shown on the project page.",
+      validation: (rule) => rule.min(0).integer(),
       fieldset: "facts",
     }),
     defineField({
@@ -128,12 +130,6 @@ export const project = defineType({
       type: "geopoint",
       description:
         "Pin shown on the full-width Google Map on the project page. You can also set this in the admin dashboard using latitude and longitude.",
-      fieldset: "place",
-    }),
-    defineField({
-      name: "locationDescription",
-      title: "Location description",
-      type: "localizedBlockContent",
       fieldset: "place",
     }),
     defineField({

@@ -32,15 +32,11 @@ type AdminProjectRaw = Omit<
   AdminProjectDetail,
   | "descriptionCs"
   | "descriptionEn"
-  | "locationDescriptionCs"
-  | "locationDescriptionEn"
   | "heroImage"
   | "gallery"
 > & {
   descriptionCs: unknown;
   descriptionEn: unknown;
-  locationDescriptionCs?: unknown;
-  locationDescriptionEn?: unknown;
   heroImage?: AdminProjectImageRaw | null;
   gallery?: AdminProjectImageRaw[] | null;
 };
@@ -65,13 +61,6 @@ export async function getAdminProject(
     ...project,
     descriptionCs: portableTextToPlainText(project.descriptionCs),
     descriptionEn: portableTextToPlainText(project.descriptionEn),
-    locationDescriptionCs: portableTextToPlainText(
-      project.locationDescriptionCs,
-    ),
-    locationDescriptionEn: portableTextToPlainText(
-      project.locationDescriptionEn,
-    ),
-    landmarks: project.landmarks ?? [],
     heroImage: mapAdminProjectImage(
       project.heroImage
         ? {
