@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { CmsImageView } from "@/components/CmsImageView";
 import { Container } from "@/components/Container";
+import { CtaAnchor } from "@/components/CtaLink";
 import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import { ProjectHeroSection } from "@/components/ProjectHeroSection";
@@ -145,7 +146,6 @@ export default async function ProjectDetailPage({
   ];
   const related = projects.filter((item) => item.slug !== project.slug).slice(0, 3);
   const descriptionParts = paragraphs(project.description);
-  const locationParts = paragraphs(project.locationDescription);
   const googleMapsUrl =
     buildGoogleMapsLinkUrl({
       geo: project.geo,
@@ -157,8 +157,11 @@ export default async function ProjectDetailPage({
   const facts = [
     { label: t("facts.address"), value: project.address },
     { label: t("facts.status"), value: t(`status.${project.status}`) },
-    project.handover
-      ? { label: t("facts.handover"), value: project.handover }
+    typeof project.unitCount === "number"
+      ? {
+          label: t("facts.unitCount"),
+          value: t("facts.unitCountValue", { count: project.unitCount }),
+        }
       : null,
     project.website
       ? { label: t("facts.website"), value: websiteLabel(project.website), href: project.website }
@@ -223,18 +226,6 @@ export default async function ProjectDetailPage({
                   <p>{t("fallbackDescription")}</p>
                 )}
               </div>
-              {project.landmarks.length > 0 ? (
-                <ul className="mt-8 flex flex-wrap gap-2">
-                  {project.landmarks.map((landmark) => (
-                    <li
-                      key={landmark}
-                      className="rounded-full bg-muted/70 px-4 py-2 text-body-sm text-sadia-navy-black"
-                    >
-                      {landmark}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
             </Reveal>
 
             <Reveal delay={0.08} className="lg:col-span-5">
@@ -321,74 +312,87 @@ export default async function ProjectDetailPage({
         </section>
       ) : null}
 
-      <section className="bg-muted/50 py-section-sm" aria-label={t("map")}>
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-stretch lg:gap-x-10">
-            <Reveal className="lg:col-span-5">
-              <p className="sadia-eyebrow">
-                {t("map")}
-              </p>
-              <h2 className="sadia-heading-section mt-4 max-w-[12ch]">
-                {t("locationTitle")}
+      <section
+        className="relative overflow-hidden bg-sadia-navy-black"
+        aria-labelledby="project-location-title"
+      >
+        {showMap ? (
+          <ProjectLocationMap
+            title={`${project.name} – ${t("map")}`}
+            address={project.address}
+            label={project.name}
+            geo={project.geo}
+            fill
+          />
+        ) : null}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(18,20,46,0.08)_0%,rgba(18,20,46,0.04)_46%,rgba(18,20,46,0.42)_100%)]"
+        />
+
+        <Container className="relative z-2 flex min-h-[min(78svh,40rem)] flex-col justify-end pb-10 pt-24 md:min-h-[min(82svh,48rem)] md:pb-14 lg:pb-16">
+          <Reveal>
+            <div className="max-w-xl bg-sadia-white px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
+              <p className="sadia-eyebrow">{t("map")}</p>
+              <h2
+                id="project-location-title"
+                className="sadia-heading-section mt-4 max-w-[14ch]"
+              >
+                {project.location || t("locationTitle")}
               </h2>
-              <div className="mt-6 max-w-md space-y-4 text-body-lg leading-relaxed text-sadia-gray">
-                {locationParts.length > 0
-                  ? locationParts.map((part) => <p key={part}>{part}</p>)
-                  : <p>{project.address}</p>}
-              </div>
+              <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-gray">
+                {project.address}
+              </p>
               {googleMapsUrl ? (
-                <a
+                <CtaAnchor
                   href={googleMapsUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="sadia-underline-link mt-8 inline-flex pb-1 text-body-sm font-semibold uppercase tracking-[0.14em] text-sadia-navy-black"
+                  className="mt-8"
                 >
                   {t("openMap")}
-                </a>
+                </CtaAnchor>
               ) : null}
-            </Reveal>
-
-            {showMap ? (
-              <div className="lg:col-span-7">
-                <ProjectLocationMap
-                  title={`${project.name} – ${t("map")}`}
-                  address={project.address}
-                  label={project.name}
-                  geo={project.geo}
-                  className="h-full min-h-[22rem]"
-                />
-              </div>
-            ) : null}
-          </div>
+            </div>
+          </Reveal>
         </Container>
       </section>
 
-      <section className="bg-sadia-white py-section-sm">
+      <section
+        aria-labelledby="project-inquiry-title"
+        className="bg-sadia-navy-black py-section-sm text-sadia-white"
+      >
         <Container>
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10 lg:items-start">
-            <Reveal className="lg:col-span-5">
-              <p className="sadia-eyebrow">
-                {t("inquiryEyebrow")}
-              </p>
-              <h2 className="sadia-heading-section mt-4 max-w-[14ch]">
-                {t("inquiryTitle")}
-              </h2>
-              <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-gray">
-                {t("inquiryDescription")}
-              </p>
+          <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-x-10">
+            <Reveal className="flex flex-col justify-between gap-10 lg:col-span-5">
+              <div>
+                <p className="sadia-eyebrow-light">{t("inquiryEyebrow")}</p>
+                <h2
+                  id="project-inquiry-title"
+                  className="mt-5 max-w-[14ch] font-display text-[clamp(1.85rem,2.6vw,2.85rem)] font-medium uppercase leading-[1.15] tracking-[-0.02em] text-balance"
+                >
+                  {t("inquiryTitle")}
+                </h2>
+                <p className="mt-5 max-w-md text-body-base leading-relaxed text-sadia-white/70">
+                  {t("inquiryDescription")}
+                </p>
+              </div>
               <a
                 href={`mailto:${settings.email}`}
-                className="mt-8 block rounded-xl bg-muted/60 px-5 py-4 transition-colors hover:bg-muted"
+                className="group max-w-md border-t border-sadia-white/20 pt-6"
               >
-                <p className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
+                <p className="text-[0.6875rem] uppercase tracking-[0.18em] text-sadia-white/55">
                   {contact("email")}
                 </p>
-                <p className="mt-1 font-medium text-sadia-navy-black">
+                <p className="mt-2 font-display text-[clamp(1.05rem,1.6vw,1.35rem)] font-medium tracking-[-0.02em] text-sadia-white transition-opacity group-hover:opacity-70">
                   {settings.email}
                 </p>
               </a>
             </Reveal>
-            <Reveal delay={0.08} className="rounded-2xl bg-muted/50 p-6 lg:col-span-7 lg:p-8">
+            <Reveal
+              delay={0.08}
+              className="bg-sadia-white px-6 py-10 text-sadia-navy-black sm:px-10 sm:py-12 lg:col-span-7 lg:px-14 lg:py-14"
+            >
               <ProjectInquiryForm projectName={project.name} />
             </Reveal>
           </div>

@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/Container";
 import { CtaLink } from "@/components/CtaLink";
 import { Reveal } from "@/components/Reveal";
-import aboutImage from "@/images/koblizna-evening.jpg";
+import aboutImage from "@/images/koblizna-day.jpg";
 import { routeKeys } from "@/utils/routes";
 
 export async function AboutSection() {

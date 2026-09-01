@@ -3,12 +3,14 @@ import { sanityClient } from "@/sanity/lib/client";
 import {
   getMockProjectBySlug,
   getMockProjects,
+  getMockHomepageProjects,
   getMockSiteSettings,
   getMockStats,
 } from "@/sanity/lib/mock-data";
 import {
   PROJECT_BY_SLUG_QUERY,
   PROJECTS_QUERY,
+  HOMEPAGE_PROJECTS_QUERY,
   SITE_SETTINGS_QUERY,
 } from "@/sanity/lib/queries";
 import type {
@@ -89,20 +91,10 @@ export async function getHomeStats(locale: Locale): Promise<HomeStats> {
   };
 }
 
-export async function getProjects(locale: Locale): Promise<ProjectSummary[]> {
-  if (!isSanityConfigured) {
-    return getMockProjects(locale);
-  }
-
-  const projects = await fetchFromSanity<Record<string, unknown>[]>(
-    PROJECTS_QUERY,
-    { locale },
-  );
-
-  if (!projects?.length) {
-    return getMockProjects(locale);
-  }
-
+function mapProjectSummaries(
+  locale: Locale,
+  projects: Record<string, unknown>[],
+): ProjectSummary[] {
   return projects.map((project) => ({
     _id: project._id as string,
     name: project.name as string,
@@ -127,6 +119,42 @@ export async function getProjects(locale: Locale): Promise<ProjectSummary[]> {
       : [],
     completionDate: project.completionDate as string | undefined,
   }));
+}
+
+export async function getProjects(locale: Locale): Promise<ProjectSummary[]> {
+  if (!isSanityConfigured) {
+    return getMockProjects(locale);
+  }
+
+  const projects = await fetchFromSanity<Record<string, unknown>[]>(
+    PROJECTS_QUERY,
+    { locale },
+  );
+
+  if (!projects?.length) {
+    return getMockProjects(locale);
+  }
+
+  return mapProjectSummaries(locale, projects);
+}
+
+export async function getHomepageProjects(
+  locale: Locale,
+): Promise<ProjectSummary[]> {
+  if (!isSanityConfigured) {
+    return getMockHomepageProjects(locale);
+  }
+
+  const projects = await fetchFromSanity<Record<string, unknown>[]>(
+    HOMEPAGE_PROJECTS_QUERY,
+    { locale },
+  );
+
+  if (!projects?.length) {
+    return getMockHomepageProjects(locale);
+  }
+
+  return mapProjectSummaries(locale, projects);
 }
 
 export async function getProjectBySlug(
@@ -170,14 +198,9 @@ export async function getProjectBySlug(
     description: portableTextToPlainText(project.description),
     badge: (project.badge as string | undefined) || undefined,
     tagline: (project.tagline as string | undefined) || undefined,
-    landmarks: Array.isArray(project.landmarks)
-      ? (project.landmarks as string[]).filter(Boolean)
-      : [],
-    handover: (project.handover as string | undefined) || undefined,
     website: (project.website as string | undefined) || undefined,
-    locationDescription: project.locationDescription
-      ? portableTextToPlainText(project.locationDescription)
-      : undefined,
+    unitCount:
+      typeof project.unitCount === "number" ? project.unitCount : undefined,
     completionDate: project.completionDate as string | undefined,
   };
 }

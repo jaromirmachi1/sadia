@@ -37,6 +37,8 @@
       "title": "Development nemovitostí v centru Brna",
       "marquee": "Development nemovitostí v centru Brna",
       "scrollLabel": "posunout dolů",
+      "typesLine1": "Kupujeme, prodáváme,",
+      "typesLine2": "pronajímáme",
       "description": "Nestavíme na okraji města. Hledáme adresy s příběhem a místa, která potřebují někoho, kdo v nich uvidí budoucnost.",
       "primaryCta": "Poznat naše projekty",
       "secondaryCta": "Nabídka bytů",
@@ -49,7 +51,7 @@
       "statement": "Budujeme hodnotu pro další generace.",
       "location": "Brno · Česká republika",
       "coordinatesLabel": "Souřadnice Brna",
-      "imageAlt": "Fasáda projektu SADIA za soumraku v centru Brna",
+      "imageAlt": "Fasáda domu Koblížná v centru Brna za dne",
       "cta": "Poznat naši vizi"
     },
     "stats": {
@@ -131,6 +133,8 @@
       "address": "Adresa",
       "status": "Stav projektu",
       "handover": "Předávání jednotek",
+      "unitCount": "Počet jednotek",
+      "unitCountValue": "{count, plural, one {# jednotka} few {# jednotky} other {# jednotek}}",
       "available": "Počet volných jednotek",
       "priceFrom": "Cena od",
       "website": "Webové stránky projektu"
@@ -500,10 +504,13 @@
         "project": "Projekt",
         "location": "Lokalita",
         "status": "Stav",
+        "homepage": "Domovská stránka",
         "type": "Typ",
         "slug": "Slug",
         "actions": "Akce"
-      }
+      },
+      "homepageYes": "Ano",
+      "homepageNo": "Ne"
     },
     "projectForm": {
       "newTitle": "Přidat projekt",
@@ -531,18 +538,15 @@
       "badgeEn": "Štítek (anglicky)",
       "taglineCs": "Podtitul (česky)",
       "taglineEn": "Podtitul (anglicky)",
-      "handoverCs": "Předání (česky)",
-      "handoverEn": "Předání (anglicky)",
+      "unitCount": "Počet jednotek",
+      "showOnHomepage": "Zobrazit na domovské stránce",
+      "showOnHomepageHint": "Projekt se zobrazí v sekci projektů na homepage.",
       "website": "Web projektu",
       "mapLat": "Zeměpisná šířka (mapa)",
       "mapLng": "Zeměpisná délka (mapa)",
       "mapCoordsHint": "Souřadnice z Google Maps. Pokud je nevyplníte, mapa použije adresu projektu.",
       "salesMode": "Prodej zajišťuje",
       "salesModeHint": "Určuje, zda návštěvníci uvidí detail SADIA, nebo externí web projektu.",
-      "landmarksCs": "Přednosti lokality (česky, každý řádek zvlášť)",
-      "landmarksEn": "Přednosti lokality (anglicky, každý řádek zvlášť)",
-      "locationDescriptionCs": "Text o lokalitě (česky)",
-      "locationDescriptionEn": "Text o lokalitě (anglicky)",
       "images": "Obrázky",
       "imagesHint": "Nahrajte hlavní foto projektu a volitelně fotky do galerie.",
       "currentHero": "Aktuální hlavní foto",

@@ -7,11 +7,14 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const HERO_POSTER = "/media/hero-poster.webp";
+const HERO_POSTER_MOBILE = "/media/hero-poster-mobile.webp";
+
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 767px)").matches;
+}
 
 function pickVideoSrc() {
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
-
-  if (isMobile) {
+  if (isMobileViewport()) {
     return "/media/hero-mobile.mp4";
   }
 
@@ -24,6 +27,10 @@ function pickVideoSrc() {
   return "/media/hero.mp4";
 }
 
+function pickPosterSrc() {
+  return isMobileViewport() ? HERO_POSTER_MOBILE : HERO_POSTER;
+}
+
 type HeroVideoBackgroundProps = {
   alt: string;
 };
@@ -33,12 +40,14 @@ export function HeroVideoBackground({ alt }: HeroVideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [mounted, setMounted] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [videoPoster, setVideoPoster] = useState(HERO_POSTER);
 
   const showVideo = mounted && reduceMotion !== true;
   const posterAlt = mounted && reduceMotion === true ? alt : "";
 
   useEffect(() => {
     setMounted(true);
+    setVideoPoster(pickPosterSrc());
   }, []);
 
   useEffect(() => {
@@ -81,7 +90,16 @@ export function HeroVideoBackground({ alt }: HeroVideoBackgroundProps) {
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center"
+        className="hidden object-cover object-center md:block"
+      />
+      <Image
+        src={HERO_POSTER_MOBILE}
+        alt={posterAlt}
+        aria-hidden={posterAlt ? undefined : true}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center md:hidden"
       />
 
       {showVideo ? (
@@ -92,7 +110,7 @@ export function HeroVideoBackground({ alt }: HeroVideoBackgroundProps) {
           loop
           playsInline
           preload="none"
-          poster={HERO_POSTER}
+          poster={videoPoster}
           aria-hidden
           className={cn(
             "absolute inset-0 size-full object-cover object-center transition-opacity duration-[1.4s] ease-[cubic-bezier(0.16,1,0.3,1)]",

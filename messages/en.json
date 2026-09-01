@@ -37,6 +37,8 @@
       "title": "Property development in central Brno",
       "marquee": "Property development in central Brno",
       "scrollLabel": "scroll to explore",
+      "typesLine1": "We buy, sell,",
+      "typesLine2": "and rent",
       "description": "We do not build at the edge of the city. We seek out storied addresses and places that need someone to recognise their potential.",
       "primaryCta": "Explore our projects",
       "secondaryCta": "View available homes",
@@ -49,7 +51,7 @@
       "statement": "We build value for the next generations.",
       "location": "Brno · Czech Republic",
       "coordinatesLabel": "Coordinates of Brno",
-      "imageAlt": "A SADIA project façade at dusk in central Brno",
+      "imageAlt": "The Koblížná building façade in central Brno by day",
       "cta": "Discover our vision"
     },
     "stats": {
@@ -131,6 +133,8 @@
       "address": "Address",
       "status": "Project status",
       "handover": "Handover",
+      "unitCount": "Number of units",
+      "unitCountValue": "{count, plural, one {# unit} other {# units}}",
       "available": "Available units",
       "priceFrom": "Price from",
       "website": "Project website"
@@ -500,10 +504,13 @@
         "project": "Project",
         "location": "Location",
         "status": "Status",
+        "homepage": "Homepage",
         "type": "Type",
         "slug": "Slug",
         "actions": "Actions"
-      }
+      },
+      "homepageYes": "Yes",
+      "homepageNo": "No"
     },
     "projectForm": {
       "newTitle": "Add project",
@@ -531,18 +538,15 @@
       "badgeEn": "Badge (English)",
       "taglineCs": "Tagline (Czech)",
       "taglineEn": "Tagline (English)",
-      "handoverCs": "Handover (Czech)",
-      "handoverEn": "Handover (English)",
+      "unitCount": "Number of units",
+      "showOnHomepage": "Show on homepage",
+      "showOnHomepageHint": "The project will appear in the homepage projects section.",
       "website": "Project website",
       "mapLat": "Map latitude",
       "mapLng": "Map longitude",
       "mapCoordsHint": "Coordinates from Google Maps. If left empty, the map falls back to the project address.",
       "salesMode": "Sales handled by",
       "salesModeHint": "Controls whether visitors see the SADIA detail page or the external project website.",
-      "landmarksCs": "Landmarks (Czech, one per line)",
-      "landmarksEn": "Landmarks (English, one per line)",
-      "locationDescriptionCs": "Location text (Czech)",
-      "locationDescriptionEn": "Location text (English)",
       "images": "Images",
       "imagesHint": "Upload the main project photo and optional gallery images.",
       "currentHero": "Current hero image",

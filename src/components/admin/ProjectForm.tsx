@@ -283,6 +283,20 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
           <p className="text-xs text-muted-foreground">{t("salesModeHint")}</p>
         </div>
 
+        <div className="flex items-start gap-3 md:col-span-2">
+          <input
+            id="showOnHomepage"
+            name="showOnHomepage"
+            type="checkbox"
+            defaultChecked={defaultValues?.showOnHomepage ?? false}
+            className="mt-1 size-4 rounded border border-input"
+          />
+          <div className="space-y-1">
+            <Label htmlFor="showOnHomepage">{t("showOnHomepage")}</Label>
+            <p className="text-xs text-muted-foreground">{t("showOnHomepageHint")}</p>
+          </div>
+        </div>
+
         <div className="space-y-2">
           <Label htmlFor="location">{t("location")}</Label>
           <Input
@@ -392,24 +406,6 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
             placeholder="The city within reach"
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="handoverCs">{t("handoverCs")}</Label>
-          <Input
-            id="handoverCs"
-            name="handoverCs"
-            defaultValue={defaultValues?.handoverCs ?? ""}
-            placeholder="Q2 2027"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="handoverEn">{t("handoverEn")}</Label>
-          <Input
-            id="handoverEn"
-            name="handoverEn"
-            defaultValue={defaultValues?.handoverEn ?? ""}
-            placeholder="Q2 2027"
-          />
-        </div>
         <div className="space-y-2 md:col-span-2">
           <Label htmlFor="website">{t("website")}</Label>
           <Input
@@ -420,43 +416,16 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
             placeholder="https://"
           />
         </div>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="landmarksCs">{t("landmarksCs")}</Label>
-          <textarea
-            id="landmarksCs"
-            name="landmarksCs"
-            defaultValue={defaultValues?.landmarksCs ?? ""}
-            className={textareaClassName}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="landmarksEn">{t("landmarksEn")}</Label>
-          <textarea
-            id="landmarksEn"
-            name="landmarksEn"
-            defaultValue={defaultValues?.landmarksEn ?? ""}
-            className={textareaClassName}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="locationDescriptionCs">{t("locationDescriptionCs")}</Label>
-          <textarea
-            id="locationDescriptionCs"
-            name="locationDescriptionCs"
-            defaultValue={defaultValues?.locationDescriptionCs ?? ""}
-            className={textareaClassName}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="locationDescriptionEn">{t("locationDescriptionEn")}</Label>
-          <textarea
-            id="locationDescriptionEn"
-            name="locationDescriptionEn"
-            defaultValue={defaultValues?.locationDescriptionEn ?? ""}
-            className={textareaClassName}
+          <Label htmlFor="unitCount">{t("unitCount")}</Label>
+          <Input
+            id="unitCount"
+            name="unitCount"
+            type="number"
+            min={0}
+            step={1}
+            defaultValue={defaultValues?.unitCount ?? ""}
+            placeholder="24"
           />
         </div>
       </div>

@@ -5,7 +5,8 @@ export const ADMIN_PROJECTS_QUERY = `
     "slug": slug.current,
     status,
     "salesMode": coalesce(salesMode, "soldByUs"),
-    location
+    location,
+    "showOnHomepage": coalesce(showOnHomepage, true)
   }
 `;
 
@@ -28,12 +29,9 @@ export const ADMIN_PROJECT_BY_ID_QUERY = `
     "badgeEn": badge.en,
     "taglineCs": tagline.cs,
     "taglineEn": tagline.en,
-    "handoverCs": handover.cs,
-    "handoverEn": handover.en,
     website,
-    landmarks[] { cs, en },
-    "locationDescriptionCs": locationDescription.cs,
-    "locationDescriptionEn": locationDescription.en,
+    unitCount,
+    "showOnHomepage": coalesce(showOnHomepage, true),
     heroImage {
       _key,
       alt,

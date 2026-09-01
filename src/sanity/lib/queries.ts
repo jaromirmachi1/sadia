@@ -15,6 +15,21 @@ export const PROJECTS_QUERY = defineQuery(`
   }
 `);
 
+export const HOMEPAGE_PROJECTS_QUERY = defineQuery(`
+  *[_type == "project" && coalesce(showOnHomepage, true) == true] | order(completionDate desc) {
+    _id,
+    "name": name[$locale],
+    "slug": slug.current,
+    status,
+    "salesMode": coalesce(salesMode, "soldByUs"),
+    location,
+    address,
+    heroImage,
+    "gallery": gallery[0...2],
+    completionDate
+  }
+`);
+
 export const PROJECT_BY_SLUG_QUERY = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
     _id,
@@ -30,10 +45,8 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
     "description": description[$locale],
     "badge": badge[$locale],
     "tagline": tagline[$locale],
-    "landmarks": landmarks[][$locale],
-    "handover": handover[$locale],
     website,
-    "locationDescription": locationDescription[$locale],
+    unitCount,
     completionDate,
   }
 `);

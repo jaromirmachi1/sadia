@@ -5,7 +5,6 @@ import { resolveImageAlt } from "@/seo/image";
 import type { ProjectSummary } from "@/sanity/types";
 
 type ProjectCardProps = {
-  index: number;
   reversed?: boolean;
   priority?: boolean;
   project: ProjectSummary;
@@ -40,7 +39,6 @@ function CardArrow({ className }: { className?: string }) {
 }
 
 export function ProjectCard({
-  index,
   reversed = false,
   priority = false,
   project,
@@ -52,7 +50,6 @@ export function ProjectCard({
     project.heroImage,
     `${project.name} — ${locationLine}`,
   );
-  const number = String(index).padStart(2, "0");
 
   return (
     <article>
@@ -88,9 +85,7 @@ export function ProjectCard({
           )}
         >
           <div>
-            <p className="sadia-meta">
-              {number} · {locationLine}
-            </p>
+            <p className="sadia-meta">{locationLine}</p>
             <h2 className="mt-5 max-w-[12ch] font-display text-[clamp(1.85rem,3.4vw,3.15rem)] font-medium uppercase leading-[1.05] tracking-[-0.025em] text-balance">
               {project.name}
             </h2>
