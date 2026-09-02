@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { ContactForm } from "@/components/ContactForm";
 import { Container } from "@/components/Container";
-import { CtaButton } from "@/components/CtaLink";
+import { CtaAnchor } from "@/components/CtaLink";
 import { PageShell } from "@/components/PageShell";
+import { ProjectLocationMap } from "@/components/ProjectLocationMap";
 import { Reveal } from "@/components/Reveal";
-import { Link } from "@/i18n/navigation";
+import { legalEntity } from "@/legal/entity";
 import { getSiteSettings } from "@/sanity/lib/fetch";
 import { buildPageMetadata } from "@/seo/metadata";
+import { buildGoogleMapsLinkUrl } from "@/utils/maps";
 import { routeKeys, type Locale } from "@/utils/routes";
+
+const OFFICE_GEO = { lat: 49.195, lng: 16.608 };
 
 type ContactPageProps = {
   params: Promise<{ locale: Locale }>;
@@ -36,106 +41,97 @@ export default async function ContactPage({ params }: ContactPageProps) {
     getSiteSettings(locale),
   ]);
 
+  const officeAddress = settings.address || legalEntity.address;
+  const googleMapsUrl = buildGoogleMapsLinkUrl({
+    geo: OFFICE_GEO,
+    address: officeAddress,
+    label: legalEntity.brand,
+  });
+
   return (
-    <PageShell locale={locale}>
-      <section className="bg-sadia-white pb-section-lg pt-16">
+    <PageShell locale={locale} headerVariant="overlay">
+      <section
+        aria-labelledby="contact-title"
+        data-header-theme="dark"
+        className="bg-sadia-navy-black pb-section-sm pt-32 text-sadia-white md:pt-40"
+      >
         <Container>
-          <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
-            <Reveal>
-            <p className="sadia-eyebrow">{t("eyebrow")}</p>
-            <h1 className="sadia-heading-page mt-4 max-w-[12ch] text-sadia-navy">
-              {t("title")}
-            </h1>
-              <p className="mt-6 max-w-md text-body-lg text-sadia-gray">
-                {t("description")}
-              </p>
-
-              <dl className="mt-10 space-y-5 text-body-base">
-                <div>
-                  <dt className="text-body-sm uppercase tracking-[0.12em] text-sadia-gray">
-                    {t("address")}
-                  </dt>
-                  <dd className="mt-2 font-semibold text-sadia-navy-black">
-                    {settings.address}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-body-sm uppercase tracking-[0.12em] text-sadia-gray">
-                    {t("email")}
-                  </dt>
-                  <dd className="mt-2">
-                    <a
-                      href={`mailto:${settings.email}`}
-                      className="font-semibold text-sadia-navy hover:opacity-70"
-                    >
-                      {settings.email}
-                    </a>
-                  </dd>
-                </div>
-              </dl>
-            </Reveal>
-
-            <Reveal delay={0.08}>
-              <form className="space-y-5 border border-sadia-gray-light p-7 md:p-9">
-                <p className="text-body-sm text-sadia-gray">{t("formHint")}</p>
-                <p className="text-body-sm text-sadia-gray">
-                  {t.rich("formPrivacy", {
-                    privacy: (chunks) => (
-                      <Link
-                        href={routeKeys.privacy}
-                        className="text-sadia-navy-black underline-offset-2 hover:underline"
-                      >
-                        {chunks}
-                      </Link>
-                    ),
-                  })}
+          <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-x-10">
+            <Reveal className="flex flex-col justify-between gap-10 lg:col-span-5">
+              <div>
+                <p className="sadia-eyebrow-light">{t("eyebrow")}</p>
+                <h1
+                  id="contact-title"
+                  className="mt-5 max-w-[10ch] font-display text-[clamp(2.25rem,4.8vw,4.25rem)] font-medium uppercase leading-[1.05] tracking-[-0.025em] text-balance"
+                >
+                  {t("title")}
+                </h1>
+                <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-white/70">
+                  {t("description")}
                 </p>
-                <label className="flex flex-col gap-2 text-body-sm text-sadia-gray">
-                  {t("fields.name")}
-                  <input
-                    name="name"
-                    required
-                    className="min-h-11 border border-sadia-gray-light px-3 text-body-base text-sadia-navy-black"
-                  />
-                </label>
-                <label className="flex flex-col gap-2 text-body-sm text-sadia-gray">
-                  {t("fields.email")}
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    className="min-h-11 border border-sadia-gray-light px-3 text-body-base text-sadia-navy-black"
-                  />
-                </label>
-                <label className="flex flex-col gap-2 text-body-sm text-sadia-gray">
-                  {t("fields.message")}
-                  <textarea
-                    name="message"
-                    required
-                    rows={5}
-                    className="border border-sadia-gray-light px-3 py-3 text-body-base text-sadia-navy-black"
-                  />
-                </label>
-                <input
-                  type="text"
-                  name="company"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  className="hidden"
-                  aria-hidden="true"
-                />
-                <CtaButton type="submit">{t("submit")}</CtaButton>
-              </form>
+              </div>
+              <a
+                href={`mailto:${settings.email}`}
+                className="group max-w-md border-t border-sadia-white/20 pt-6"
+              >
+                <p className="text-[0.6875rem] uppercase tracking-[0.18em] text-sadia-white/55">
+                  {t("email")}
+                </p>
+                <p className="mt-2 font-display text-[clamp(1.05rem,1.6vw,1.35rem)] font-medium tracking-[-0.02em] text-sadia-white transition-opacity group-hover:opacity-70">
+                  {settings.email}
+                </p>
+              </a>
+            </Reveal>
+            <Reveal
+              delay={0.08}
+              className="bg-sadia-white px-6 py-10 text-sadia-navy-black sm:px-10 sm:py-12 lg:col-span-7 lg:px-14 lg:py-14"
+            >
+              <ContactForm />
             </Reveal>
           </div>
+        </Container>
+      </section>
 
-          <Reveal className="mt-section-sm">
-            <iframe
-              title={t("map")}
-              src="https://www.openstreetmap.org/export/embed.html?bbox=16.601%2C49.191%2C16.615%2C49.199&layer=mapnik&marker=49.195%2C16.608"
-              className="h-80 w-full border border-sadia-gray-light"
-              loading="lazy"
-            />
+      <section
+        className="relative overflow-hidden bg-sadia-navy-black"
+        aria-labelledby="contact-location-title"
+      >
+        <ProjectLocationMap
+          title={t("map")}
+          address={officeAddress}
+          label={legalEntity.brand}
+          geo={OFFICE_GEO}
+          fill
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(18,20,46,0.08)_0%,rgba(18,20,46,0.04)_46%,rgba(18,20,46,0.42)_100%)]"
+        />
+
+        <Container className="relative z-2 flex min-h-[min(78svh,40rem)] flex-col justify-end pb-10 pt-24 md:min-h-[min(82svh,48rem)] md:pb-14 lg:pb-16">
+          <Reveal>
+            <div className="max-w-xl bg-sadia-white px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
+              <p className="sadia-eyebrow">{t("mapEyebrow")}</p>
+              <h2
+                id="contact-location-title"
+                className="sadia-heading-section mt-4 max-w-[14ch]"
+              >
+                {t("mapTitle")}
+              </h2>
+              <p className="mt-5 max-w-md text-body-lg leading-relaxed text-sadia-gray">
+                {officeAddress}
+              </p>
+              {googleMapsUrl ? (
+                <CtaAnchor
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8"
+                >
+                  {t("openMap")}
+                </CtaAnchor>
+              ) : null}
+            </div>
           </Reveal>
         </Container>
       </section>

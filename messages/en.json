@@ -393,14 +393,20 @@
     "address": "Address",
     "email": "Email",
     "map": "Map of the SADIA office",
-    "formHint": "Form submission lands in the next phase. For now, contact us by email.",
-    "formPrivacy": "Form data is processed as described in the <privacy>privacy policy</privacy>.",
-    "fields": {
+    "mapEyebrow": "Office",
+    "mapTitle": "Brno",
+    "openMap": "Open in Google Maps",
+    "form": {
       "name": "Name",
       "email": "Email",
-      "message": "Message"
-    },
-    "submit": "Send"
+      "message": "Message",
+      "submit": "Send message",
+      "privacyNotice": "By sending this form you agree to the processing of your data as described in the <privacy>privacy policy</privacy>.",
+      "successEyebrow": "Sent",
+      "successTitle": "Thank you for your message",
+      "successDescription": "We will contact you as soon as possible.",
+      "successBack": "Back to the form"
+    }
   },
   "Footer": {
     "description": "Property development with respect for place, architecture and the people who will call it home.",

@@ -67,8 +67,7 @@ function csPrivacy(): LegalDocumentContent {
           `e-mailová schránka správce — poptávky zasíláme na ${legalEntity.formEmail};`,
           "Vercel Inc. — hosting a doručení webu;",
           "Sanity US, Inc. — obsahový systém a doručování obrázků;",
-          "Google Ireland Limited — Google Analytics 4 (jen se souhlasem) a Google Maps (vložená mapa na stránkách projektů);",
-          "OpenStreetMap Foundation — mapa na stránce Kontakt.",
+          "Google Ireland Limited — Google Analytics 4 (jen se souhlasem) a Google Maps (vložená mapa na stránkách projektů a Kontaktu);",
         ],
       },
       {
@@ -146,8 +145,7 @@ function enPrivacy(): LegalDocumentContent {
           `the controller’s mailbox — enquiries are sent to ${legalEntity.formEmail};`,
           "Vercel Inc. — website hosting and delivery;",
           "Sanity US, Inc. — content management and image delivery;",
-          "Google Ireland Limited — Google Analytics 4 (only with consent) and Google Maps (embedded on project pages);",
-          "OpenStreetMap Foundation — map on the Contact page.",
+          "Google Ireland Limited — Google Analytics 4 (only with consent) and Google Maps (embedded on project and Contact pages);",
         ],
       },
       {
@@ -234,7 +232,7 @@ function csCookies(): LegalDocumentContent {
       {
         heading: "3. Třetí strany na stránkách",
         paragraphs: [
-          "Na stránkách projektů se může načíst vložená mapa Google Maps. Na stránce Kontakt mapa OpenStreetMap. Tyto služby mohou nastavit vlastní cookies, jakmile se mapa zobrazí. Obrázky a obsah doručuje Sanity. Hosting zajišťuje Vercel.",
+          "Na stránkách projektů a Kontaktu se může načíst vložená mapa Google Maps. Tato služba může nastavit vlastní cookies, jakmile se mapa zobrazí. Obrázky a obsah doručuje Sanity. Hosting zajišťuje Vercel.",
           "Analytika Google Analytics 4 se nenačte, dokud v liště cookies nezvolíte „Přijmout vše“.",
         ],
       },
@@ -301,7 +299,7 @@ function enCookies(): LegalDocumentContent {
       {
         heading: "3. Third parties on the pages",
         paragraphs: [
-          "Project pages may load an embedded Google Map. The Contact page loads OpenStreetMap. Those services may set their own cookies once the map is shown. Images and content are delivered by Sanity. Hosting is provided by Vercel.",
+          "Project and Contact pages may load an embedded Google Map. That service may set its own cookies once the map is shown. Images and content are delivered by Sanity. Hosting is provided by Vercel.",
           "Google Analytics 4 does not load until you choose “Accept all” in the cookie bar.",
         ],
       },
