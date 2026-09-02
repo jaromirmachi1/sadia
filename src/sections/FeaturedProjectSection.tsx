@@ -17,12 +17,14 @@ const statusLabels = {
     "in-progress": "V přípravě",
     "in-realization": "V realizaci",
     completed: "Dokončeno",
+    rented: "Pronajato",
     upcoming: "Připravujeme",
   },
   en: {
     "in-progress": "In preparation",
     "in-realization": "Under construction",
     completed: "Completed",
+    rented: "Rented",
     upcoming: "Upcoming",
   },
 } as const;
@@ -74,7 +76,7 @@ export async function FeaturedProjectSection({
         <div className="grid items-end gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
           <Reveal>
             <p className="max-w-md text-body-lg leading-relaxed text-sadia-white/70">
-              {project.description || t("description")}
+              {project.tagline || t("description")}
             </p>
             <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-6 text-body-sm">
               <div>

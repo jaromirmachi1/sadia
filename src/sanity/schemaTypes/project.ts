@@ -41,22 +41,16 @@ export const project = defineType({
       fieldset: "story",
     }),
     defineField({
-      name: "description",
-      title: "Description",
-      type: "localizedBlockContent",
-      validation: (rule) => rule.required(),
-      fieldset: "story",
-    }),
-    defineField({
       name: "status",
       title: "Status",
       type: "string",
       options: {
         list: [
-          { title: "Upcoming", value: "upcoming" },
           { title: "In preparation", value: "in-progress" },
           { title: "In realization", value: "in-realization" },
           { title: "Completed", value: "completed" },
+          { title: "Rented", value: "rented" },
+          { title: "Upcoming", value: "upcoming" },
         ],
         layout: "radio",
       },
@@ -69,14 +63,6 @@ export const project = defineType({
       type: "boolean",
       description: "When enabled, the project appears in the homepage projects section.",
       initialValue: false,
-      fieldset: "facts",
-    }),
-    defineField({
-      name: "unitCount",
-      title: "Unit count",
-      type: "number",
-      description: "Total number of units in the project, shown on the project page.",
-      validation: (rule) => rule.min(0).integer(),
       fieldset: "facts",
     }),
     defineField({

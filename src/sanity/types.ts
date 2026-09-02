@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 import type { SanityImageSource } from "@sanity/image-url";
 
-export type ProjectStatus = "in-progress" | "in-realization" | "completed" | "upcoming";
+export type ProjectStatus = "in-progress" | "in-realization" | "completed" | "rented" | "upcoming";
 export type ProjectSalesMode = "soldByUs" | "sellByFirm";
 
 export type CmsImage = {
@@ -28,11 +28,9 @@ export type ProjectDetail = ProjectSummary & {
   address: string;
   geo?: { lat: number; lng: number };
   gallery: CmsImage[];
-  description: string;
   badge?: string;
   tagline?: string;
   website?: string;
-  unitCount?: number;
 };
 
 export type HomeStats = {

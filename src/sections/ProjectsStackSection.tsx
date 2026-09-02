@@ -20,12 +20,14 @@ const statusLabels = {
     "in-progress": "V přípravě",
     "in-realization": "V realizaci",
     completed: "Dokončeno",
+    rented: "Pronajato",
     upcoming: "Připravujeme",
   },
   en: {
     "in-progress": "In preparation",
     "in-realization": "Under construction",
     completed: "Completed",
+    rented: "Rented",
     upcoming: "Upcoming",
   },
 } as const;
