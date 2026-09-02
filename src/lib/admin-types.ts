@@ -1,4 +1,4 @@
-export type ProjectStatus = "in-progress" | "in-realization" | "completed" | "upcoming";
+export type ProjectStatus = "in-progress" | "in-realization" | "completed" | "rented" | "upcoming";
 export type ProjectSalesMode = "soldByUs" | "sellByFirm";
 
 export type AdminProject = {
@@ -23,15 +23,12 @@ export type AdminProjectDetail = AdminProject & {
   nameCs: string;
   nameEn: string;
   address: string;
-  descriptionCs: string;
-  descriptionEn: string;
   completionDate?: string;
   badgeCs?: string;
   badgeEn?: string;
   taglineCs?: string;
   taglineEn?: string;
   website?: string;
-  unitCount?: number;
   salesMode: ProjectSalesMode;
   showOnHomepage?: boolean;
   geo?: { lat: number; lng: number };
@@ -49,15 +46,12 @@ export type ProjectFormValues = {
   address: string;
   mapLat?: number;
   mapLng?: number;
-  descriptionCs: string;
-  descriptionEn: string;
   completionDate?: string;
   badgeCs?: string;
   badgeEn?: string;
   taglineCs?: string;
   taglineEn?: string;
   website?: string;
-  unitCount?: number;
   showOnHomepage: boolean;
   heroAltCs: string;
   heroAltEn: string;
@@ -69,10 +63,11 @@ export type AdminStats = {
 };
 
 export const PROJECT_STATUSES = [
-  "upcoming",
   "in-progress",
   "in-realization",
   "completed",
+  "rented",
+  "upcoming",
 ] as const;
 
 export const PROJECT_SALES_MODES = ["soldByUs", "sellByFirm"] as const;
@@ -101,13 +96,6 @@ export function toDatetimeLocalValue(iso?: string) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-export function splitLines(value: string) {
-  return value
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-}
-
 export function localizedValue(cs?: string, en?: string) {
   const czech = cs?.trim() ?? "";
   const english = en?.trim() ?? "";
@@ -120,76 +108,4 @@ export function localizedValue(cs?: string, en?: string) {
     cs: czech || english,
     en: english || czech,
   };
-}
-
-export function localizedList(cs: string, en: string) {
-  const czech = splitLines(cs);
-  const english = splitLines(en);
-  const length = Math.max(czech.length, english.length);
-
-  return Array.from({ length }, (_, index) => ({
-    _type: "localizedString",
-    _key: blockKey(),
-    cs: czech[index] ?? english[index] ?? "",
-    en: english[index] ?? czech[index] ?? "",
-  })).filter((item) => item.cs || item.en);
-}
-
-function blockKey() {
-  return Math.random().toString(36).slice(2, 10);
-}
-
-export function textToPortableText(text: string) {
-  const value = text.trim();
-
-  if (!value) {
-    return [];
-  }
-
-  return [
-    {
-      _type: "block",
-      _key: blockKey(),
-      style: "normal",
-      markDefs: [],
-      children: [
-        {
-          _type: "span",
-          _key: blockKey(),
-          text: value,
-          marks: [],
-        },
-      ],
-    },
-  ];
-}
-
-export function portableTextToPlainText(value: unknown): string {
-  if (typeof value === "string") {
-    return value;
-  }
-
-  if (!Array.isArray(value)) {
-    return "";
-  }
-
-  return value
-    .flatMap((block) => {
-      if (
-        typeof block === "object" &&
-        block !== null &&
-        "children" in block &&
-        Array.isArray(block.children)
-      ) {
-        return block.children
-          .map((child: { text?: string }) =>
-            typeof child.text === "string" ? child.text : "",
-          )
-          .join("");
-      }
-
-      return [];
-    })
-    .join("\n\n")
-    .trim();
 }

@@ -7,6 +7,7 @@ import type { CmsImage } from "@/sanity/types";
 type ProjectHeroSectionProps = {
   name: string;
   address: string;
+  statusLabel: string;
   badge?: string;
   heroImage: CmsImage;
   breadcrumbs: BreadcrumbItem[];
@@ -18,6 +19,7 @@ type ProjectHeroSectionProps = {
 export function ProjectHeroSection({
   name,
   address,
+  statusLabel,
   badge,
   heroImage,
   breadcrumbs,
@@ -70,9 +72,14 @@ export function ProjectHeroSection({
             </div>
 
             <div className="flex items-end justify-between gap-8 md:col-span-4 md:block">
-              <p className="max-w-sm text-body-base leading-relaxed text-sadia-white/70">
-                {address}
-              </p>
+              <div className="max-w-sm">
+                <p className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-sadia-white/65">
+                  {statusLabel}
+                </p>
+                <p className="mt-3 text-body-base leading-relaxed text-sadia-white/70">
+                  {address}
+                </p>
+              </div>
               <a
                 href={`#${contentId}`}
                 className="group mt-8 hidden items-center gap-4 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-sadia-white/70 transition-colors hover:text-sadia-white focus-visible:outline-2 focus-visible:outline-offset-4 md:inline-flex"

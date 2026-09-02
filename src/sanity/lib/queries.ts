@@ -42,11 +42,9 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(`
     geo,
     heroImage,
     gallery,
-    "description": description[$locale],
     "badge": badge[$locale],
     "tagline": tagline[$locale],
     website,
-    unitCount,
     completionDate,
   }
 `);

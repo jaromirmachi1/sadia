@@ -12,10 +12,8 @@ import {
 } from "@/lib/admin-auth";
 import { ADMIN_LOCALE_COOKIE, getAdminLocale } from "@/lib/admin-locale";
 import {
-  localizedList,
   localizedValue,
   slugifyIdentifier,
-  textToPortableText,
   type ProjectFormValues,
 } from "@/lib/admin-types";
 import { assertWriteClient } from "@/sanity/lib/write-client";
@@ -83,15 +81,12 @@ function parseProjectFormData(formData: FormData): ProjectFormValues {
     address: String(formData.get("address") ?? "").trim(),
     mapLat: optionalNumber(formData, "mapLat"),
     mapLng: optionalNumber(formData, "mapLng"),
-    descriptionCs: String(formData.get("descriptionCs") ?? "").trim(),
-    descriptionEn: String(formData.get("descriptionEn") ?? "").trim(),
     completionDate: String(formData.get("completionDate") ?? "").trim() || undefined,
     badgeCs: String(formData.get("badgeCs") ?? "").trim() || undefined,
     badgeEn: String(formData.get("badgeEn") ?? "").trim() || undefined,
     taglineCs: String(formData.get("taglineCs") ?? "").trim() || undefined,
     taglineEn: String(formData.get("taglineEn") ?? "").trim() || undefined,
     website: String(formData.get("website") ?? "").trim() || undefined,
-    unitCount: optionalNumber(formData, "unitCount"),
     showOnHomepage: formData.get("showOnHomepage") === "on",
     salesMode:
       (formData.get("salesMode") as ProjectFormValues["salesMode"]) ?? "soldByUs",
@@ -186,18 +181,11 @@ function buildProjectFields(values: ProjectFormValues): Record<string, unknown> 
     showOnHomepage: values.showOnHomepage,
     location: values.location,
     address: values.address,
-    description: {
-      cs: textToPortableText(values.descriptionCs),
-      en: textToPortableText(values.descriptionEn),
-    },
   };
 
   if (badge) doc.badge = badge;
   if (tagline) doc.tagline = tagline;
   if (values.website) doc.website = values.website;
-  if (typeof values.unitCount === "number") {
-    doc.unitCount = values.unitCount;
-  }
   if (
     typeof values.mapLat === "number" &&
     typeof values.mapLng === "number"
@@ -314,6 +302,9 @@ export async function updateProjectAction(id: string, formData: FormData) {
     "landmarks",
     "handover",
     "locationDescription",
+    "description",
+    "unitCount",
+    "occupancy",
   ];
 
   if (values.completionDate) {
@@ -325,7 +316,6 @@ export async function updateProjectAction(id: string, formData: FormData) {
   if (!values.badgeCs && !values.badgeEn) unset.push("badge");
   if (!values.taglineCs && !values.taglineEn) unset.push("tagline");
   if (!values.website) unset.push("website");
-  if (typeof values.unitCount !== "number") unset.push("unitCount");
   if (typeof values.mapLat !== "number" || typeof values.mapLng !== "number") {
     unset.push("geo");
   }

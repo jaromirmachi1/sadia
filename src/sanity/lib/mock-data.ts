@@ -30,174 +30,12 @@ const projectCopy = {
       cs: "Město na dosah",
       en: "The city within reach",
     },
-    description: {
-      cs: "Výrazný městský dům na adrese, odkud je celé Brno na dosah. Původní prostory jsme proměnili v současné, plně vybavené bydlení pro život v centru.",
-      en: "A distinctive city building at an address that keeps all of Brno within reach. We transformed its existing spaces into contemporary, fully furnished homes for life in the centre.",
-    },
-    handover: { cs: "Dokončeno 2023", en: "Completed 2023" },
-    locationDescription: {
-      cs: "Koblížná leží v samém srdci Brna. Historie, kultura, gastronomie i každodenní život jsou tady vrstvy jednoho místa — ne kulisa.",
-      en: "Koblížná sits in the heart of Brno. History, culture, food and everyday life are layers of one place here — not a backdrop.",
-    },
-    landmarks: {
-      cs: [
-        "Náměstí Svobody",
-        "Mahenovo divadlo",
-        "Česká",
-        "Hlavní nádraží",
-        "Zelný trh",
-      ],
-      en: [
-        "Freedom Square",
-        "Mahen Theatre",
-        "Česká Street",
-        "Main railway station",
-        "Cabbage Market",
-      ],
-    },
-    amenities: {
-      cs: [
-        {
-          title: "Doprava",
-          items: ["Tramvaj 1 min", "Hlavní nádraží 8 min", "Parkování v objektu"],
-        },
-        {
-          title: "Gastro",
-          items: ["Kavárny na České", "Restaurace v centru", "Zelný trh"],
-        },
-        {
-          title: "Kultura",
-          items: ["Mahenovo divadlo", "Janáčkovo divadlo", "Galerie"],
-        },
-      ],
-      en: [
-        {
-          title: "Transport",
-          items: ["Tram 1 min", "Main station 8 min", "On-site parking"],
-        },
-        {
-          title: "Food",
-          items: ["Cafés on Česká", "Restaurants in the centre", "Cabbage Market"],
-        },
-        {
-          title: "Culture",
-          items: ["Mahen Theatre", "Janáček Theatre", "Galleries"],
-        },
-      ],
-    },
-    timeline: {
-      cs: [
-        {
-          date: "2021",
-          title: "Akvizice",
-          description: "Koupě domu a příprava projektu.",
-        },
-        {
-          date: "2022",
-          title: "Rekonstrukce",
-          description: "Kompletní obnova konstrukcí, dispozic a společných prostor.",
-        },
-        {
-          date: "2023",
-          title: "Dokončení",
-          description: "Předání bytů a spuštění provozu domu.",
-        },
-      ],
-      en: [
-        {
-          date: "2021",
-          title: "Acquisition",
-          description: "Purchase of the building and project preparation.",
-        },
-        {
-          date: "2022",
-          title: "Reconstruction",
-          description: "Full renewal of structure, layouts and shared spaces.",
-        },
-        {
-          date: "2023",
-          title: "Completion",
-          description: "Handover of apartments and the house in operation.",
-        },
-      ],
-    },
   },
   zabiny: {
     badge: { cs: "Výhledy na Brno", en: "Views over Brno" },
     tagline: {
       cs: "Světlo, klid a charakter místa",
       en: "Light, calm and a sense of place",
-    },
-    description: {
-      cs: "Rezidenční projekt nad Žabinami s otevřenými výhledy na Brno. Dispozice zaměřené na světlo, klid a bydlení s charakterem místa.",
-      en: "A residential project above Žabiny with open views over Brno. Layouts shaped around light, calm and a home that belongs to its setting.",
-    },
-    handover: { cs: "Q2 2027", en: "Q2 2027" },
-    locationDescription: {
-      cs: "Žabiny nabízejí nadhled nad městem a přitom zůstávají součástí Brna. Klidná rezidenční čtvrť s rychlým spojením do centra.",
-      en: "Žabiny sits above the city while remaining part of Brno. A calm residential neighbourhood with a fast link to the centre.",
-    },
-    landmarks: {
-      cs: ["Výhled na Brno", "Lesopark", "MHD do centra"],
-      en: ["Views over Brno", "Woodland park", "Transit to the centre"],
-    },
-    amenities: {
-      cs: [
-        {
-          title: "Doprava",
-          items: ["Bus do centra 12 min", "Dálnice D1 8 min"],
-        },
-        {
-          title: "Příroda",
-          items: ["Lesopark", "Pěší trasy", "Klídná lokalita"],
-        },
-      ],
-      en: [
-        {
-          title: "Transport",
-          items: ["Bus to centre 12 min", "D1 motorway 8 min"],
-        },
-        {
-          title: "Nature",
-          items: ["Woodland park", "Walking trails", "Quiet setting"],
-        },
-      ],
-    },
-    timeline: {
-      cs: [
-        {
-          date: "2025",
-          title: "Příprava",
-          description: "Projektová dokumentace a povolení.",
-        },
-        {
-          date: "2026",
-          title: "Výstavba",
-          description: "Zahájení stavby a hrubá stavba.",
-        },
-        {
-          date: "2027",
-          title: "Předání",
-          description: "Dokončení a předání bytů.",
-        },
-      ],
-      en: [
-        {
-          date: "2025",
-          title: "Preparation",
-          description: "Design documentation and permits.",
-        },
-        {
-          date: "2026",
-          title: "Construction",
-          description: "Start of works and superstructure.",
-        },
-        {
-          date: "2027",
-          title: "Handover",
-          description: "Completion and apartment handover.",
-        },
-      ],
     },
   },
 } as const;
@@ -318,10 +156,8 @@ export function getMockProjectBySlug(
             { alt: alts.kitchen, local: koblizna02 },
             { alt: alts.bedroom, local: koblizna07 },
           ],
-    description: copy.description[locale],
     badge: copy.badge[locale],
     tagline: copy.tagline[locale],
-    unitCount: slug === "panorama-zabiny" ? 48 : 32,
   };
 }
 

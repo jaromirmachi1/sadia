@@ -128,13 +128,10 @@
     "units": "Price list",
     "unitsCount": "{count} units",
     "emptyUnits": "No units have been published for this project yet.",
-    "fallbackDescription": "A SADIA project in Brno.",
     "facts": {
       "address": "Address",
       "status": "Project status",
       "handover": "Handover",
-      "unitCount": "Number of units",
-      "unitCountValue": "{count, plural, one {# unit} other {# units}}",
       "available": "Available units",
       "priceFrom": "Price from",
       "website": "Project website"
@@ -143,6 +140,7 @@
       "in-progress": "In preparation",
       "in-realization": "Under construction",
       "completed": "Completed",
+      "rented": "Rented",
       "upcoming": "Upcoming"
     },
     "type": {
@@ -316,28 +314,6 @@
       "shares": "Ownership shares",
       "projects": "Development projects in preparation"
     },
-    "whyTitle": "Why sell to SADIA",
-    "whyDescription": "Behind every sale there is more than numbers — trust, expectation and responsibility. That is why we deal directly and with respect.",
-    "why": {
-      "capital": {
-        "title": "We have the means",
-        "text": "We use our own capital to grow the portfolio."
-      },
-      "direct": {
-        "title": "We deal directly",
-        "text": "No unnecessary fees or middlemen."
-      },
-      "history": {
-        "title": "We respect history",
-        "text": "We know how to keep the value and character of a place."
-      },
-      "potential": {
-        "title": "We see potential",
-        "text": "Even where others hesitate."
-      }
-    },
-    "statementTitle": "We turn the city into a home. Building by building.",
-    "statementDescription": "We seek properties with potential — from apartment houses to land for new construction. Every purchase is an investment in urban quality and lasting value.",
     "formEyebrow": "Offer",
     "formTitle": "Considering selling a property?",
     "formDescription": "Fill in the form and we will get back to you soon. Or call us directly.",
@@ -502,13 +478,10 @@
       "type": "Offer type",
       "location": "Location",
       "address": "Address",
-      "descriptionCs": "Description (Czech)",
-      "descriptionEn": "Description (English)",
       "badgeCs": "Badge (Czech)",
       "badgeEn": "Badge (English)",
       "taglineCs": "Tagline (Czech)",
       "taglineEn": "Tagline (English)",
-      "unitCount": "Number of units",
       "showOnHomepage": "Show on homepage",
       "showOnHomepageHint": "The project will appear in the homepage projects section.",
       "website": "Project website",
@@ -542,9 +515,7 @@
       "titleEn": "Title EN",
       "addDownload": "Add download",
       "timeline": "Construction timeline",
-      "addTimeline": "Add timeline step",
-      "descriptionCsShort": "Description CS",
-      "descriptionEnShort": "Description EN"
+      "addTimeline": "Add timeline step"
     },
     "actions": {
       "edit": "Edit",
@@ -563,6 +534,7 @@
       "in-progress": "In preparation",
       "in-realization": "Under construction",
       "completed": "Completed",
+      "rented": "Rented",
       "upcoming": "Upcoming"
     },
     "projectType": {

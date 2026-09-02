@@ -24,8 +24,6 @@ const lookingKeys = [
   "projects",
 ] as const;
 
-const whyKeys = ["capital", "direct", "history", "potential"] as const;
-
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return <p className="sadia-eyebrow">{children}</p>;
 }
@@ -87,8 +85,7 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
         <Container>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
             <Reveal className="lg:col-span-4">
-              <SectionEyebrow>01</SectionEyebrow>
-              <h2 className="sadia-heading-section mt-4 max-w-[10ch]">
+              <h2 className="sadia-heading-section max-w-[10ch]">
                 {t("lookingTitle")}
               </h2>
               <p className="mt-5 max-w-sm text-body-lg leading-relaxed text-sadia-gray">
@@ -98,15 +95,12 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
 
             <Reveal delay={0.08} className="lg:col-span-8">
               <ul className="grid gap-3 sm:grid-cols-2">
-                {lookingKeys.map((key, index) => (
+                {lookingKeys.map((key) => (
                   <li
                     key={key}
-                    className="flex gap-4 rounded-xl bg-muted/60 px-5 py-5 text-body-base text-sadia-navy-black"
+                    className="rounded-xl bg-muted/60 px-5 py-5 text-body-base leading-snug text-sadia-navy-black"
                   >
-                    <span className="shrink-0 font-display text-body-sm font-medium text-[#4A90C0]">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="leading-snug">{t(`looking.${key}`)}</span>
+                    {t(`looking.${key}`)}
                   </li>
                 ))}
               </ul>
@@ -145,56 +139,6 @@ export default async function WeBuyPage({ params }: WeBuyPageProps) {
               </Reveal>
             </div>
           </div>
-        </Container>
-      </section>
-
-      <section className="bg-muted/50 py-section-lg">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-10">
-            <Reveal className="lg:col-span-5">
-              <SectionEyebrow>02</SectionEyebrow>
-              <h2 className="sadia-heading-page mt-4 max-w-[14ch]">
-                {t("whyTitle")}
-              </h2>
-              <p className="mt-6 max-w-md text-body-lg leading-relaxed text-sadia-gray">
-                {t("whyDescription")}
-              </p>
-            </Reveal>
-
-            <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
-              {whyKeys.map((key, index) => (
-                <Reveal key={key} delay={index * 0.05}>
-                  <article className="h-full rounded-xl bg-sadia-white px-6 py-7">
-                    <p className="font-display text-body-sm font-medium text-[#4A90C0]">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-4 font-display text-heading-md font-medium text-sadia-navy-black">
-                      {t(`why.${key}.title`)}
-                    </h3>
-                    <p className="mt-3 text-body-base leading-relaxed text-sadia-navy-black/65">
-                      {t(`why.${key}.text`)}
-                    </p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-sadia-navy-black py-[clamp(5rem,10vw,8rem)] text-sadia-white">
-        <Container>
-          <Reveal className="max-w-3xl">
-            <SectionEyebrow>
-              <span className="text-sadia-white/40">03</span>
-            </SectionEyebrow>
-            <h2 className="sadia-heading-page mt-6 max-w-[16ch]">
-              {t("statementTitle")}
-            </h2>
-            <p className="mt-8 max-w-2xl text-body-lg leading-relaxed text-sadia-white/55">
-              {t("statementDescription")}
-            </p>
-          </Reveal>
         </Container>
       </section>
     </PageShell>

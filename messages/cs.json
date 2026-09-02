@@ -128,13 +128,10 @@
     "units": "Ceník",
     "unitsCount": "{count} jednotek",
     "emptyUnits": "V tomto projektu zatím nejsou zveřejněné jednotky.",
-    "fallbackDescription": "Projekt SADIA v Brně.",
     "facts": {
       "address": "Adresa",
       "status": "Stav projektu",
       "handover": "Předávání jednotek",
-      "unitCount": "Počet jednotek",
-      "unitCountValue": "{count, plural, one {# jednotka} few {# jednotky} other {# jednotek}}",
       "available": "Počet volných jednotek",
       "priceFrom": "Cena od",
       "website": "Webové stránky projektu"
@@ -143,6 +140,7 @@
       "in-progress": "V přípravě",
       "in-realization": "V realizaci",
       "completed": "Dokončeno",
+      "rented": "Pronajato",
       "upcoming": "Připravujeme"
     },
     "type": {
@@ -316,28 +314,6 @@
       "shares": "Vlastnické podíly",
       "projects": "Developerské projekty v přípravě"
     },
-    "whyTitle": "Proč právě SADIA",
-    "whyDescription": "Za každým prodejem jsou víc než čísla — důvěra, očekávání a odpovědnost. Proto jednáme přímo a s respektem.",
-    "why": {
-      "capital": {
-        "title": "Máme prostředky",
-        "text": "Disponujeme vlastním kapitálem pro rozšiřování portfolia."
-      },
-      "direct": {
-        "title": "Jednáme přímo",
-        "text": "Bez zbytečných poplatků a zprostředkovatelů."
-      },
-      "history": {
-        "title": "Vážíme si historie",
-        "text": "Umíme zachovat hodnotu a charakter místa."
-      },
-      "potential": {
-        "title": "Vidíme potenciál",
-        "text": "I tam, kde ostatní váhají."
-      }
-    },
-    "statementTitle": "Měníme město v domov. Dům po domě.",
-    "statementDescription": "Vyhledáváme nemovitosti s potenciálem — od činžovních domů po pozemky pro novou výstavbu. Každý nákup je pro nás investicí do kvality městského prostředí a dlouhodobé hodnoty.",
     "formEyebrow": "Nabídka",
     "formTitle": "Zvažujete prodej nemovitosti?",
     "formDescription": "Vyplňte formulář a my se vám ozveme co nejdříve. Nebo nám zavolejte přímo.",
@@ -502,13 +478,10 @@
       "type": "Typ nabídky",
       "location": "Lokalita",
       "address": "Adresa",
-      "descriptionCs": "Popis (česky)",
-      "descriptionEn": "Popis (anglicky)",
       "badgeCs": "Štítek (česky)",
       "badgeEn": "Štítek (anglicky)",
       "taglineCs": "Podtitul (česky)",
       "taglineEn": "Podtitul (anglicky)",
-      "unitCount": "Počet jednotek",
       "showOnHomepage": "Zobrazit na domovské stránce",
       "showOnHomepageHint": "Projekt se zobrazí v sekci projektů na homepage.",
       "website": "Web projektu",
@@ -542,9 +515,7 @@
       "titleEn": "Název anglicky",
       "addDownload": "Přidat soubor",
       "timeline": "Harmonogram stavby",
-      "addTimeline": "Přidat krok",
-      "descriptionCsShort": "Popis česky",
-      "descriptionEnShort": "Popis anglicky"
+      "addTimeline": "Přidat krok"
     },
     "actions": {
       "edit": "Upravit",
@@ -563,6 +534,7 @@
       "in-progress": "V přípravě",
       "in-realization": "V realizaci",
       "completed": "Dokončeno",
+      "rented": "Pronajato",
       "upcoming": "Připravujeme"
     },
     "projectType": {

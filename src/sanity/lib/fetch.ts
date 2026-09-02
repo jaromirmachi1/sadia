@@ -20,7 +20,6 @@ import type {
   ProjectSummary,
   SiteSettings,
 } from "@/sanity/types";
-import { portableTextToPlainText } from "@/lib/admin-types";
 import { withPublicContact } from "@/legal/entity";
 import type { Locale } from "@/utils/routes";
 
@@ -195,12 +194,9 @@ export async function getProjectBySlug(
       mapSanityImage(locale, project.heroImage as SanityImageDoc, project.name as string) ??
       getMockProjects(locale)[0].heroImage,
     gallery: gallery as CmsImage[],
-    description: portableTextToPlainText(project.description),
     badge: (project.badge as string | undefined) || undefined,
     tagline: (project.tagline as string | undefined) || undefined,
     website: (project.website as string | undefined) || undefined,
-    unitCount:
-      typeof project.unitCount === "number" ? project.unitCount : undefined,
     completionDate: project.completionDate as string | undefined,
   };
 }

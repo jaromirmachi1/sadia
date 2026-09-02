@@ -11,7 +11,6 @@ import type {
   AdminProjectDetail,
   AdminStats,
 } from "@/lib/admin-types";
-import { portableTextToPlainText } from "@/lib/admin-types";
 import { mapAdminProjectImage } from "@/sanity/lib/admin-images";
 
 export async function getAdminProjects(): Promise<AdminProject[]> {
@@ -30,13 +29,8 @@ type AdminProjectImageRaw = {
 
 type AdminProjectRaw = Omit<
   AdminProjectDetail,
-  | "descriptionCs"
-  | "descriptionEn"
-  | "heroImage"
-  | "gallery"
+  "heroImage" | "gallery"
 > & {
-  descriptionCs: unknown;
-  descriptionEn: unknown;
   heroImage?: AdminProjectImageRaw | null;
   gallery?: AdminProjectImageRaw[] | null;
 };
@@ -59,8 +53,6 @@ export async function getAdminProject(
 
   return {
     ...project,
-    descriptionCs: portableTextToPlainText(project.descriptionCs),
-    descriptionEn: portableTextToPlainText(project.descriptionEn),
     heroImage: mapAdminProjectImage(
       project.heroImage
         ? {

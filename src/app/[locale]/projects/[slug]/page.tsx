@@ -29,14 +29,6 @@ type ProjectDetailPageProps = {
   params: Promise<{ locale: Locale; slug: string }>;
 };
 
-function paragraphs(value?: string) {
-  if (!value) return [];
-  return value
-    .split(/\n+/)
-    .map((part) => part.trim())
-    .filter(Boolean);
-}
-
 function uniqueImages(hero: CmsImage, gallery: CmsImage[]) {
   const images = [hero, ...gallery];
   const seen = new Set<string>();
@@ -77,14 +69,6 @@ function projectGalleryItemClass(index: number, count: number) {
   return "relative min-h-48 overflow-hidden rounded-2xl bg-sadia-gray-light lg:min-h-0";
 }
 
-function websiteLabel(url: string) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url.replace(/^https?:\/\//, "");
-  }
-}
-
 export async function generateStaticParams() {
   const projects = await getProjects("cs");
   return projects.flatMap((project) =>
@@ -106,7 +90,7 @@ export async function generateMetadata({
   }
 
   const title = `${project.name} | SADIA`;
-  const description = project.description || project.location;
+  const description = project.tagline || project.location;
 
   return buildPageMetadata({
     locale,
@@ -145,7 +129,6 @@ export default async function ProjectDetailPage({
     { label: project.name },
   ];
   const related = projects.filter((item) => item.slug !== project.slug).slice(0, 3);
-  const descriptionParts = paragraphs(project.description);
   const googleMapsUrl =
     buildGoogleMapsLinkUrl({
       geo: project.geo,
@@ -153,29 +136,16 @@ export default async function ProjectDetailPage({
       label: project.name,
     }) ?? undefined;
   const showMap = Boolean(project.geo || project.address);
-
-  const facts = [
-    { label: t("facts.address"), value: project.address },
-    { label: t("facts.status"), value: t(`status.${project.status}`) },
-    typeof project.unitCount === "number"
-      ? {
-          label: t("facts.unitCount"),
-          value: t("facts.unitCountValue", { count: project.unitCount }),
-        }
-      : null,
-    project.website
-      ? { label: t("facts.website"), value: websiteLabel(project.website), href: project.website }
-      : null,
-  ].filter(Boolean) as Array<{
-    label: string;
-    value: string;
-    href?: string;
-  }>;
+  const scrollTargetId = project.tagline
+    ? "project-content"
+    : mosaic.length > 0
+      ? "project-gallery"
+      : "project-location";
 
   const jsonLd = [
     buildApartmentComplexSchema({
       name: project.name,
-      description: project.description,
+      description: project.tagline || project.location,
       address: project.address,
       locality: project.location,
       url: absoluteUrl(hrefForLocale(locale, {
@@ -198,67 +168,37 @@ export default async function ProjectDetailPage({
       <ProjectHeroSection
         name={project.name}
         address={project.address}
+        statusLabel={t(`status.${project.status}`)}
         badge={project.badge}
         heroImage={project.heroImage}
         breadcrumbs={breadcrumbItems}
         breadcrumbsLabel={t("breadcrumbsLabel")}
         scrollLabel={t("scrollLabel")}
+        contentId={scrollTargetId}
       />
 
-      <section id="project-content" className="bg-sadia-white py-section-sm">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
-            <Reveal className="lg:col-span-7">
-              {project.tagline ? (
-                <p className="max-w-[18ch] text-heading-lg font-medium text-sadia-navy-black">
-                  {project.tagline}
-                </p>
-              ) : null}
-              <div
-                className={[
-                  "max-w-xl space-y-5 text-body-lg leading-relaxed text-sadia-gray",
-                  project.tagline ? "mt-8" : "",
-                ].join(" ")}
-              >
-                {descriptionParts.length > 0 ? (
-                  descriptionParts.map((part) => <p key={part}>{part}</p>)
-                ) : (
-                  <p>{t("fallbackDescription")}</p>
-                )}
-              </div>
+      {project.tagline ? (
+        <section id="project-content" className="bg-sadia-white py-section-sm">
+          <Container>
+            <Reveal>
+              <p className="max-w-[16ch] font-display text-[clamp(1.85rem,2.8vw,3.15rem)] font-medium uppercase leading-[1.08] tracking-[-0.025em] text-sadia-navy-black">
+                {project.tagline}
+              </p>
             </Reveal>
-
-            <Reveal delay={0.08} className="lg:col-span-5">
-              <dl className="grid gap-px overflow-hidden rounded-2xl bg-sadia-gray-light/70 sm:grid-cols-2">
-                {facts.map((fact) => (
-                  <div key={fact.label} className="bg-sadia-white px-5 py-5">
-                    <dt className="text-[0.6875rem] uppercase tracking-[0.14em] text-sadia-gray">
-                      {fact.label}
-                    </dt>
-                    <dd className="mt-2 font-medium text-sadia-navy-black">
-                      {fact.href ? (
-                        <a
-                          href={fact.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="sadia-underline-link"
-                        >
-                          {fact.value}
-                        </a>
-                      ) : (
-                        fact.value
-                      )}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      ) : null}
 
       {mosaic.length > 0 ? (
-        <section className="bg-sadia-white pb-section-sm" aria-label={t("gallery")}>
+        <section
+          id="project-gallery"
+          className={
+            project.tagline
+              ? "bg-sadia-white pb-section-sm"
+              : "bg-sadia-white py-section-sm"
+          }
+          aria-label={t("gallery")}
+        >
           <Container>
             <div className={projectGalleryLayout(mosaic.length)}>
               {mosaic.map((image, index) => (
@@ -313,6 +253,7 @@ export default async function ProjectDetailPage({
       ) : null}
 
       <section
+        id="project-location"
         className="relative overflow-hidden bg-sadia-navy-black"
         aria-labelledby="project-location-title"
       >

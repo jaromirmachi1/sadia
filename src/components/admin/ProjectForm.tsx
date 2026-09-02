@@ -18,7 +18,6 @@ import {
   type AdminProjectImage,
   type ProjectFormValues,
 } from "@/lib/admin-types";
-import { cn } from "@/lib/utils";
 
 type ProjectFormProps = {
   mode: "create" | "edit";
@@ -30,8 +29,6 @@ type ProjectFormProps = {
 
 const fieldClassName =
   "min-h-11 w-full rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring";
-
-const textareaClassName = cn(fieldClassName, "min-h-28 py-3");
 
 function ImagePreview({
   image,
@@ -347,30 +344,6 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
 
       <div className="grid gap-6 md:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="descriptionCs">{t("descriptionCs")}</Label>
-          <textarea
-            id="descriptionCs"
-            name="descriptionCs"
-            defaultValue={defaultValues?.descriptionCs ?? ""}
-            className={textareaClassName}
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="descriptionEn">{t("descriptionEn")}</Label>
-          <textarea
-            id="descriptionEn"
-            name="descriptionEn"
-            defaultValue={defaultValues?.descriptionEn ?? ""}
-            className={textareaClassName}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-2">
           <Label htmlFor="badgeCs">{t("badgeCs")}</Label>
           <Input
             id="badgeCs"
@@ -414,18 +387,6 @@ function ProjectFields({ defaultValues }: { defaultValues?: Partial<ProjectFormV
             type="url"
             defaultValue={defaultValues?.website ?? ""}
             placeholder="https://"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="unitCount">{t("unitCount")}</Label>
-          <Input
-            id="unitCount"
-            name="unitCount"
-            type="number"
-            min={0}
-            step={1}
-            defaultValue={defaultValues?.unitCount ?? ""}
-            placeholder="24"
           />
         </div>
       </div>
