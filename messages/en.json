@@ -290,42 +290,6 @@
     "lead": "An investment and development company focused on reconstruction and the growth of residential and commercial property.",
     "scrollLabel": "scroll down",
     "heroImageAlt": "Facade of a SADIA city building in Brno",
-    "approachEyebrow": "01",
-    "approachTitle": "Our approach",
-    "chapters": {
-      "place": {
-        "label": "Address",
-        "text": "We do not build at the edge of the city. We seek out storied addresses and places that need someone to recognise their potential."
-      },
-      "craft": {
-        "label": "Reconstruction",
-        "text": "We turn broken into valuable. Overlooked into desirable. We listen to every building first — preserving what matters and adding what it needs to serve people and the city well again."
-      },
-      "team": {
-        "label": "Team",
-        "text": "SADIA is a younger development team focused on the quality of place, careful reconstruction and homes that stay close to the centre."
-      }
-    },
-    "principlesEyebrow": "02",
-    "principlesTitle": "What we stand by",
-    "principles": {
-      "place": {
-        "title": "Place",
-        "text": "Every project begins with an address and its character — not a spreadsheet."
-      },
-      "craft": {
-        "title": "Craft",
-        "text": "We keep what has value and add a contemporary standard."
-      },
-      "centre": {
-        "title": "Centre",
-        "text": "We build homes you do not have to commute from."
-      },
-      "time": {
-        "title": "Time",
-        "text": "We build value meant to last for the next generation."
-      }
-    },
     "statementLabel": "Our vision",
     "statement": "We build value for the next generation.",
     "location": "Brno · Czech Republic",

@@ -16,9 +16,6 @@ type AboutPageProps = {
   params: Promise<{ locale: Locale }>;
 };
 
-const chapterKeys = ["place", "craft", "team"] as const;
-const principleKeys = ["place", "craft", "centre", "time"] as const;
-
 export async function generateMetadata({
   params,
 }: AboutPageProps): Promise<Metadata> {
@@ -75,7 +72,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
                   {t("lead")}
                 </p>
                 <a
-                  href="#about-approach"
+                  href="#about-statement"
                   className="sadia-meta mt-8 hidden items-center gap-4 text-sadia-white/65 transition-colors hover:text-sadia-white md:inline-flex"
                 >
                   <span>{t("scrollLabel")}</span>
@@ -90,52 +87,9 @@ export default async function AboutPage({ params }: AboutPageProps) {
       </section>
 
       <section
-        id="about-approach"
-        className="scroll-mt-24 bg-sadia-white py-[clamp(5rem,10vw,9rem)]"
+        id="about-statement"
+        className="scroll-mt-24 overflow-hidden bg-sadia-navy-black py-[clamp(5rem,11vw,10rem)] text-sadia-white"
       >
-        <Container>
-          <div className="grid gap-16 lg:grid-cols-12 lg:gap-x-10">
-            <Reveal className="lg:sticky lg:top-28 lg:col-span-4 lg:self-start">
-              <div className="flex items-center gap-4">
-                <span
-                  aria-hidden="true"
-                  className="h-8 w-2 shrink-0 skew-x-[-20deg] bg-sadia-navy-black"
-                />
-                <div>
-                  <p className="sadia-eyebrow mb-1">{t("approachEyebrow")}</p>
-                  <h2 className="sadia-section-kicker">{t("approachTitle")}</h2>
-                </div>
-              </div>
-            </Reveal>
-
-            <div className="divide-y divide-sadia-gray-light lg:col-span-8">
-              {chapterKeys.map((key, index) => (
-                <Reveal
-                  key={key}
-                  delay={index * 0.06}
-                  className="py-10 lg:py-14"
-                >
-                  <article className="grid gap-6 sm:grid-cols-[5rem_minmax(0,1fr)] sm:gap-10">
-                    <p className="font-display text-[clamp(1.75rem,3vw,2.75rem)] font-medium leading-none tracking-tight text-[#4A90C0]">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <div>
-                      <h3 className="sadia-heading-subsection">
-                        {t(`chapters.${key}.label`)}
-                      </h3>
-                      <p className="sadia-lead-md mt-5 max-w-[34em]">
-                        {t(`chapters.${key}.text`)}
-                      </p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="overflow-hidden bg-sadia-navy-black py-[clamp(5rem,11vw,10rem)] text-sadia-white">
         <Container>
           <Reveal>
             <p className="sadia-eyebrow-light">{t("statementLabel")}</p>
@@ -144,33 +98,6 @@ export default async function AboutPage({ params }: AboutPageProps) {
             </p>
             <p className="sadia-meta mt-10 text-sadia-white/45">{t("location")}</p>
           </Reveal>
-        </Container>
-      </section>
-
-      <section className="bg-sadia-white py-[clamp(5rem,10vw,9rem)]">
-        <Container>
-          <Reveal className="max-w-2xl">
-            <p className="sadia-eyebrow">{t("principlesEyebrow")}</p>
-            <h2 className="sadia-heading-page mt-5">{t("principlesTitle")}</h2>
-          </Reveal>
-
-          <div className="mt-14 grid border-t border-sadia-gray-light sm:grid-cols-2 lg:grid-cols-4">
-            {principleKeys.map((key, index) => (
-              <Reveal
-                key={key}
-                delay={index * 0.05}
-                className="border-sadia-gray-light py-10 sm:px-8 sm:py-12 lg:border-l first:lg:border-l-0 sm:odd:border-r lg:odd:border-r-0"
-              >
-                <p className="sadia-meta">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="sadia-heading-subsection mt-6">
-                  {t(`principles.${key}.title`)}
-                </h3>
-                <p className="sadia-lead-md mt-5 max-w-[18em] text-sadia-navy-black/75">
-                  {t(`principles.${key}.text`)}
-                </p>
-              </Reveal>
-            ))}
-          </div>
         </Container>
       </section>
 
@@ -192,8 +119,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
               className="flex flex-col justify-between bg-muted/50 px-8 py-12 lg:col-span-5 lg:px-12 lg:py-16"
             >
               <div>
-                <p className="sadia-eyebrow">03</p>
-                <h2 className="sadia-heading-section mt-6 max-w-[12ch]">
+                <h2 className="sadia-heading-section max-w-[12ch]">
                   {t("ctaTitle")}
                 </h2>
                 <p className="sadia-lead-md mt-6 max-w-sm">{t("ctaDescription")}</p>

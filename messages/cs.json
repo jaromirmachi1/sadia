@@ -290,42 +290,6 @@
     "lead": "Investiční a developerská společnost zaměřená na rekonstrukce a rozvoj rezidenčních i komerčních nemovitostí.",
     "scrollLabel": "posunout dolů",
     "heroImageAlt": "Fasáda městského domu SADIA v Brně",
-    "approachEyebrow": "01",
-    "approachTitle": "Náš přístup",
-    "chapters": {
-      "place": {
-        "label": "Adresa",
-        "text": "Nestavíme na okraji města. Hledáme adresy s příběhem a lokality, které potřebují někoho, kdo v nich uvidí budoucnost."
-      },
-      "craft": {
-        "label": "Rekonstrukce",
-        "text": "Rozbité měníme v hodnotné. Přehlížené v žádané. Každý dům nejdřív posloucháme — zachováváme to, co má smysl, a doplňujeme to, co mu dovolí znovu dobře sloužit lidem i městu."
-      },
-      "team": {
-        "label": "Tým",
-        "text": "SADIA je mladší developerský tým s důrazem na kvalitu místa, pečlivou rekonstrukci a bydlení, které se drží centra."
-      }
-    },
-    "principlesEyebrow": "02",
-    "principlesTitle": "Čím se řídíme",
-    "principles": {
-      "place": {
-        "title": "Místo",
-        "text": "Každý projekt začíná adresou a jejím charakterem — ne tabulkou."
-      },
-      "craft": {
-        "title": "Řemeslo",
-        "text": "Zachováváme to, co má hodnotu, a doplňujeme současný standard."
-      },
-      "centre": {
-        "title": "Centrum",
-        "text": "Stavíme bydlení, ze kterého nemusíte nikam dojíždět."
-      },
-      "time": {
-        "title": "Čas",
-        "text": "Budujeme hodnotu, která má zůstat dalším generacím."
-      }
-    },
     "statementLabel": "Naše vize",
     "statement": "Budujeme hodnotu pro další generace.",
     "location": "Brno · Česká republika",
