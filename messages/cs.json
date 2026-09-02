@@ -393,14 +393,20 @@
     "address": "Adresa",
     "email": "E-mail",
     "map": "Mapa sídla SADIA",
-    "formHint": "Odesílání formuláře připojíme v další fázi. Zatím nás můžete kontaktovat e-mailem.",
-    "formPrivacy": "Údaje z formulářů zpracováváme podle <privacy>zásad ochrany osobních údajů</privacy>.",
-    "fields": {
+    "mapEyebrow": "Sídlo",
+    "mapTitle": "Brno",
+    "openMap": "Otevřít v Google Maps",
+    "form": {
       "name": "Jméno",
       "email": "E-mail",
-      "message": "Zpráva"
-    },
-    "submit": "Odeslat"
+      "message": "Zpráva",
+      "submit": "Odeslat zprávu",
+      "privacyNotice": "Odesláním souhlasíte se zpracováním údajů podle <privacy>zásad ochrany osobních údajů</privacy>.",
+      "successEyebrow": "Odesláno",
+      "successTitle": "Děkujeme za vaši zprávu",
+      "successDescription": "Ozveme se vám v nejbližší době.",
+      "successBack": "Zpět na formulář"
+    }
   },
   "Footer": {
     "description": "Development nemovitostí s respektem k místu, domu a lidem, kteří v něm budou žít.",
