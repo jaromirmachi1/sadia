@@ -71,7 +71,10 @@ export function CtaButton({
   return (
     <button
       type={type}
-      className={ctaClassName({ variant, className })}
+      className={cn(
+        ctaClassName({ variant, className }),
+        "disabled:pointer-events-none disabled:opacity-50",
+      )}
       {...props}
     >
       <CtaContent>{children}</CtaContent>

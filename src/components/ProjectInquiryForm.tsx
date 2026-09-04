@@ -1,9 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 
 import { CtaButton } from "@/components/CtaLink";
+import { useInquiryForm } from "@/hooks/useInquiryForm";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { routeKeys } from "@/utils/routes";
@@ -17,7 +17,10 @@ type ProjectInquiryFormProps = {
 
 export function ProjectInquiryForm({ projectName }: ProjectInquiryFormProps) {
   const t = useTranslations("ProjectDetail.form");
-  const [submitted, setSubmitted] = useState(false);
+  const inquiry = useTranslations("Inquiry");
+  const { submitted, pending, error, onSubmit, reset } = useInquiryForm(
+    inquiry("failed"),
+  );
 
   if (submitted) {
     return (
@@ -31,7 +34,7 @@ export function ProjectInquiryForm({ projectName }: ProjectInquiryFormProps) {
         </p>
         <button
           type="button"
-          onClick={() => setSubmitted(false)}
+          onClick={reset}
           className="sadia-underline-link mt-8 pb-1 text-body-sm font-semibold uppercase tracking-[0.14em] text-sadia-navy-black"
         >
           {t("successBack")}
@@ -41,14 +44,17 @@ export function ProjectInquiryForm({ projectName }: ProjectInquiryFormProps) {
   }
 
   return (
-    <form
-      className="space-y-8"
-      onSubmit={(event) => {
-        event.preventDefault();
-        setSubmitted(true);
-      }}
-    >
+    <form className="space-y-8" onSubmit={onSubmit}>
+      <input type="hidden" name="kind" value="project" />
       <input type="hidden" name="project" value={projectName} />
+      <input
+        type="text"
+        name="company"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+      />
       <label className="block space-y-2">
         <span className="text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-sadia-gray">
           {t("name")}
@@ -89,7 +95,14 @@ export function ProjectInquiryForm({ projectName }: ProjectInquiryFormProps) {
           ),
         })}
       </p>
-      <CtaButton type="submit">{t("submit")}</CtaButton>
+      {error ? (
+        <p role="alert" className="text-body-sm text-sadia-navy-black">
+          {error}
+        </p>
+      ) : null}
+      <CtaButton type="submit" disabled={pending}>
+        {pending ? inquiry("submitting") : t("submit")}
+      </CtaButton>
     </form>
   );
 }

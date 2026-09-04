@@ -318,7 +318,6 @@
     "formTitle": "Zvažujete prodej nemovitosti?",
     "formDescription": "Vyplňte formulář a my se vám ozveme co nejdříve. Nebo nám zavolejte přímo.",
     "form": {
-      "hint": "Odesílání formuláře připojíme v další fázi. Prozatím vám po odeslání zobrazíme potvrzení.",
       "sections": {
         "contact": "Kontaktní údaje",
         "property": "Nemovitost",
@@ -383,6 +382,11 @@
       "successDescription": "Ozveme se vám v nejbližší době.",
       "successBack": "Zpět na formulář"
     }
+  },
+  "Inquiry": {
+    "submitting": "Odesílám…",
+    "invalid": "Zkontrolujte vyplněná pole a zkuste to znovu.",
+    "failed": "Zprávu se nepodařilo odeslat. Zkuste to znovu, nebo napište na e-mail."
   },
   "Footer": {
     "description": "Development nemovitostí s respektem k místu, domu a lidem, kteří v něm budou žít.",

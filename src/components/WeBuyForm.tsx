@@ -1,9 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 
 import { CtaButton } from "@/components/CtaLink";
+import { useInquiryForm } from "@/hooks/useInquiryForm";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { routeKeys } from "@/utils/routes";
@@ -55,12 +55,10 @@ function FormSection({
 
 export function WeBuyForm() {
   const t = useTranslations("WeBuy.form");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitted(true);
-  };
+  const inquiry = useTranslations("Inquiry");
+  const { submitted, pending, error, onSubmit, reset } = useInquiryForm(
+    inquiry("failed"),
+  );
 
   if (submitted) {
     return (
@@ -76,7 +74,7 @@ export function WeBuyForm() {
         </p>
         <button
           type="button"
-          onClick={() => setSubmitted(false)}
+          onClick={reset}
           className="mt-8 text-body-sm font-semibold text-sadia-navy-black underline-offset-4 hover:underline"
         >
           {t("successBack")}
@@ -87,12 +85,12 @@ export function WeBuyForm() {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       className="rounded-2xl bg-muted/60 p-6 md:p-8"
     >
-      <p className="text-body-sm leading-relaxed text-sadia-gray">{t("hint")}</p>
+      <input type="hidden" name="kind" value="we-buy" />
 
-      <div className="mt-8 space-y-10">
+      <div className="space-y-10">
         <FormSection title={t("sections.contact")}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
@@ -246,8 +244,14 @@ export function WeBuyForm() {
         aria-hidden="true"
       />
 
-      <CtaButton type="submit" className="mt-10">
-        {t("submit")}
+      {error ? (
+        <p role="alert" className="mt-8 text-body-sm text-sadia-navy-black">
+          {error}
+        </p>
+      ) : null}
+
+      <CtaButton type="submit" disabled={pending} className="mt-10">
+        {pending ? inquiry("submitting") : t("submit")}
       </CtaButton>
     </form>
   );
