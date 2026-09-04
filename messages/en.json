@@ -318,7 +318,6 @@
     "formTitle": "Considering selling a property?",
     "formDescription": "Fill in the form and we will get back to you soon. Or call us directly.",
     "form": {
-      "hint": "Form submission will be connected in the next phase. For now, you will see a confirmation after sending.",
       "sections": {
         "contact": "Contact details",
         "property": "Property",
@@ -383,6 +382,11 @@
       "successDescription": "We will contact you as soon as possible.",
       "successBack": "Back to the form"
     }
+  },
+  "Inquiry": {
+    "submitting": "Sending…",
+    "invalid": "Please check the fields and try again.",
+    "failed": "The message could not be sent. Please try again, or write to us by email."
   },
   "Footer": {
     "description": "Property development with respect for place, architecture and the people who will call it home.",
