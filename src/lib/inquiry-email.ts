@@ -233,8 +233,13 @@ function buildEmail(payload: InquiryPayload) {
   return { subject, text, html, replyTo };
 }
 
+function envValue(value: string | undefined, fallback: string) {
+  const cleaned = value?.trim().replace(/^['"]|['"]$/g, "").trim();
+  return cleaned || fallback;
+}
+
 export async function sendInquiryEmail(payload: InquiryPayload) {
-  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const apiKey = process.env.RESEND_API_KEY?.trim().replace(/^['"]|['"]$/g, "");
 
   if (!apiKey) {
     throw new Error("Missing RESEND_API_KEY");
@@ -242,9 +247,11 @@ export async function sendInquiryEmail(payload: InquiryPayload) {
 
   const { subject, text, html, replyTo } = buildEmail(payload);
   const resend = new Resend(apiKey);
-  const from =
-    process.env.INQUIRY_FROM_EMAIL?.trim() || "SADIA <beth.t@example.com>";
-  const to = process.env.INQUIRY_TO_EMAIL?.trim() || legalEntity.formEmail;
+  const from = envValue(
+    process.env.INQUIRY_FROM_EMAIL,
+    "SADIA <beth.t@example.com>",
+  );
+  const to = envValue(process.env.INQUIRY_TO_EMAIL, legalEntity.formEmail);
 
   const { error } = await resend.emails.send({
     from,
@@ -256,6 +263,7 @@ export async function sendInquiryEmail(payload: InquiryPayload) {
   });
 
   if (error) {
+    console.error("Resend inquiry email failed:", error.message);
     throw new Error(error.message);
   }
 }

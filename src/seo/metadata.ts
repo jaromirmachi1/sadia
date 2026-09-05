@@ -29,6 +29,7 @@ export function buildPageMetadata({
   const path = getPathname({ locale, href });
   const csPath = getPathname({ locale: "cs", href });
   const enPath = getPathname({ locale: "en", href });
+  const canonical = new URL(path, siteUrl).toString();
   const ogImage = resolveOgImage(image);
 
   return {
@@ -43,9 +44,18 @@ export function buildPageMetadata({
             googleBot: { index: true, follow: true },
           },
         }),
+    alternates: {
+      canonical,
+      languages: {
+        cs: new URL(csPath, siteUrl).toString(),
+        en: new URL(enPath, siteUrl).toString(),
+        "x-default": new URL(csPath, siteUrl).toString(),
+      },
+    },
     openGraph: {
       title,
       description,
+      url: canonical,
       siteName,
       type: "website",
       locale: openGraphLocale[locale],
@@ -57,17 +67,5 @@ export function buildPageMetadata({
       description,
       ...(ogImage ? { images: [ogImage.url] } : {}),
     },
-    ...(siteUrl
-      ? {
-          alternates: {
-            canonical: new URL(path, siteUrl).toString(),
-            languages: {
-              cs: new URL(csPath, siteUrl).toString(),
-              en: new URL(enPath, siteUrl).toString(),
-              "x-default": new URL(csPath, siteUrl).toString(),
-            },
-          },
-        }
-      : {}),
   };
 }

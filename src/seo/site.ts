@@ -1,21 +1,33 @@
-const DEFAULT_SITE_URL = "https://sadiaestate.cz";
+const DEFAULT_SITE_URL = "https://www.sadiaestate.cz";
 
-export function getSiteUrl(): URL | undefined {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-
-  if (!raw) {
+function parseHttpsOrigin(raw: string | undefined): URL | undefined {
+  if (!raw?.trim()) {
     return undefined;
   }
 
   try {
-    return new URL(raw.replace(/\/$/, ""));
+    const withProtocol = raw.includes("://") ? raw : `https://${raw}`;
+    const url = new URL(withProtocol.replace(/\/$/, ""));
+    url.protocol = "https:";
+    url.pathname = "";
+    url.search = "";
+    url.hash = "";
+    return url;
   } catch {
     return undefined;
   }
 }
 
+export function getSiteUrl(): URL {
+  return (
+    parseHttpsOrigin(process.env.NEXT_PUBLIC_SITE_URL) ??
+    parseHttpsOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL) ??
+    new URL(DEFAULT_SITE_URL)
+  );
+}
+
 export function getMetadataBase(): URL {
-  return getSiteUrl() ?? new URL(DEFAULT_SITE_URL);
+  return getSiteUrl();
 }
 
 export function absoluteUrl(path: string): string {
